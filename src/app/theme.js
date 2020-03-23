@@ -2,4 +2,8 @@ const dark = {
   backgroundColor: "black"
 };
 
-export const theme = { dark };
+const light = {
+  backgroundColor: "light"
+};
+
+export const theme = { dark, light };
