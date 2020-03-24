@@ -8,19 +8,35 @@ import React, {
 } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { theme } from "./theme";
 import { useLocalStorage } from "../hooks";
 import { initialState, reducer } from "./reducer";
 import Header from "../components/Header";
-import NexaLight from "../assets/fonts/nexa-light.otf";
-import NexaBold from "../assets/fonts/nexa-bold.otf";
+import Nexa from "../assets/fonts/NexaLight.woff2";
+import GothamBook from "../assets/fonts/gotham-book.woff2";
+
+export const fontStyles = `
+@font-face {
+  font-family: 'Gotham';
+  font-weight: 400;
+  src: url(${GothamBook}) format('woff2');
+  font-display: swap;
+}
+    @font-face {
+      font-family: 'Nexa';
+      font-weight: 500;
+      src: url(${Nexa}) format('woff2');
+      font-display: swap;
+    }
+`;
 
 const Home = lazy(() => import("../screens/Home"));
 
 const AppContext = createContext();
 
 const App = () => {
-  const [storedTheme] = useLocalStorage("theme", "light");
+  const [storedTheme] = useLocalStorage("theme", "dark");
   const [state, dispatch] = useReducer(reducer, initialState);
   const { currentTheme } = state;
 
@@ -29,19 +45,25 @@ const App = () => {
   ]);
 
   return (
-    <ThemeProvider theme={currentTheme}>
-      <AppContext.Provider value={{ ...state, dispatch }}>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </AppContext.Provider>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider theme={currentTheme}>
+        <AppContext.Provider value={{ ...state, dispatch }}>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </AppContext.Provider>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 };
 
 const AppRoutes = () => {
   return (
     <Fragment>
+      <Helmet>
+        <link rel="preload" href={Nexa} as="font" crossorigin="" />
+        <style>{fontStyles}</style>
+      </Helmet>
       <GlobalStyles />
       <Header />
       <Suspense fallback={<Fragment>Loading...</Fragment>}>
@@ -55,21 +77,6 @@ const AppRoutes = () => {
 
 export default App;
 
-export const fontStyles = `
-    @font-face {
-        font-family: 'Nexa';
-        font-weight: normal;
-        src: url(${NexaLight}) format('otf');
-        font-display: swap;
-    }
-    @font-face {
-        font-family: 'Nexa';
-        font-weight: bold;
-        src: url(${NexaBold}) format('otf');
-        font-display: swap;
-    }
-`;
-
 export const GlobalStyles = createGlobalStyle`
     html,
     body {
@@ -77,7 +84,7 @@ export const GlobalStyles = createGlobalStyle`
       margin: 0;
       box-sizing: border-box;
       width: 100vw;
-      font-family: ${props => props.theme.fontStack};
+      font-family: ${props => props.theme.fonts};
       font-weight: normal;
       -webkit-font-smoothing: antialiased;
     }
