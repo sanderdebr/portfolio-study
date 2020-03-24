@@ -1,11 +1,11 @@
 import React from "react";
 
 const Home = props => {
-  let markup;
-  for (let i = 0; i < 10000; i++) {
-    markup += "<h1>hoi</h1>";
-  }
-  return markup;
+  return (
+    <div>
+      <h1>home</h1>
+    </div>
+  );
 };
 
 export default Home;

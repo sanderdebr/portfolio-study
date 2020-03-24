@@ -1,14 +1,5 @@
-const dark = {
-  backgroundColor: "black"
-};
-
-const light = {
-  backgroundColor: "light"
-};
-
-const fonts = [
+const fontStack = [
   "Nexa",
-  "GothamBook",
   "system-ui",
   "-apple-system",
   "BlinkMacSystemFont",
@@ -21,5 +12,21 @@ const fonts = [
   "Helvetica Neue",
   "sans-serif"
 ];
+
+const base = {
+  fontStack: fontStack.join(", ")
+};
+
+const dark = {
+  id: "dark",
+  ...base,
+  colorBackground: "rgba(17, 17, 17, 1)"
+};
+
+const light = {
+  id: "light",
+  ...base,
+  colorBackground: "rgba(242, 242, 242, 1)"
+};
 
 export const theme = { dark, light };

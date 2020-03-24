@@ -6,9 +6,13 @@ import React, {
   useEffect,
   createContext
 } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import { BrowserRouter, Switch, Route, useLocation } from "react-router-dom";
+import styled, {
+  ThemeProvider,
+  createGlobalStyle,
+  css
+} from "styled-components";
+import { HelmetProvider, Helmet } from "react-helmet-async";
 import { Transition, TransitionGroup } from "react-transition-group";
 import { theme } from "./theme";
 import { useLocalStorage } from "../hooks";
@@ -34,11 +38,11 @@ export const fontStyles = `
 
 const Home = lazy(() => import("../screens/Home"));
 
-const AppContext = createContext();
-const TransitionContext = createContext();
+export const AppContext = createContext();
+export const TransitionContext = createContext();
 
 const App = () => {
-  const [storedTheme] = useLocalStorage("theme", "dark");
+  const [storedTheme] = useLocalStorage("theme", "light");
   const [state, dispatch] = useReducer(reducer, initialState);
   const { currentTheme } = state;
 
@@ -50,6 +54,7 @@ const App = () => {
     <HelmetProvider>
       <ThemeProvider theme={currentTheme}>
         <AppContext.Provider value={{ ...state, dispatch }}>
+          <GlobalStyles />
           <BrowserRouter>
             <AppRoutes />
           </BrowserRouter>
@@ -60,15 +65,17 @@ const App = () => {
 };
 
 const AppRoutes = () => {
+  const location = useLocation();
+
   return (
     <Fragment>
       <Helmet>
-        <link rel="preload" href={Nexa} as="font" crossorigin="" />
         <link rel="preload" href={GothamBook} as="font" crossorigin="" />
+        <link rel="preload" href={Nexa} as="font" crossorigin="" />
         <style>{fontStyles}</style>
       </Helmet>
       <GlobalStyles />
-      <Header />
+      <Header location={location} />
       <TransitionGroup
         component={AppMainContent}
         tabIndex={-1}
@@ -102,7 +109,7 @@ export const GlobalStyles = createGlobalStyle`
       margin: 0;
       box-sizing: border-box;
       width: 100vw;
-      font-family: ${props => props.theme.fonts};
+      font-family: ${props => props.theme.fontStack};
       font-weight: normal;
       -webkit-font-smoothing: antialiased;
     }
@@ -115,7 +122,6 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 const AppMainContent = styled.main`
-  font-family: ${props => props.theme.fonts};
   width: 100%;
   overflow-x: hidden;
   position: relative;
@@ -132,4 +138,18 @@ const AppPage = styled.div`
   grid-column: 1;
   grid-row: 1;
   transition: opacity 0.3s ease;
+
+  ${props =>
+    (props.status === "exiting" || props.status === "entering") &&
+    css`
+      opacity: 0;
+    `}
+
+  ${props =>
+    props.status === "entered" &&
+    css`
+      transition-duration: 0.5s;
+      transition-delay: 0.2s;
+      opacity: 1;
+    `}
 `;
