@@ -18,20 +18,13 @@ import { theme } from "./theme";
 import { useLocalStorage } from "../hooks";
 import { initialState, reducer } from "./reducer";
 import Header from "../components/Header";
-import Nexa from "../assets/fonts/NexaLight.woff2";
-import GothamBook from "../assets/fonts/gotham-book.woff2";
+import Inter from "../assets/fonts/inter-v1-latin-regular.woff2";
 
 export const fontStyles = `
   @font-face {
-    font-family: 'GothamBook';
+    font-family: 'Inter';
     font-weight: 400;
-    src: url(${GothamBook}) format('woff2');
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Nexa';
-    font-weight: 500;
-    src: url(${Nexa}) format('woff2');
+    src: url(${Inter}) format('woff2');
     font-display: swap;
   }
 `;
@@ -70,8 +63,7 @@ const AppRoutes = () => {
   return (
     <Fragment>
       <Helmet>
-        <link rel="preload" href={GothamBook} as="font" crossorigin="" />
-        <link rel="preload" href={Nexa} as="font" crossorigin="" />
+        <link rel="preload" href={Inter} as="font" crossorigin="" />
         <style>{fontStyles}</style>
       </Helmet>
       <GlobalStyles />

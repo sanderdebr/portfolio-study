@@ -1,5 +1,5 @@
 const fontStack = [
-  "Nexa",
+  "Inter",
   "system-ui",
   "-apple-system",
   "BlinkMacSystemFont",
