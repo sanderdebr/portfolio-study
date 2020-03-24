@@ -41,6 +41,7 @@
     "@storybook/addons": "^5.3.17",
     "@storybook/preset-create-react-app": "^2.1.0",
     "@storybook/react": "^5.3.17",
+    "react-transition-group": "^4.3.0",
     "styled-components": "^5.0.1"
   }
 }
