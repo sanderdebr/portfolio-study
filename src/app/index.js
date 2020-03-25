@@ -35,7 +35,7 @@ export const AppContext = createContext();
 export const TransitionContext = createContext();
 
 const App = () => {
-  const [storedTheme] = useLocalStorage("theme", "light");
+  const [storedTheme] = useLocalStorage("theme", "dark");
   const [state, dispatch] = useReducer(reducer, initialState);
   const { currentTheme } = state;
 
