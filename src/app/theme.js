@@ -41,18 +41,18 @@ const dark = {
   id: "dark",
   ...spacing,
   ...base,
-  colorBackground: "#1B1941",
-  colorText: base.colorWhite,
-  colorAccent: "#D30069"
+  backgroundColor: "#2B4A5C",
+  textColor: base.colorWhite,
+  accentColor: "#2B4A5C"
 };
 
 const light = {
   id: "light",
   ...spacing,
   ...base,
-  colorBackground: "rgba(242, 242, 242, 1)",
-  colorText: base.colorBlack,
-  colorAccent: "rgba(0, 229, 255, 1)"
+  backgroundColor: "rgba(242, 242, 242, 1)",
+  textColor: base.colorBlack,
+  accentColor: "#2B4A5C"
 };
 
 export const theme = { dark, light };

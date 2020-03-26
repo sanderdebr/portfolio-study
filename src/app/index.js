@@ -96,15 +96,19 @@ export default App;
 
 export const GlobalStyles = createGlobalStyle`
     html,
-    body {
-      border: 0;
-      margin: 0;
-      box-sizing: border-box;
-      width: 100vw;
-      font-family: ${props => props.theme.fontStack};
-      font-weight: normal;
-      -webkit-font-smoothing: antialiased;
-    }
+  body {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+  	-moz-osx-font-smoothing: grayscale;
+    font-family: ${props => props.theme.fontStack};
+    background: ${props => props.theme.backgroundColor};
+    color: ${props => props.theme.textColor};
+    border: 0;
+    margin: 0;
+    width: 100vw;
+    overflow-x: hidden;
+    font-weight: 400;
+  }
 
     *,
     *::before,
@@ -117,7 +121,6 @@ const AppMainContent = styled.main`
   width: 100%;
   overflow-x: hidden;
   position: relative;
-  background: ${props => props.theme.backgroundColor};
   transition: background 0.4s ease;
   outline: none;
   display: grid;
