@@ -5,13 +5,13 @@ export const navLinks = [
     hash: "#project-1"
   },
   {
-    label: "About",
+    label: "About me",
     pathname: "/",
     hash: "#about"
   },
   {
     label: "Contact",
-    pathname: "/contact"
+    pathname: "#contact"
   }
 ];
 

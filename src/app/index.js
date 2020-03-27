@@ -19,13 +19,28 @@ import { useLocalStorage } from "../hooks";
 import { initialState, reducer } from "./reducer";
 import Header from "../components/Header";
 import Cursor from "../components/Cursor";
-import Inter from "../assets/fonts/inter-v1-latin-regular.woff2";
+import HeeboLight from "../assets/fonts/Heebo-Light.woff2";
+import HeeboRegular from "../assets/fonts/Heebo-Regular.woff2";
+import HeeboMedium from "../assets/fonts/Heebo-Medium.woff2";
+import Noise from "../assets/img/noise.jpg";
 
 export const fontStyles = `
+@font-face {
+  font-family: 'Heebo';
+  font-weight: 500;
+  src: url(${HeeboLight}) format('woff2');
+  font-display: swap;
+}
   @font-face {
-    font-family: 'Inter';
+    font-family: 'Heebo';
     font-weight: 400;
-    src: url(${Inter}) format('woff2');
+    src: url(${HeeboRegular}) format('woff2');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Heebo';
+    font-weight: 500;
+    src: url(${HeeboMedium}) format('woff2');
     font-display: swap;
   }
 `;
@@ -65,7 +80,9 @@ const AppRoutes = () => {
   return (
     <Fragment>
       <Helmet>
-        <link rel="preload" href={Inter} as="font" crossorigin="" />
+        <link rel="preload" href={HeeboLight} as="font" crossorigin="" />
+        <link rel="preload" href={HeeboRegular} as="font" crossorigin="" />
+        <link rel="preload" href={HeeboMedium} as="font" crossorigin="" />
         <style>{fontStyles}</style>
       </Helmet>
       <GlobalStyles />
@@ -104,19 +121,24 @@ export const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
     font-family: ${props => props.theme.fontStack};
-    background: ${props => props.theme.backgroundColor};
+    background-color: ${props => props.theme.backgroundColor};
+    background-image: Noise;
+    background-repeat: repeat;
+    background-size: 50% 50%;
     color: ${props => props.theme.textColor};
     border: 0;
     margin: 0;
     width: 100vw;
     overflow-x: hidden;
-    font-weight: 400;
+    font-weight: 300;
+    line-height: 1.7rem;
   }
 
     *,
     *::before,
     *::after {
       box-sizing: inherit;
+      cursor: none;
     }
 `;
 

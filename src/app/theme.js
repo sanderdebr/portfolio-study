@@ -1,5 +1,5 @@
 const fontStack = [
-  "Inter",
+  "Heebo",
   "system-ui",
   "-apple-system",
   "BlinkMacSystemFont",
@@ -41,9 +41,10 @@ const dark = {
   id: "dark",
   ...spacing,
   ...base,
-  backgroundColor: "#2B4A5C",
-  textColor: base.colorWhite,
-  accentColor: "#2B4A5C"
+  backgroundColor: "#131419",
+  headingColor: base.colorWhite,
+  textColor: "rgba(160,168,220,.7)",
+  accentColor: "#e43333"
 };
 
 const light = {
@@ -51,7 +52,8 @@ const light = {
   ...spacing,
   ...base,
   backgroundColor: "rgba(242, 242, 242, 1)",
-  textColor: base.colorBlack,
+  headingColor: base.colorBlack,
+  textColor: "rgba(160,168,220,.7)",
   accentColor: "#2B4A5C"
 };
 

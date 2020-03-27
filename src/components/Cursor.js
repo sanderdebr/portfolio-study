@@ -2,15 +2,14 @@ import React, { useRef, createContext, useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Cursor = ({ children }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePos, setMousePos] = useState({ x: -50, y: -50 });
 
   const cursorSmall = useRef();
+  const cursorFollow = useRef();
 
   const onMouseMove = event => {
     const { pageX: x, pageY: y } = event;
-    cursorSmall.current.style.left = `${x}px`;
-    cursorSmall.current.style.top = `${y}px`;
-    setMousePosition({ x, y });
+    setMousePos({ x, y });
   };
 
   useEffect(() => {
@@ -23,27 +22,41 @@ const Cursor = ({ children }) => {
 
   return (
     <>
-      <CursorSmall ref={cursorSmall}></CursorSmall>
-      <CursorCanvas></CursorCanvas>
+      <CursorFollow
+        style={{ left: mousePos.x, top: mousePos.y }}
+        ref={CursorFollow}
+      ></CursorFollow>
+      <CursorSmall
+        style={{ left: mousePos.x, top: mousePos.y }}
+        ref={cursorSmall}
+      ></CursorSmall>
     </>
   );
 };
 
 const CursorSmall = styled.div`
-  position: fixed;
+  position: absolute;
   pointer-events: none;
-  width: 50px;
-  height: 50px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   z-index: 11000;
-  background: rgba(255, 255, 255, 0.1);
-  transition: all 200ms ease;
+  margin-left: 13px;
+  margin-top: 13px;
+  background: rgba(255, 255, 255, 1);
+  transition: all 20ms ease;
 `;
 
-const CursorCanvas = styled.canvas`
-  width: 100vw;
-  height: 100vh;
-  z-index: 12000;
+const CursorFollow = styled.div`
+  position: absolute;
+  pointer-events: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  z-index: 11000;
+  background: ${props => props.theme.accentColor};
+  opacity: 0.8;
+  transition: all 200ms ease;
 `;
 
 export default Cursor;
