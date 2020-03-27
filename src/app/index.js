@@ -18,6 +18,7 @@ import { theme } from "./theme";
 import { useLocalStorage } from "../hooks";
 import { initialState, reducer } from "./reducer";
 import Header from "../components/Header";
+import Cursor from "../components/Cursor";
 import Inter from "../assets/fonts/inter-v1-latin-regular.woff2";
 
 export const fontStyles = `
@@ -33,6 +34,7 @@ const Home = lazy(() => import("../screens/Home"));
 
 export const AppContext = createContext();
 export const TransitionContext = createContext();
+export const CursorContext = createContext();
 
 const App = () => {
   const [storedTheme] = useLocalStorage("theme", "dark");
@@ -67,6 +69,7 @@ const AppRoutes = () => {
         <style>{fontStyles}</style>
       </Helmet>
       <GlobalStyles />
+      <Cursor />
       <Header location={location} />
       <TransitionGroup
         component={AppMainContent}
