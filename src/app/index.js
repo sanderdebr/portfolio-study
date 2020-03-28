@@ -22,7 +22,7 @@ import Cursor from "../components/Cursor";
 import HeeboLight from "../assets/fonts/Heebo-Light.woff2";
 import HeeboRegular from "../assets/fonts/Heebo-Regular.woff2";
 import HeeboMedium from "../assets/fonts/Heebo-Medium.woff2";
-import Noise from "../assets/img/noise.jpg";
+import Noise from "../assets/img/noise.gif";
 
 export const fontStyles = `
 @font-face {
@@ -115,16 +115,13 @@ const AppRoutes = () => {
 export default App;
 
 export const GlobalStyles = createGlobalStyle`
-    html,
+  html,
   body {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
     font-family: ${props => props.theme.fontStack};
     background-color: ${props => props.theme.backgroundColor};
-    background-image: Noise;
-    background-repeat: repeat;
-    background-size: 50% 50%;
     color: ${props => props.theme.textColor};
     border: 0;
     margin: 0;
@@ -132,6 +129,18 @@ export const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
     font-weight: 300;
     line-height: 1.7rem;
+    &:after {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      content: "";
+      background-image: url(${Noise});
+      opacity: .03;
+      z-index: 0;
+      pointer-events: none;
+    }
   }
 
     *,

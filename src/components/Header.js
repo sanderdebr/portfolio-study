@@ -1,13 +1,22 @@
 import React, { useRef, useState } from "react";
 import { Link, NavLink } from "./Link";
 import styled, { css, useTheme } from "styled-components/macro";
-import { navLinks } from "../data/nav";
-
+import { navLinks, socialLinks } from "../data/nav";
+import Icon from "./Icon";
 import Logo from "./Logo";
+
+const HeaderIcons = () => (
+  <HeaderNavIcons>
+    {socialLinks.map(({ label, url, icon }) => (
+      <HeaderNavIconLink key={label} href={url}>
+        <HeaderNavIcon icon={icon} />
+      </HeaderNavIconLink>
+    ))}
+  </HeaderNavIcons>
+);
 
 const Header = props => {
   const headerRef = useRef();
-  const [hashKey, setHashKey] = useState();
   const { location } = props;
 
   const isMatch = ({ match, hash = "" }) => {
@@ -15,17 +24,9 @@ const Header = props => {
     return `${match.url}${hash}` === `${location.pathname}${location.hash}`;
   };
 
-  const handleNavClick = () => {
-    setHashKey(
-      Math.random()
-        .toString(32)
-        .substr(2, 8)
-    );
-  };
-
   return (
     <HeaderWrapper role="banner" ref={headerRef}>
-      <HeaderLogo to={{ pathname: "/", hash: "#intro", state: hashKey }}>
+      <HeaderLogo to={{ pathname: "/", hash: "#intro" }}>
         <Logo />
       </HeaderLogo>
       <HeaderNav role="navigation">
@@ -34,14 +35,14 @@ const Header = props => {
             <HeaderNavLink
               exact
               isActive={match => isMatch({ match, hash })}
-              onClick={handleNavClick}
               key={label}
-              to={{ pathname, hash, state: hashKey }}
+              to={{ pathname, hash }}
             >
               {label}
             </HeaderNavLink>
           ))}
         </HeaderNavList>
+        <HeaderIcons />
       </HeaderNav>
     </HeaderWrapper>
   );
@@ -89,7 +90,6 @@ const HeaderNav = styled.nav`
   flex: 1 1 auto;
   max-width: 45px;
   position: relative;
-  top: -10px;
 
   @media (max-width: ${props => props.theme.mobile}px),
     (max-height: ${props => props.theme.mobile}px) {
@@ -140,6 +140,51 @@ const HeaderNavLink = styled(NavLink)`
   &.active:after {
     transform: scaleX(1) translateY(-2px);
     transform-origin: left;
+  }
+`;
+
+const HeaderNavIcons = styled.div`
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 16;
+
+  @media (max-width: ${props => props.theme.mobile}px),
+    (max-height: ${props => props.theme.mobile}px) {
+    flex-direction: row;
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+  }
+
+  @media ${props => props.theme.mobileLS} {
+    transform: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const HeaderNavIconLink = styled.a.attrs({
+  target: "_blank",
+  rel: "noopener noreferrer"
+})`
+  display: flex;
+  padding: 10px;
+`;
+
+const HeaderNavIcon = styled(Icon)`
+  fill: ${props => props.theme.textColor};
+  transition: fill 0.4s ease;
+  position: relative;
+
+  ${/* sc-selector */ HeaderNavIconLink}:hover &,
+  ${/* sc-selector */ HeaderNavIconLink}:focus &,
+  ${/* sc-selector */ HeaderNavIconLink}:active & {
+    fill: ${props => props.theme.accentColor};
   }
 `;
 

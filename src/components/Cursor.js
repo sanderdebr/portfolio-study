@@ -1,15 +1,33 @@
-import React, { useRef, createContext, useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState, useContext } from "react";
+import styled, { ThemeContext } from "styled-components";
+import isDescendant from "../helpers/isDescendant";
+import rgba from "../helpers/rgba";
 
-const Cursor = ({ children }) => {
-  const [mousePos, setMousePos] = useState({ x: -50, y: -50 });
-
-  const cursorSmall = useRef();
-  const cursorFollow = useRef();
+const Cursor = () => {
+  const themeContext = useContext(ThemeContext);
+  const [cursorPos, setCursorPos] = useState({ x: -50, y: -50 });
+  const [cursorSize, setCursorSize] = useState("scale(1)");
+  const [color, setColor] = useState({
+    follow: themeContext.accentColor,
+    small: themeContext.colorWhite
+  });
 
   const onMouseMove = event => {
     const { pageX: x, pageY: y } = event;
-    setMousePos({ x, y });
+    if (isDescendant("A", event.target) || event.target.tagName === "A") {
+      setCursorSize("scale(2)");
+      setColor({
+        small: themeContext.accentColor,
+        follow: rgba(themeContext.colorWhite, 0.2)
+      });
+    } else {
+      setCursorSize("scale(1)");
+      setColor({
+        follow: themeContext.accentColor,
+        small: themeContext.colorWhite
+      });
+    }
+    setCursorPos({ x, y });
   };
 
   useEffect(() => {
@@ -23,12 +41,15 @@ const Cursor = ({ children }) => {
   return (
     <>
       <CursorFollow
-        style={{ left: mousePos.x, top: mousePos.y }}
-        ref={CursorFollow}
+        style={{
+          background: color.follow,
+          transform: cursorSize,
+          left: cursorPos.x,
+          top: cursorPos.y
+        }}
       ></CursorFollow>
       <CursorSmall
-        style={{ left: mousePos.x, top: mousePos.y }}
-        ref={cursorSmall}
+        style={{ background: color.small, left: cursorPos.x, top: cursorPos.y }}
       ></CursorSmall>
     </>
   );
@@ -40,23 +61,21 @@ const CursorSmall = styled.div`
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  z-index: 11000;
-  margin-left: 13px;
-  margin-top: 13px;
-  background: rgba(255, 255, 255, 1);
-  transition: all 20ms ease;
+  z-index: 2;
+  margin-left: 16px;
+  margin-top: 16px;
+  transition: all 30ms ${props => props.theme.easeOutBack};
 `;
 
 const CursorFollow = styled.div`
   position: absolute;
+  width: 40px;
+  height: 40px;
   pointer-events: none;
-  width: 35px;
-  height: 35px;
   border-radius: 50%;
-  z-index: 11000;
-  background: ${props => props.theme.accentColor};
+  z-index: 2;
   opacity: 0.8;
-  transition: all 200ms ease;
+  transition: all 300ms ${props => props.theme.easeOutBack};
 `;
 
 export default Cursor;

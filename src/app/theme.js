@@ -32,6 +32,7 @@ const media = {
 
 const base = {
   curveFastoutSlowin: "cubic-bezier(0.4, 0.0, 0.2, 1)",
+  easeOutBack: "cubic-bezier(0.34, 1.56, 0.64, 1)",
   fontStack: fontStack.join(", "),
   colorWhite: "rgba(255, 255, 255, 1)",
   colorBlack: "rgba(0, 0, 0, 1)"
@@ -39,12 +40,13 @@ const base = {
 
 const dark = {
   id: "dark",
+  ...media,
   ...spacing,
   ...base,
-  backgroundColor: "#131419",
+  backgroundColor: "#122036",
   headingColor: base.colorWhite,
-  textColor: "rgba(160,168,220,.7)",
-  accentColor: "#e43333"
+  textColor: "rgba(160,168,220, 1)",
+  accentColor: "#D30069"
 };
 
 const light = {
