@@ -4,6 +4,7 @@ import isDescendant from "../helpers/isDescendant";
 import rgba from "../helpers/rgba";
 
 const Cursor = () => {
+  console.log("render");
   const themeContext = useContext(ThemeContext);
   const [cursorPos, setCursorPos] = useState({ x: -50, y: -50 });
   const [cursorSize, setCursorSize] = useState("scale(1)");
@@ -36,7 +37,7 @@ const Cursor = () => {
     return () => {
       document.removeEventListener("mousemove", onMouseMove);
     };
-  });
+  }, []);
 
   return (
     <>

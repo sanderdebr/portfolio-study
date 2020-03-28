@@ -12,7 +12,7 @@ const Logo = () => {
     const groups = Array.from(document.querySelectorAll("g"));
     logo.current.addEventListener("mouseenter", () => toggle(groups));
     logo.current.addEventListener("mouseleave", () =>
-      setTimeout(() => toggle(groups), 1000)
+      setTimeout(() => toggle(groups), 1500)
     );
   }, []);
 

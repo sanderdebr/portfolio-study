@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { Link, NavLink } from "./Link";
 import styled, { css, useTheme } from "styled-components/macro";
 import { navLinks, socialLinks } from "../data/nav";
+import { useAppContext } from "../hooks";
+import NavToggle from "./NavToggle";
 import Icon from "./Icon";
 import Logo from "./Logo";
 
@@ -16,6 +18,8 @@ const HeaderIcons = () => (
 );
 
 const Header = props => {
+  console.log("appcontextn:", useAppContext);
+  const { menuOpen, dispatch } = useAppContext();
   const headerRef = useRef();
   const { location } = props;
 
@@ -29,6 +33,10 @@ const Header = props => {
       <HeaderLogo to={{ pathname: "/", hash: "#intro" }}>
         <Logo />
       </HeaderLogo>
+      <NavToggle
+        onClick={() => dispatch({ type: "toggleMenu" })}
+        menuOpen={menuOpen}
+      />
       <HeaderNav role="navigation">
         <HeaderNavList>
           {navLinks.map(({ label, pathname, hash }) => (

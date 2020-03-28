@@ -52,6 +52,7 @@ export const TransitionContext = createContext();
 export const CursorContext = createContext();
 
 const App = () => {
+  console.log("rerender");
   const [storedTheme] = useLocalStorage("theme", "dark");
   const [state, dispatch] = useReducer(reducer, initialState);
   const { currentTheme } = state;
@@ -137,7 +138,7 @@ export const GlobalStyles = createGlobalStyle`
       height: 100%;
       content: "";
       background-image: url(${Noise});
-      opacity: .03;
+      opacity: .0115;
       z-index: 0;
       pointer-events: none;
     }

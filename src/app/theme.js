@@ -32,6 +32,8 @@ const media = {
 
 const base = {
   curveFastoutSlowin: "cubic-bezier(0.4, 0.0, 0.2, 1)",
+  clipPath: (size = 8) =>
+    `polygon(0 0, 100% 0, 100% calc(100% - ${size}px), calc(100% - ${size}px) 100%, 0 100%)`,
   easeOutBack: "cubic-bezier(0.34, 1.56, 0.64, 1)",
   fontStack: fontStack.join(", "),
   colorWhite: "rgba(255, 255, 255, 1)",
