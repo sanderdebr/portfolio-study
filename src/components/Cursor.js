@@ -1,10 +1,9 @@
-import React, { useRef, useEffect, useState, useContext } from "react";
-import styled, { ThemeContext } from "styled-components";
+import React, { useRef, useEffect } from "react";
+import styled from "styled-components";
 import isDescendant from "../helpers/isDescendant";
 import rgba from "../helpers/rgba";
 
 const Cursor = () => {
-  const themeContext = useContext(ThemeContext);
   const cursorFollow = useRef();
   const cursorSmall = useRef();
 
@@ -13,14 +12,11 @@ const Cursor = () => {
     window.requestAnimationFrame(() => {
       cursorSmall.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
       cursorFollow.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
+      console.log(event.target.className);
       if (isDescendant("A", event.target) || event.target.tagName === "A") {
         let translateX = (1 - 2) * x;
         let translateY = (1 - 2) * y;
         cursorFollow.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(2) translateX(${x}px) translateY(${y}px)`;
-        cursorFollow.current.style.background = rgba(
-          themeContext.headingColor,
-          0.1
-        );
       }
     });
   };
@@ -48,22 +44,22 @@ const CursorSmall = styled.div`
   height: 8px;
   border-radius: 50%;
   z-index: 2;
-  margin-left: 16px;
-  margin-top: 16px;
+  margin-left: 22px;
+  margin-top: 22px;
   transition: all 30ms ${props => props.theme.easeOutBack};
   background: ${props => props.theme.accentColor};
 `;
 
 const CursorFollow = styled.div`
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   pointer-events: none;
   border-radius: 50%;
   z-index: 2;
   opacity: 0.8;
   transition: all 300ms ${props => props.theme.easeOutBack};
-  background: ${props => props.theme.headingColor};
+  background: ${props => rgba(props.theme.headingColor, 0.05)};
 `;
 
 export default Cursor;

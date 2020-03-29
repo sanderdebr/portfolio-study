@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled, { css, useTheme } from "styled-components";
-import Button from "./Button";
+import rgba from "../helpers/rgba";
 import { useAppContext } from "../hooks";
 
 import "../helpers/toggleAnimation.css";
@@ -11,10 +11,8 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
 
   const toggleButton = useRef();
 
-  const toggleAnimation = groups =>
+  const toggleAnimation = groups => {
     groups.forEach(g => {
-      // g.classList.toggle("active");
-      // Code below for back toggle, fix animation.css
       if (g.classList.contains("active")) {
         g.classList.remove("active");
         g.classList.add("active-reverse");
@@ -25,26 +23,22 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
         g.classList.add("active");
       }
     });
+    dispatch({ type: "toggleTheme" });
+  };
 
   useEffect(() => {
     const groups = Array.from(document.querySelectorAll("#eteno0v2oqa81 g"));
-    toggleButton.current.addEventListener("click", () =>
-      toggleAnimation(groups)
-    );
+    toggleButton.current.addEventListener("click", () => {
+      toggleAnimation(groups);
+    });
   }, []);
-
-  const handleClick = () => dispatch({ type: "toggleTheme" });
 
   return (
     <div ref={toggleButton}>
-      <ThemeToggleButton>
+      <ThemeToggleButton iconOnly isMobile={isMobile} {...otherProps}>
         <ThemeToggleSVG
           width="100"
           height="40"
-          iconOnly
-          onClick={handleClick}
-          isMobile={isMobile}
-          {...otherProps}
           id="eteno0v2oqa81"
           viewBox="0 0 798 424"
           shape-rendering="geometricPrecision"
@@ -61,12 +55,12 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
               <feGaussianBlur
                 id="eteno0v2oqa86-filter-drop-shadow-0-blur"
                 in="SourceAlpha"
-                stdDeviation="20,20"
+                stdDeviation="10,10"
               />
               <feOffset
                 id="eteno0v2oqa86-filter-drop-shadow-0-offset"
                 dx="5"
-                dy="10"
+                dy="5"
                 result="tmp"
               />
               <feFlood
@@ -94,7 +88,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
               height="214.727852"
               x="0"
               transform="matrix(1 0 0 1 403.72550000000001 292.63607400000001)"
-              fill="rgb(236,236,236)"
+              fill={rgba(theme.headingColor, 0.05)}
               stroke="none"
               strokeWidth="1"
               rx="50"
@@ -107,7 +101,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                     r="182"
                     transform="matrix(1 0 0 1 207.50000000000000 202)"
                     filter="url(#eteno0v2oqa86-filter)"
-                    fill="rgb(255,255,255)"
+                    fill="#f5f5f5"
                     fillRule="evenodd"
                     stroke="rgb(236,236,236)"
                     strokeWidth="13"
