@@ -4,7 +4,6 @@ import isDescendant from "../helpers/isDescendant";
 import rgba from "../helpers/rgba";
 
 const Cursor = () => {
-  console.log("render");
   const themeContext = useContext(ThemeContext);
   const cursorFollow = useRef();
   const cursorSmall = useRef();

@@ -9,11 +9,11 @@ const Logo = () => {
   const toggle = groups => groups.forEach(g => g.classList.toggle("active"));
 
   useEffect(() => {
-    const groups = Array.from(document.querySelectorAll("g"));
+    const groups = Array.from(document.querySelectorAll("#eq8f6pzz6u41 g"));
     logo.current.addEventListener("mouseenter", () => toggle(groups));
-    logo.current.addEventListener("mouseleave", () =>
-      setTimeout(() => toggle(groups), 1500)
-    );
+    // logo.current.addEventListener("mouseleave", () =>
+    //   setTimeout(() => toggle(groups), 1500)
+    // );
   }, []);
 
   return (
