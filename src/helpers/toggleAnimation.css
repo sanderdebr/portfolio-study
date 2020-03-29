@@ -1,0 +1,165 @@
+#eteno0v2oqa84_to {
+  animation: eteno0v2oqa84_to__to 500ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa84_to__to {
+  0% {
+    transform: translate(-25.5px, 0px);
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  100% {
+    transform: translate(408.5px, 10px);
+  }
+}
+#eteno0v2oqa88 {
+  animation: eteno0v2oqa88_c_o 500ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa88_c_o {
+  0% {
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+#eteno0v2oqa811_ts {
+  animation: eteno0v2oqa811_ts__ts 500ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa811_ts__ts {
+  0% {
+    transform: translate(433px, 276px) scale(1, 1);
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  100% {
+    transform: translate(433px, 276px) scale(0, 0);
+  }
+}
+#eteno0v2oqa812_ts {
+  animation: eteno0v2oqa812_ts__ts 500ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa812_ts__ts {
+  0% {
+    transform: translate(517.45px, 304.772px) rotate(45deg) scale(1, 1);
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  100% {
+    transform: translate(517.45px, 304.772px) rotate(45deg) scale(0, 0);
+  }
+}
+#eteno0v2oqa813_ts {
+  animation: eteno0v2oqa813_ts__ts 500ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa813_ts__ts {
+  0% {
+    transform: translate(368.45px, 453.772px) rotate(45deg) scale(1, 1);
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  100% {
+    transform: translate(368.45px, 453.772px) rotate(45deg) scale(0, 0);
+  }
+}
+#eteno0v2oqa814_ts {
+  animation: eteno0v2oqa814_ts__ts 500ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa814_ts__ts {
+  0% {
+    transform: translate(526.228px, 472.45px) rotate(135deg) scale(1, 1);
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  100% {
+    transform: translate(526.228px, 472.45px) rotate(135deg) scale(0, 0);
+  }
+}
+#eteno0v2oqa815_ts {
+  animation: eteno0v2oqa815_ts__ts 500ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa815_ts__ts {
+  0% {
+    transform: translate(377.228px, 323.45px) rotate(135deg) scale(1, 1);
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  100% {
+    transform: translate(377.228px, 323.45px) rotate(135deg) scale(0, 0);
+  }
+}
+#eteno0v2oqa816_ts {
+  animation: eteno0v2oqa816_ts__ts 500ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa816_ts__ts {
+  0% {
+    transform: translate(433px, 474px) scale(1, 1);
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  100% {
+    transform: translate(433px, 474px) scale(0, 0);
+  }
+}
+#eteno0v2oqa817_ts {
+  animation: eteno0v2oqa817_ts__ts 500ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa817_ts__ts {
+  0% {
+    transform: translate(556.5px, 387px) rotate(90deg) scale(1, 1);
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  100% {
+    transform: translate(556.5px, 387px) rotate(90deg) scale(0, 0);
+  }
+}
+#eteno0v2oqa818_ts {
+  animation: eteno0v2oqa818_ts__ts 500ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa818_ts__ts {
+  0% {
+    transform: translate(353.5px, 387px) rotate(90deg) scale(1, 1);
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  100% {
+    transform: translate(353.5px, 387px) rotate(90deg) scale(0, 0);
+  }
+}
+#eteno0v2oqa822 {
+  animation: eteno0v2oqa822_f_o 500ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa822_f_o {
+  0% {
+    fill-opacity: 0;
+  }
+  80% {
+    fill-opacity: 0;
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  100% {
+    fill-opacity: 1;
+  }
+}
+#eteno0v2oqa823 {
+  animation: eteno0v2oqa823_c_o 500ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa823_c_o {
+  0% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+#eteno0v2oqa826 {
+  animation: eteno0v2oqa826_c_o 500ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa826_c_o {
+  0% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  100% {
+    opacity: 1;
+  }
+}
