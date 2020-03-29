@@ -13,17 +13,17 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
 
   const toggleAnimation = groups =>
     groups.forEach(g => {
-      g.classList.toggle("active");
+      // g.classList.toggle("active");
       // Code below for back toggle, fix animation.css
-      // if (!g.classList.contains("active")) {
-      //   g.classList.remove("active");
-      //   g.classList.add("active-reverse");
-      // } else if (g.classList.contains("active-reverse")) {
-      //   g.classList.remove("active-reverse");
-      //   g.classList.add("active");
-      // } else {
-      //   g.classList.add("active");
-      // }
+      if (g.classList.contains("active")) {
+        g.classList.remove("active");
+        g.classList.add("active-reverse");
+      } else if (g.classList.contains("active-reverse")) {
+        g.classList.remove("active-reverse");
+        g.classList.add("active");
+      } else {
+        g.classList.add("active");
+      }
     });
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
               />
               <feFlood
                 id="eteno0v2oqa86-filter-drop-shadow-0-flood"
-                flood-color="rgba(0,0,0,0.16)"
+                floorcolor="rgba(0,0,0,0.16)"
               />
               <feComposite
                 id="eteno0v2oqa86-filter-drop-shadow-0-composite"
@@ -96,7 +96,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
               transform="matrix(1 0 0 1 403.72550000000001 292.63607400000001)"
               fill="rgb(236,236,236)"
               stroke="none"
-              stroke-width="1"
+              strokeWidth="1"
               rx="50"
             />
             <g id="eteno0v2oqa84_to" transform="translate(-25.500000,0)">
@@ -108,10 +108,10 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                     transform="matrix(1 0 0 1 207.50000000000000 202)"
                     filter="url(#eteno0v2oqa86-filter)"
                     fill="rgb(255,255,255)"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     stroke="rgb(236,236,236)"
-                    stroke-width="13"
-                    stroke-opacity="0"
+                    strokeWidth="13"
+                    strokeOpacity="0"
                   />
                 </g>
                 <g
@@ -125,7 +125,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                       transform="matrix(1 0 0 1 62 62)"
                       fill="none"
                       stroke="none"
-                      stroke-width="12"
+                      strokeWidth="12"
                     />
                     <circle
                       id="eteno0v2oqa810"
@@ -133,7 +133,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                       transform="matrix(1 0 0 1 62 62)"
                       fill="none"
                       stroke="rgb(0,0,0)"
-                      stroke-width="12"
+                      strokeWidth="12"
                     />
                   </g>
                   <g
@@ -149,7 +149,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                       transform="translate(0,0)"
                       fill="rgb(0,0,0)"
                       stroke="none"
-                      stroke-width="1"
+                      strokeWidth="1"
                     />
                   </g>
                   <g
@@ -165,7 +165,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                       transform="translate(0,0)"
                       fill="rgb(0,0,0)"
                       stroke="none"
-                      stroke-width="1"
+                      strokeWidth="1"
                     />
                   </g>
                   <g
@@ -181,7 +181,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                       transform="translate(0,0)"
                       fill="rgb(0,0,0)"
                       stroke="none"
-                      stroke-width="1"
+                      strokeWidth="1"
                     />
                   </g>
                   <g
@@ -197,7 +197,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                       transform="translate(0,0)"
                       fill="rgb(0,0,0)"
                       stroke="none"
-                      stroke-width="1"
+                      strokeWidth="1"
                     />
                   </g>
                   <g
@@ -213,7 +213,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                       transform="translate(0,0)"
                       fill="rgb(0,0,0)"
                       stroke="none"
-                      stroke-width="1"
+                      strokeWidth="1"
                     />
                   </g>
                   <g
@@ -229,7 +229,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                       transform="translate(0,0)"
                       fill="rgb(0,0,0)"
                       stroke="none"
-                      stroke-width="1"
+                      strokeWidth="1"
                     />
                   </g>
                   <g
@@ -245,7 +245,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                       transform="translate(0,0)"
                       fill="rgb(0,0,0)"
                       stroke="none"
-                      stroke-width="1"
+                      strokeWidth="1"
                     />
                   </g>
                   <g
@@ -261,7 +261,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                       transform="translate(0,0)"
                       fill="rgb(0,0,0)"
                       stroke="none"
-                      stroke-width="1"
+                      strokeWidth="1"
                     />
                   </g>
                 </g>
@@ -282,7 +282,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                   transform="matrix(1 0 0 1 581 202)"
                   fill="rgb(0,0,0)"
                   stroke="none"
-                  stroke-width="1"
+                  strokeWidth="1"
                 />
               </g>
               <path
@@ -290,9 +290,9 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                 d="M100.500000,257C80.474272,257.032466,60.899773,251.053518,44.310000,239.837000C28.152550,228.928900,15.505116,213.569267,7.900000,195.619000C-4.129973,167.143573,-2.388999,134.716591,12.620671,107.692897C27.630341,80.669204,54.239248,62.054525,84.771000,57.219000C78.300367,70.727535,74.960466,85.521748,75,100.500000C75.025720,129.894453,87.907964,157.806867,110.259276,176.897528C132.610589,195.988188,162.194220,204.346646,191.231000,199.775000C174.544189,234.742588,139.245088,257.006104,100.500000,257Z"
                 transform="matrix(1 0 0 1 601 238)"
                 fill="rgb(255,255,255)"
-                fill-opacity="0"
+                fillOpacity="0"
                 stroke="none"
-                stroke-width="1"
+                strokeWidth="1"
               />
               <g
                 id="eteno0v2oqa823"
@@ -308,7 +308,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                   transform="matrix(1 0 0 1 738 287)"
                   fill="rgb(255,255,255)"
                   stroke="none"
-                  stroke-width="1"
+                  strokeWidth="1"
                 />
                 <rect
                   id="eteno0v2oqa825"
@@ -319,7 +319,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                   transform="matrix(0 1 -1 0 760 300)"
                   fill="rgb(255,255,255)"
                   stroke="none"
-                  stroke-width="1"
+                  strokeWidth="1"
                 />
               </g>
               <g
@@ -336,7 +336,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                   transform="matrix(1 0 0 1 708 286)"
                   fill="rgb(255,255,255)"
                   stroke="none"
-                  stroke-width="1"
+                  strokeWidth="1"
                 />
                 <rect
                   id="eteno0v2oqa828"
@@ -347,7 +347,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
                   transform="matrix(0 1 -1 0 743 309)"
                   fill="rgb(255,255,255)"
                   stroke="none"
-                  stroke-width="1"
+                  strokeWidth="1"
                 />
               </g>
             </g>

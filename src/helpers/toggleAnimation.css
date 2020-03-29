@@ -1,9 +1,9 @@
-#eteno0v2oqa81 g {
-  transition: all 500ms ease;
+#eteno0v2oqa81 * {
+  transition: all 200ms ease;
 }
 
 #eteno0v2oqa84_to.active {
-  animation: eteno0v2oqa84_to__to 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa84_to__to 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa84_to__to {
   0% {
@@ -14,8 +14,20 @@
     transform: translate(408.5px, 10px);
   }
 }
+#eteno0v2oqa84_to.active-reverse {
+  animation: eteno0v2oqa84_to__to-reverse 200ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa84_to__to-reverse {
+  100% {
+    transform: translate(-25.5px, 0px);
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  0% {
+    transform: translate(408.5px, 10px);
+  }
+}
 #eteno0v2oqa88.active {
-  animation: eteno0v2oqa88_c_o 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa88_c_o 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa88_c_o {
   0% {
@@ -26,8 +38,20 @@
     opacity: 0;
   }
 }
+#eteno0v2oqa88.active-reverse {
+  animation: eteno0v2oqa88_c_o-reverse 200ms linear 1 normal forwards;
+}
+@keyframes eteno0v2oqa88_c_o-reverse {
+  100% {
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  0% {
+    opacity: 0;
+  }
+}
 #eteno0v2oqa811_ts.active {
-  animation: eteno0v2oqa811_ts__ts 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa811_ts__ts 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa811_ts__ts {
   0% {
@@ -39,7 +63,7 @@
   }
 }
 #eteno0v2oqa812_ts.active {
-  animation: eteno0v2oqa812_ts__ts 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa812_ts__ts 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa812_ts__ts {
   0% {
@@ -51,7 +75,7 @@
   }
 }
 #eteno0v2oqa813_ts.active {
-  animation: eteno0v2oqa813_ts__ts 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa813_ts__ts 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa813_ts__ts {
   0% {
@@ -63,7 +87,7 @@
   }
 }
 #eteno0v2oqa814_ts.active {
-  animation: eteno0v2oqa814_ts__ts 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa814_ts__ts 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa814_ts__ts {
   0% {
@@ -75,7 +99,7 @@
   }
 }
 #eteno0v2oqa815_ts.active {
-  animation: eteno0v2oqa815_ts__ts 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa815_ts__ts 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa815_ts__ts {
   0% {
@@ -87,7 +111,7 @@
   }
 }
 #eteno0v2oqa816_ts.active {
-  animation: eteno0v2oqa816_ts__ts 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa816_ts__ts 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa816_ts__ts {
   0% {
@@ -99,7 +123,7 @@
   }
 }
 #eteno0v2oqa817_ts.active {
-  animation: eteno0v2oqa817_ts__ts 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa817_ts__ts 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa817_ts__ts {
   0% {
@@ -111,7 +135,7 @@
   }
 }
 #eteno0v2oqa818_ts.active {
-  animation: eteno0v2oqa818_ts__ts 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa818_ts__ts 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa818_ts__ts {
   0% {
@@ -123,7 +147,7 @@
   }
 }
 #eteno0v2oqa822.active {
-  animation: eteno0v2oqa822_f_o 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa822_f_o 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa822_f_o {
   0% {
@@ -138,7 +162,7 @@
   }
 }
 #eteno0v2oqa823.active {
-  animation: eteno0v2oqa823_c_o 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa823_c_o 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa823_c_o {
   0% {
@@ -153,7 +177,7 @@
   }
 }
 #eteno0v2oqa826.active {
-  animation: eteno0v2oqa826_c_o 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa826_c_o 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa826_c_o {
   0% {
@@ -168,7 +192,7 @@
   }
 }
 #eteno0v2oqa822.active {
-  animation: eteno0v2oqa822_o 500ms linear 1 normal forwards;
+  animation: eteno0v2oqa822_o 200ms linear 1 normal forwards;
 }
 @keyframes eteno0v2oqa822_o {
   0% {
@@ -184,7 +208,7 @@
   }
 }
 #eteno0v2oqa85.active circle {
-  animation: circle 500ms linear 1 normal forwards;
+  animation: circle 200ms linear 1 normal forwards;
 }
 @keyframes circle {
   0% {
@@ -196,7 +220,7 @@
 }
 
 #eteno0v2oqa819.active path {
-  animation: moon 500ms linear 1 normal forwards;
+  animation: moon 200ms linear 1 normal forwards;
 }
 @keyframes moon {
   0% {
@@ -213,7 +237,7 @@
 }
 
 #eteno0v2oqa88.active circle {
-  animation: sun 500ms linear 1 normal forwards;
+  animation: sun 200ms linear 1 normal forwards;
 }
 @keyframes sun {
   0% {
