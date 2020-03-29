@@ -36,8 +36,8 @@ const base = {
     `polygon(0 0, 100% 0, 100% calc(100% - ${size}px), calc(100% - ${size}px) 100%, 0 100%)`,
   easeOutBack: "cubic-bezier(0.34, 1.56, 0.64, 1)",
   fontStack: fontStack.join(", "),
-  colorWhite: "rgba(255, 255, 255, 1)",
-  colorBlack: "rgba(0, 0, 0, 1)"
+  colorWhite: "rgb(255, 255, 255)",
+  colorBlack: "rgb(0, 0, 0)"
 };
 
 const dark = {
@@ -45,20 +45,20 @@ const dark = {
   ...media,
   ...spacing,
   ...base,
-  backgroundColor: "#122036",
+  backgroundColor: "rgb(18, 32, 54)",
   headingColor: base.colorWhite,
-  textColor: "rgba(160,168,220, 1)",
-  accentColor: "#D30069"
+  textColor: "rgb(160,168,220)",
+  accentColor: "rgb(211, 0, 105)"
 };
 
 const light = {
   id: "light",
   ...spacing,
   ...base,
-  backgroundColor: "rgba(242, 242, 242, 1)",
+  backgroundColor: "rgb(242, 242, 242)",
   headingColor: base.colorBlack,
-  textColor: "rgba(160,168,220,.7)",
-  accentColor: "#2B4A5C"
+  textColor: "rgb(160,168,220)",
+  accentColor: "rgb(211, 0, 105)"
 };
 
 export const theme = { dark, light };

@@ -1,11 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import { Link, NavLink } from "./Link";
 import styled, { css, useTheme } from "styled-components/macro";
 import { navLinks, socialLinks } from "../data/nav";
-import { useAppContext } from "../hooks";
+import { useWindowSize, useAppContext } from "../hooks";
 import NavToggle from "./NavToggle";
 import Icon from "./Icon";
 import Logo from "./Logo";
+import ThemeToggle from "./ThemeToggle";
 
 const HeaderIcons = () => (
   <HeaderNavIcons>
@@ -18,10 +19,12 @@ const HeaderIcons = () => (
 );
 
 const Header = props => {
-  console.log("appcontextn:", useAppContext);
   const { menuOpen, dispatch } = useAppContext();
   const headerRef = useRef();
   const { location } = props;
+  const mobile = useTheme();
+  const windowSize = useWindowSize();
+  const isMobile = windowSize.width <= mobile || windowSize.height <= 696;
 
   const isMatch = ({ match, hash = "" }) => {
     if (!match) return false;
@@ -52,6 +55,11 @@ const Header = props => {
         </HeaderNavList>
         <HeaderIcons />
       </HeaderNav>
+      {!isMobile && (
+        <Suspense fallback={null}>
+          <ThemeToggle />
+        </Suspense>
+      )}
     </HeaderWrapper>
   );
 };
