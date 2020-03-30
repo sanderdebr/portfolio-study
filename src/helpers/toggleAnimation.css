@@ -215,7 +215,7 @@
     fill: rgb(255, 255, 255);
   }
   100% {
-    fill: rgb(0, 0, 0);
+    fill: rgba(6, 10, 18);
   }
 }
 
@@ -231,7 +231,7 @@
     animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
   100% {
-    fill: rgb(255, 255, 255);
+    fill: rgb(textColor);
     fill-opacity: 1;
   }
 }

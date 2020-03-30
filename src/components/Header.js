@@ -1,6 +1,6 @@
 import React, { Suspense, useRef } from "react";
 import { Link, NavLink } from "./Link";
-import styled, { css, useTheme } from "styled-components/macro";
+import styled, { css, useTheme, keyframes } from "styled-components/macro";
 import { navLinks, socialLinks } from "../data/nav";
 import { useWindowSize, useAppContext } from "../hooks";
 import { Transition } from "react-transition-group";
@@ -47,10 +47,11 @@ const Header = props => {
       />
       <HeaderNav role="navigation">
         <HeaderNavList>
-          {navLinks.map(({ label, pathname, hash }) => (
+          {navLinks.map(({ label, pathname, hash }, index) => (
             <HeaderNavLink
               exact
               isActive={match => isMatch({ match, hash })}
+              delay={300 + index * 100}
               key={label}
               to={{ pathname, hash }}
             >
@@ -241,10 +242,8 @@ const HeaderMobileNav = styled.nav`
   bottom: 0;
   left: 0;
   background: ${props => rgba(props.theme.backgroundColor, 0.9)};
-  transform: translate3d(
-    0,
-    ${props => (props.status === "entered" ? 0 : "-100%")},
-    0
+  transform: translateX(
+    ${props => (props.status === "entered" ? "0%" : "-100%")}
   );
   transition-property: transform, background;
   transition-duration: 0.5s;
@@ -261,18 +260,16 @@ const HeaderMobileNav = styled.nav`
   }
 `;
 
-const HeaderMobileNavLink = styled(NavLink).attrs({
-  active: "active"
-})`
+const HeaderMobileNavLink = styled(NavLink)`
   width: 100%;
   font-size: 22px;
   text-align: center;
   text-decoration: none;
-  color: ${props => props.theme.textColor};
-  padding: 20px;
-  transform: translate3d(0, -30px, 0);
+  color: ${props => props.theme.headingColor};
+  padding: 20px 40px;
   opacity: 0;
-  transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
+  transform: translateY(50%);
+  transition: all 600ms ${props => props.theme.curveFastoutSlowin};
   transition-delay: ${props => props.delay}ms;
   position: relative;
   top: -15px;
@@ -293,30 +290,30 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
     props.status === "entered" &&
     css`
       opacity: 1;
-      transform: translate3d(0, 0, 0);
+      transform: translateY(0%);
     `}
-
-  &:hover,
-  &.active {
-    color: ${props => props.theme.headingColor};
-  }
 
   &::after {
     content: "";
     position: absolute;
-    bottom: 5px;
-    right: 17.5px;
-    left: 17.5px;
-    height: 2px;
-    background: ${props => props.theme.accentColor};
-    transform: scaleX(0) translateY(-2px);
-    transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
-    transform-origin: right;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: ${props => props.theme.backgroundColor};
+    transform: scaleY(1);
+    transition: transform 600ms ${props => props.theme.curveFastoutSlowin};
+    transition-delay: ${props => props.delay}ms;
+    transform-origin: bottom;
+    ${props =>
+      props.status === "entered" &&
+      css`
+        transform: scaleY(0);
+      `}
   }
 
-  &:hover:after {
-    transform: scaleX(1) translateY(-2px);
-    transform-origin: left;
+  &:hover {
+    color: ${props => props.theme.textColor};
   }
 `;
 

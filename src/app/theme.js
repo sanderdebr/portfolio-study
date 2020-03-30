@@ -35,6 +35,7 @@ const media = {
 
 const base = {
   curveFastoutSlowin: "cubic-bezier(0.4, 0.0, 0.2, 1)",
+  easeInOutBack: "cubic-bezier(0.68, -0.6, 0.32, 1.6)",
   clipPath: (size = 8) => `circle(50% at 50% 50%);`,
   easeOutBack: "cubic-bezier(0.34, 1.56, 0.64, 1)",
   fontStack: fontStack.join(", "),
