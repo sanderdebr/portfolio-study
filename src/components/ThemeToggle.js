@@ -370,14 +370,14 @@ const ThemeToggleButton = styled.div`
     top: ${props =>
       props.isMobile ? "unset" : `${props.theme.spacingOuter.tablet - 8}px`};
     right: ${props =>
-      props.isMobile ? "30px" : `${props.theme.spacingOuter.tablet - 8}px`};
+      props.isMobile ? "10px" : `${props.theme.spacingOuter.tablet - 8}px`};
   }
 
   ${props =>
     props.isMobile &&
     css`
       top: unset;
-      bottom: 30px;
+      bottom: 20px;
     `}
 
   ${props =>
@@ -388,26 +388,6 @@ const ThemeToggleButton = styled.div`
         display: none;
       }
     `}
-
-  /* svg {
-    flex: 1 1 100%;
-    position: relative;
-  }
-
-  svg path {
-    transition-property: fill, stroke;
-    transition-timing-function: ease;
-    transition-duration: 0.4s;
-  }
-
-  svg g > path {
-    stroke: ${props => props.theme.colorText};
-  }
-
-  svg g[mask] path {
-    fill: ${props => props.theme.colorText};
-    stroke: none;
-  } */
 `;
 
 export default ThemeToggle;

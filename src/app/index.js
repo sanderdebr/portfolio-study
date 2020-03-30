@@ -23,6 +23,7 @@ import HeeboLight from "../assets/fonts/Heebo-Light.woff2";
 import HeeboRegular from "../assets/fonts/Heebo-Regular.woff2";
 import HeeboMedium from "../assets/fonts/Heebo-Medium.woff2";
 import Noise from "../assets/img/noise.gif";
+import isEdge from "../helpers/isEdge";
 
 export const fontStyles = `
 @font-face {
@@ -87,7 +88,7 @@ const AppRoutes = () => {
         <style>{fontStyles}</style>
       </Helmet>
       <GlobalStyles />
-      <Cursor />
+      {!isEdge && <Cursor />}
       <Header location={location} />
       <TransitionGroup
         component={AppMainContent}
@@ -140,7 +141,6 @@ export const GlobalStyles = createGlobalStyle`
       background-image: url(${Noise});
       opacity: .0115;
       z-index: 0;
-      pointer-events: none;
     }
   }
 
@@ -148,7 +148,11 @@ export const GlobalStyles = createGlobalStyle`
     *::before,
     *::after {
       box-sizing: inherit;
-      cursor: none;
+      ${props =>
+        !props.theme.isEdge &&
+        css`
+          cursor: none;
+        `};
     }
 `;
 

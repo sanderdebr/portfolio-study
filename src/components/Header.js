@@ -71,7 +71,7 @@ const Header = props => {
             {navLinks.map(({ label, pathname, hash }, index) => (
               <HeaderMobileNavLink
                 key={label}
-                delay={300 + index * 50}
+                delay={300 + index * 100}
                 status={status}
                 onClick={handleMobileNavClick}
                 to={{ pathname, hash }}
@@ -282,11 +282,11 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
   }
 
   @media (max-width: 400px) {
-    font-size: 18px;
+    font-size: 30px;
   }
 
   @media (max-height: 360px) {
-    font-size: 18px;
+    font-size: 30px;
   }
 
   ${props =>
@@ -296,23 +296,26 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
       transform: translate3d(0, 0, 0);
     `}
 
+  &:hover,
+  &.active {
+    color: ${props => props.theme.headingColor};
+  }
+
   &::after {
     content: "";
     position: absolute;
-    top: 50%;
-    right: 60px;
-    left: 60px;
-    height: 4px;
+    bottom: 5px;
+    right: 17.5px;
+    left: 17.5px;
+    height: 2px;
     background: ${props => props.theme.accentColor};
-    transform: scaleX(0) translateY(-1px);
+    transform: scaleX(0) translateY(-2px);
     transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
     transform-origin: right;
   }
 
-  &:hover:after,
-  &:active:after,
-  &:focus:after {
-    transform: scaleX(1) translateY(-1px);
+  &:hover:after {
+    transform: scaleX(1) translateY(-2px);
     transform-origin: left;
   }
 `;

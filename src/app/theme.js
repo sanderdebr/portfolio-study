@@ -1,4 +1,5 @@
 import rgba from "../helpers/rgba";
+import isEdge from "../helpers/isEdge";
 
 const fontStack = [
   "Heebo",
@@ -20,7 +21,7 @@ const spacing = {
   spacingOuter: {
     desktop: 60,
     tablet: 40,
-    mobile: 20
+    mobile: 30
   }
 };
 
@@ -34,12 +35,12 @@ const media = {
 
 const base = {
   curveFastoutSlowin: "cubic-bezier(0.4, 0.0, 0.2, 1)",
-  clipPath: (size = 8) =>
-    `polygon(0 0, 100% 0, 100% calc(100% - ${size}px), calc(100% - ${size}px) 100%, 0 100%)`,
+  clipPath: (size = 8) => `circle(50% at 50% 50%);`,
   easeOutBack: "cubic-bezier(0.34, 1.56, 0.64, 1)",
   fontStack: fontStack.join(", "),
   colorWhite: "rgb(255, 255, 255)",
-  colorBlack: "rgb(0, 0, 0)"
+  colorBlack: "rgb(0, 0, 0)",
+  isEdge
 };
 
 const dark = {
@@ -55,11 +56,12 @@ const dark = {
 
 const light = {
   id: "light",
+  ...media,
   ...spacing,
   ...base,
   backgroundColor: "rgb(242, 242, 242)",
   headingColor: base.colorBlack,
-  textColor: "rgb(160,168,220)",
+  textColor: rgba(base.colorBlack, 0.5),
   accentColor: "rgb(211, 0, 105)"
 };
 

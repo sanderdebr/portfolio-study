@@ -1,24 +1,23 @@
 import React, { useRef, useEffect } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import isDescendant from "../helpers/isDescendant";
 import rgba from "../helpers/rgba";
 
 const Cursor = () => {
+  const theme = useTheme();
   const cursorFollow = useRef();
   const cursorSmall = useRef();
 
   const onMouseMove = event => {
     const { pageX: x, pageY: y } = event;
-    window.requestAnimationFrame(() => {
-      cursorSmall.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
-      cursorFollow.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
-      console.log(event.target.className);
-      if (isDescendant("A", event.target) || event.target.tagName === "A") {
-        let translateX = (1 - 2) * x;
-        let translateY = (1 - 2) * y;
-        cursorFollow.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(2) translateX(${x}px) translateY(${y}px)`;
-      }
-    });
+
+    cursorSmall.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
+    cursorFollow.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
+    if (isDescendant("A", event.target) || event.target.tagName === "A") {
+      let translateX = (1 - 2) * x;
+      let translateY = (1 - 2) * y;
+      cursorFollow.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(2) translateX(${x}px) translateY(${y}px)`;
+    }
   };
 
   useEffect(() => {

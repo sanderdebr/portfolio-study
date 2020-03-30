@@ -1,16 +1,29 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled, { css, useTheme } from "styled-components";
 import Icon from "./Icon";
 import Button from "./Button";
 
-const NavToggle = ({ menuOpen, ...otherProps }) => (
-  <NavToggleButton iconOnly {...otherProps}>
-    <NavToggleInner>
-      <NavToggleIcon open={menuOpen} icon="menu" size={32} color="white" />
-      <NavToggleIcon open={menuOpen} icon="close" size={32} color="white" />
-    </NavToggleInner>
-  </NavToggleButton>
-);
+const NavToggle = ({ menuOpen, ...otherProps }) => {
+  const theme = useTheme();
+  return (
+    <NavToggleButton iconOnly {...otherProps}>
+      <NavToggleInner>
+        <NavToggleIcon
+          open={menuOpen}
+          icon="menu"
+          size={32}
+          color={theme.textColor}
+        />
+        <NavToggleIcon
+          open={menuOpen}
+          icon="close"
+          size={32}
+          color={theme.textColor}
+        />
+      </NavToggleInner>
+    </NavToggleButton>
+  );
+};
 
 const NavToggleButton = styled(Button)`
   && {
@@ -45,7 +58,7 @@ const NavToggleIcon = styled(Icon)`
   transition-delay: 0.1s;
   opacity: 1;
   transform: rotate(0deg);
-  fill: ${props => props.theme.colorWhite};
+  fill: ${props => props.theme.headingColor};
   width: 32px;
   height: 32px;
 

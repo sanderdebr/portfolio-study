@@ -133,34 +133,21 @@ const ButtonContainer = styled.button`
       justify-content: center;
 
       &::after {
-        background: ${rgba(props.theme.colorWhite, 0)};
+        background: ${rgba(props.theme.headingColor, 0)};
       }
 
       &:hover::after,
       &:focus::after {
-        background: ${rgba(props.theme.colorWhite, 0.1)};
+        background: ${rgba(props.theme.headingColor, 0.05)};
       }
 
       &::before {
-        background: ${rgba(props.theme.colorWhite, 0.4)};
+        background: ${rgba(props.theme.headingColor, 0.1)};
         top: -4px;
         right: -4px;
         bottom: -4px;
         left: -4px;
-        clip-path: polygon(
-          0% 0%,
-          0% 100%,
-          4px 100%,
-          4px 4px,
-          calc(100% - 4px) 4px,
-          calc(100% - 4px) calc(100% - 13px),
-          calc(100% - 13px) calc(100% - 4px),
-          4px calc(100% - 4px),
-          4px 100%,
-          calc(100% - 11px) 100%,
-          100% calc(100% - 11px),
-          100% 0%
-        );
+        clip-path: circle(50% at 50% 50%);
       }
     `}
 
