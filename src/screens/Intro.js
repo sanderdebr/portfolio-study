@@ -3,7 +3,6 @@ import styled, { css, keyframes } from "styled-components";
 import { Transition } from "react-transition-group";
 import prerender from "../utils/prerender";
 import rgba from "../utils/rgba";
-import AnimFade from "../utils/style";
 
 const Intro = () => {
   return (
@@ -11,10 +10,8 @@ const Intro = () => {
       <Transition appear={!prerender} in={!prerender} timeout={3000}>
         {status => (
           <IntroText>
-            <IntroName status={status}>
-              Sander de Bruijn
-              <IntroTitle status={status}>Webdeveloper</IntroTitle>
-            </IntroName>
+            <IntroName status={status}>Sander de Bruijn</IntroName>
+            <IntroTitle status={status}>Creative Developer</IntroTitle>
           </IntroText>
         )}
       </Transition>
@@ -25,23 +22,24 @@ const Intro = () => {
 const IntroContent = styled.section`
   height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-direction: column;
   outline: none;
 `;
 
 const IntroText = styled.header`
-  max-width: 780px;
+  margin-left: 30%;
+  margin-top: -6%;
   width: 100%;
   position: relative;
-  top: -20px;
 
   @media (min-width: ${props => props.theme.desktop}px) {
     max-width: 920px;
   }
 
   @media (max-width: ${props => props.theme.mobile}px) {
+    margin-left: 10%;
     top: -60px;
   }
 
@@ -58,8 +56,8 @@ const IntroName = styled.h1`
   text-transform: uppercase;
   font-size: 24px;
   letter-spacing: 0.3em;
-  color: ${props => rgba(props.theme.textColor, 0.8)};
-  margin-bottom: 40px;
+  color: ${props => rgba(props.theme.accentColor, 0.8)};
+  margin-bottom: 20px;
   margin-top: 0;
   font-weight: 500;
   line-height: 1;
@@ -81,12 +79,10 @@ const IntroName = styled.h1`
 
   @media (min-width: ${props => props.theme.desktop}px) {
     font-size: 28px;
-    margin-bottom: 40px;
   }
 
   @media (max-width: ${props => props.theme.tablet}px) {
     font-size: 18px;
-    margin-bottom: 40px;
   }
 
   @media (max-width: ${props => props.theme.mobile}px) {
@@ -108,7 +104,18 @@ const IntroTitle = styled.h2`
   font-size: 100px;
   margin: 0;
   letter-spacing: -0.005em;
+  line-height: 1em;
   font-weight: ${props => (props.theme.id === "light" ? 600 : 500)};
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 38%;
+    right: 7%;
+    width: 40%;
+    height: 2px;
+    background: ${props => rgba(props.theme.headingColor, 0.2)};
+  }
 
   @media (min-width: ${props => props.theme.desktop}px) {
     font-size: 120px;
@@ -152,10 +159,10 @@ const IntroTitleRow = styled.span`
 `;
 
 const AnimTextReveal = props => keyframes`
-  0% { color: ${rgba(props.theme.colorTitle, 0)}; }
-  50% { color: ${rgba(props.theme.colorTitle, 0)}; }
-  60% { color: ${props.theme.colorTitle}; }
-  100% { color: ${props.theme.colorTitle}; }
+  0% { color: ${rgba(props.theme.accentColor, 0)}; }
+  50% { color: ${rgba(props.theme.accentColor, 0)}; }
+  60% { color: ${props.theme.accentColor}; }
+  100% { color: ${props.theme.accentColor}; }
 `;
 
 const AnimTextRevealMask = keyframes`
@@ -304,6 +311,11 @@ const IntroTitleLine = styled.span`
       transform: scaleX(1);
       opacity: 1;
     `}
+`;
+
+const AnimFade = keyframes`
+  0% {opacity: 0}
+  100% {opacity: 1}
 `;
 
 export default Intro;
