@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import styled, { css, useTheme } from "styled-components";
-import rgba from "../helpers/rgba";
+import rgba from "../utils/rgba";
 import { useAppContext } from "../hooks";
 
-import "../helpers/toggleAnimation.css";
+import "../utils/toggleAnimation.css";
 
 const ThemeToggle = ({ isMobile, ...otherProps }) => {
   const theme = useTheme();

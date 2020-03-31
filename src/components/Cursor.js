@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import styled, { useTheme } from "styled-components";
-import isDescendant from "../helpers/isDescendant";
-import rgba from "../helpers/rgba";
+import isDescendant from "../utils/isDescendant";
+import rgba from "../utils/rgba";
 
 const Cursor = () => {
   const theme = useTheme();

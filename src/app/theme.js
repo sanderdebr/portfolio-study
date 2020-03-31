@@ -1,5 +1,5 @@
-import rgba from "../helpers/rgba";
-import isEdge from "../helpers/isEdge";
+import rgba from "../utils/rgba";
+import isEdge from "../utils/isEdge";
 
 const fontStack = [
   "Heebo",

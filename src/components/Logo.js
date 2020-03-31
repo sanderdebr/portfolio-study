@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
-import "../helpers/logoAnimation.css";
+import "../utils/logoAnimation.css";
 
 const Logo = () => {
   const logo = useRef();

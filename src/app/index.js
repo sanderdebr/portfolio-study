@@ -23,7 +23,7 @@ import HeeboLight from "../assets/fonts/Heebo-Light.woff2";
 import HeeboRegular from "../assets/fonts/Heebo-Regular.woff2";
 import HeeboMedium from "../assets/fonts/Heebo-Medium.woff2";
 import Noise from "../assets/img/noise.gif";
-import isEdge from "../helpers/isEdge";
+import isEdge from "../utils/isEdge";
 
 export const fontStyles = `
 @font-face {

@@ -1,10 +1,10 @@
 import React, { Suspense, useRef } from "react";
 import { Link, NavLink } from "./Link";
-import styled, { css, useTheme, keyframes } from "styled-components/macro";
+import styled, { css, useTheme } from "styled-components/macro";
 import { navLinks, socialLinks } from "../data/nav";
 import { useWindowSize, useAppContext } from "../hooks";
 import { Transition } from "react-transition-group";
-import rgba from "../helpers/rgba";
+import rgba from "../utils/rgba";
 import NavToggle from "./NavToggle";
 import Icon from "./Icon";
 import Logo from "./Logo";

@@ -2,7 +2,7 @@ import React from "react";
 import Loader from "./Loader";
 import Icon from "./Icon";
 import styled, { css, useTheme } from "styled-components";
-import rgba from "../helpers/rgba";
+import rgba from "../utils/rgba";
 
 const ButtonContent = ({
   iconRight,
