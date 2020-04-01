@@ -13,10 +13,21 @@ const Cursor = () => {
 
     cursorSmall.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
     cursorFollow.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
-    if (isDescendant("A", event.target) || event.target.tagName === "A") {
-      let translateX = (1 - 2) * x;
-      let translateY = (1 - 2) * y;
-      cursorFollow.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(2) translateX(${x}px) translateY(${y}px)`;
+    cursorSmall.current.style.opacity = 0.8;
+    cursorFollow.current.style.backgroundColor = rgba(theme.headingColor, 0.05);
+
+    if (
+      isDescendant("A", event.target) ||
+      event.target.tagName === "A" ||
+      event.target.tagName === "H2"
+    ) {
+      let translateX = (1 - 2.5) * x;
+      let translateY = (1 - 2.5) * y;
+      cursorFollow.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(2.5) translateX(${x}px) translateY(${y}px)`;
+    }
+    if (event.target.tagName === "H2") {
+      cursorFollow.current.style.opacity = 1;
+      cursorFollow.current.style.background = theme.accentColor;
     }
   };
 
@@ -42,10 +53,10 @@ const CursorSmall = styled.div`
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  z-index: 2;
+  z-index: 1;
   margin-left: 22px;
   margin-top: 22px;
-  transition: all 30ms ${props => props.theme.easeOutBack};
+  transition: all 20ms ${props => props.theme.easeOutBack};
   background: ${props => props.theme.accentColor};
 `;
 
@@ -55,9 +66,9 @@ const CursorFollow = styled.div`
   height: 50px;
   pointer-events: none;
   border-radius: 50%;
-  z-index: 2;
+  z-index: 1;
   opacity: 0.8;
-  transition: all 300ms ${props => props.theme.easeOutBack};
+  transition: all 200ms ${props => props.theme.easeOutBack};
   background: ${props => rgba(props.theme.headingColor, 0.05)};
 `;
 
