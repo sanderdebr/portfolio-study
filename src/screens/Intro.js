@@ -1,20 +1,28 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { Transition } from "react-transition-group";
 import prerender from "../utils/prerender";
 import rgba from "../utils/rgba";
 import { revealText, clipText } from "../utils/style";
+const Blurb = lazy(() => import("../components/Blurb"));
 
 const Intro = () => {
   return (
     <IntroContent>
       <Transition appear={!prerender} in={!prerender} timeout={3000}>
         {status => (
-          <IntroText>
-            <IntroName status={status}>Sander de Bruijn</IntroName>
-            <IntroTitleAbs status={status}>Creative Developer</IntroTitleAbs>
-            <IntroTitle status={status}>Creative Developer</IntroTitle>
-          </IntroText>
+          <>
+            {!prerender && (
+              <Suspense fallback={null}>
+                <Blurb />
+              </Suspense>
+            )}
+            <IntroText>
+              <IntroName status={status}>Sander de Bruijn</IntroName>
+              <IntroTitleAbs status={status}>Creative Developer</IntroTitleAbs>
+              <IntroTitle status={status}>Creative Developer</IntroTitle>
+            </IntroText>
+          </>
         )}
       </Transition>
     </IntroContent>
@@ -53,10 +61,10 @@ const IntroText = styled.header`
 const IntroName = styled.h1`
   text-transform: uppercase;
   letter-spacing: 0.3em;
-  color: ${props => rgba(props.theme.accentColor, 0.8)};
+  color: ${props => props.theme.accentColor};
   margin-bottom: 20px;
   margin-top: 0;
-  font-weight: 500;
+  font-weight: bold;
   line-height: 1;
   opacity: 1;
   font-size: 24px;
@@ -103,14 +111,14 @@ const IntroTitle = styled.h2`
   width: 100%;
   font-size: 80px;
   margin: 0;
+  letter-spacing: 0.1rem;
   color: ${props => props.theme.headingColor};
-  -webkit-text-stroke: 2px ${props => props.theme.headingColor};
-  paint-order: stroke fill;
+  -webkit-text-stroke: 1px ${props => props.theme.headingColor};
   line-height: 1.1em;
   font-weight: lighter;
 
   @media (min-width: ${props => props.theme.desktop}px) {
-    font-size: 120px;
+    font-size: 110px;
   }
 
   @media (max-width: 860px) {

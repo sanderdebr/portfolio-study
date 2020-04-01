@@ -16,6 +16,8 @@ const Cursor = () => {
     cursorSmall.current.style.opacity = 0.8;
     cursorFollow.current.style.backgroundColor = rgba(theme.headingColor, 0.05);
 
+    console.log(event.target);
+
     if (
       isDescendant("A", event.target) ||
       event.target.tagName === "A" ||
@@ -54,8 +56,8 @@ const CursorSmall = styled.div`
   height: 8px;
   border-radius: 50%;
   z-index: 1;
-  margin-left: 22px;
-  margin-top: 22px;
+  margin-top: -3px;
+  margin-left: -3px;
   transition: all 20ms ${props => props.theme.easeOutBack};
   background: ${props => props.theme.accentColor};
 `;
@@ -64,6 +66,8 @@ const CursorFollow = styled.div`
   position: absolute;
   width: 50px;
   height: 50px;
+  top: -25px;
+  left: -25px;
   pointer-events: none;
   border-radius: 50%;
   z-index: 1;

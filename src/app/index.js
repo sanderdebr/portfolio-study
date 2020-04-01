@@ -154,6 +154,13 @@ export const GlobalStyles = createGlobalStyle`
           cursor: none;
         `};
     }
+
+    ::selection {
+      background: ${props => props.theme.accentColor}; 
+    }
+    ::-moz-selection {
+      background: ${props => props.theme.accentColor}; ;
+    }
 `;
 
 const AppMainContent = styled.main`
