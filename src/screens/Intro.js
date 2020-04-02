@@ -4,7 +4,7 @@ import { Transition } from "react-transition-group";
 import prerender from "../utils/prerender";
 import rgba from "../utils/rgba";
 import { revealText, clipText } from "../utils/style";
-const Blurb = lazy(() => import("../components/Blurb"));
+const World = lazy(() => import("../components/World"));
 
 const Intro = () => {
   return (
@@ -14,12 +14,11 @@ const Intro = () => {
           <>
             {!prerender && (
               <Suspense fallback={null}>
-                <Blurb />
+                <World />{" "}
               </Suspense>
             )}
             <IntroText>
               <IntroName status={status}>Sander de Bruijn</IntroName>
-              <IntroTitleAbs status={status}>Creative Developer</IntroTitleAbs>
               <IntroTitle status={status}>Creative Developer</IntroTitle>
             </IntroText>
           </>
@@ -39,6 +38,7 @@ const IntroContent = styled.section`
 `;
 
 const IntroText = styled.header`
+  z-index: 3;
   margin-left: 25%;
   margin-top: -6%;
   width: 100%;
@@ -113,9 +113,8 @@ const IntroTitle = styled.h2`
   margin: 0;
   letter-spacing: 0.1rem;
   color: ${props => props.theme.headingColor};
-  -webkit-text-stroke: 1px ${props => props.theme.headingColor};
+  font-weight: normal;
   line-height: 1.1em;
-  font-weight: lighter;
 
   @media (min-width: ${props => props.theme.desktop}px) {
     font-size: 110px;
@@ -132,12 +131,6 @@ const IntroTitle = styled.h2`
   @media (max-width: 400px) {
     font-size: 42px;
   }
-`;
-
-const IntroTitleAbs = styled(IntroTitle)`
-  position: absolute;
-  z-index: 2;
-  color: transparent;
 `;
 
 const IntroTitleLabel = styled.span`

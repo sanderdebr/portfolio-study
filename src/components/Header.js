@@ -104,7 +104,7 @@ const HeaderWrapper = styled.header`
   position: fixed;
   padding: 0;
   width: 45px;
-  z-index: 1;
+  z-index: 2;
   top: ${props => props.theme.spacingOuter.desktop}px;
   left: ${props => props.theme.spacingOuter.desktop}px;
   bottom: ${props => props.theme.spacingOuter.desktop}px;

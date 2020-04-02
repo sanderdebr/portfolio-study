@@ -10,7 +10,8 @@ import { BrowserRouter, Switch, Route, useLocation } from "react-router-dom";
 import styled, {
   ThemeProvider,
   createGlobalStyle,
-  css
+  css,
+  ThemeContext
 } from "styled-components";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import { Transition, TransitionGroup } from "react-transition-group";

@@ -10,9 +10,9 @@ const Logo = () => {
 
   useEffect(() => {
     const groups = Array.from(document.querySelectorAll("#eq8f6pzz6u41 g"));
-    logo.current.addEventListener("mouseenter", () => toggle(groups));
+    logo.current.addEventListener("click", () => toggle(groups));
     // logo.current.addEventListener("mouseleave", () =>
-    //   setTimeout(() => toggle(groups), 1500)
+    //   setTimeout(() => toggle(groups), 500)
     // );
   }, []);
 
@@ -142,6 +142,10 @@ const Logo = () => {
 
 const LogoWrapper = styled.svg`
   pointer-events: all;
+  transition: transform 400ms ${props => props.theme.curveFastoutSlowin};
+  &:hover {
+    transform: rotate(360deg);
+  }
 `;
 
 export default Logo;
