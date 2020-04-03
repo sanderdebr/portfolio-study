@@ -39,19 +39,13 @@ export default function Effects({ down }) {
   return (
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray="passes" scene={scene} camera={camera} />
-      <sSAOPass
-        attachArray="passes"
-        args={[scene, camera, 1024, 1024]}
-        kernelRadius={0.8}
-        maxDistance={0.4}
-      />
-      {/* <shaderPass
+      <shaderPass
         attachArray="passes"
         args={[FXAAShader]}
         material-uniforms-resolution-value={[1 / size.width, 1 / size.height]}
-      /> */}
+      />
       {/* <waterPass attachArray="passes" factor={1.5} /> */}
-      {/* <unrealBloomPass attachArray="passes" args={[undefined, 1.6, 1, 0.7]} /> */}
+      <unrealBloomPass attachArray="passes" args={[aspect, 1, 1, 0]} />
       {/* <glitchPass attachArray="passes" factor={down ? 1 : 0} /> */}
     </effectComposer>
   );

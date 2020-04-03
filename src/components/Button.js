@@ -1,8 +1,9 @@
 import React from "react";
 import Loader from "./Loader";
 import Icon from "./Icon";
+import { Link } from "./Link";
 import styled, { css, useTheme } from "styled-components";
-import rgba from "../utils/rgba";
+import { rgba } from "../utils/style";
 
 const ButtonContent = ({
   iconRight,
@@ -57,7 +58,7 @@ const ButtonContent = ({
   );
 };
 
-const Button = props => {
+export const Button = props => {
   const { className, style, loading, ...otherProps } = props;
 
   return (
@@ -66,6 +67,42 @@ const Button = props => {
     </ButtonContainer>
   );
 };
+
+export const LinkButton = props => {
+  const { className, style, href, rel, target, ...rest } = props;
+
+  return (
+    <ButtonContainer
+      as="a"
+      className={className}
+      style={style}
+      href={href}
+      rel={rel || target === "_blank" ? "noopener noreferrer" : null}
+      target={target}
+      {...rest}
+    >
+      <ButtonContent {...props} />
+    </ButtonContainer>
+  );
+};
+
+export const RouterButton = props => {
+  const { className, style, to, secondary, ...rest } = props;
+
+  return (
+    <ButtonContainer
+      as={ButtonLink}
+      className={className}
+      style={style}
+      to={to}
+      secondary={secondary ? 1 : 0}
+    >
+      <ButtonContent secondary={secondary} {...rest} />
+    </ButtonContainer>
+  );
+};
+
+const ButtonLink = ({ secondary, ...rest }) => <Link {...rest} />;
 
 const ButtonLoader = styled(Loader)`
   position: absolute;

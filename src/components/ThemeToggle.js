@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled, { css, useTheme } from "styled-components";
-import rgba from "../utils/rgba";
+import { rgba } from "../utils/style";
 import { useAppContext } from "../hooks";
 
 import "../utils/toggleAnimation.css";
@@ -88,7 +88,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
               height="214.727852"
               x="0"
               transform="matrix(1 0 0 1 403.72550000000001 292.63607400000001)"
-              fill={rgba(theme.headingColor, 0.05)}
+              fill={theme.id === "light" ? theme.textColor : theme.accentColor}
               stroke="none"
               strokeWidth="1"
               rx="50"

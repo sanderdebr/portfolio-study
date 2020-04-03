@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { Transition } from "react-transition-group";
 import prerender from "../utils/prerender";
-import rgba from "../utils/rgba";
+import { rgba } from "../utils/style";
 import { revealText, clipText } from "../utils/style";
 const World = lazy(() => import("../components/World"));
 
@@ -66,9 +66,9 @@ const IntroName = styled.h1`
   margin-top: 0;
   font-weight: bold;
   line-height: 1;
-  opacity: 1;
   font-size: 24px;
   animation: ${clipText} 800ms ease;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 
   &::after {
     content: "";
@@ -112,9 +112,11 @@ const IntroTitle = styled.h2`
   font-size: 80px;
   margin: 0;
   letter-spacing: 0.1rem;
-  color: ${props => props.theme.headingColor};
+  color: white;
   font-weight: normal;
   line-height: 1.1em;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  opacity: ${props => (props.theme.id === "light" ? 0.5 : 1)};
 
   @media (min-width: ${props => props.theme.desktop}px) {
     font-size: 110px;
@@ -131,185 +133,6 @@ const IntroTitle = styled.h2`
   @media (max-width: 400px) {
     font-size: 42px;
   }
-`;
-
-const IntroTitleLabel = styled.span`
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  position: absolute;
-`;
-
-const IntroTitleRow = styled.span`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: relative;
-
-  ${props =>
-    props.prerender &&
-    css`
-      opacity: 0;
-    `}
-`;
-
-const AnimTextReveal = props => keyframes`
-  0% { color: ${rgba(props.theme.accentColor, 0)}; }
-  50% { color: ${rgba(props.theme.accentColor, 0)}; }
-  60% { color: ${props.theme.accentColor}; }
-  100% { color: ${props.theme.accentColor}; }
-`;
-
-const AnimTextRevealMask = keyframes`
-  0% {
-    opacity: 1;
-    transform: scaleX(0);
-    transform-origin: left;
-  }
-  50% {
-    opacity: 1;
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-  51% {
-    opacity: 1;
-    transform: scaleX(1);
-    transform-origin: right;
-  }
-  100% {
-    opacity: 1;
-    transform: scaleX(0);
-    transform-origin: right;
-  }
-`;
-
-const IntroTitleWord = styled.span`
-  position: relative;
-  display: flex;
-  align-items: center;
-  line-height: 1;
-  animation-duration: 1.5s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
-  color: ${props => rgba(props.theme.colorTitle, 0)};
-  transition: opacity 0.5s ease 0.4s;
-
-  ${props =>
-    props.status === "entering" &&
-    css`
-      animation-name: ${AnimTextReveal(props)};
-    `}
-
-  ${props =>
-    props.status === "entered" &&
-    css`
-      color: ${props.theme.colorTitle};
-    `}
-
-  ${props =>
-    props.status === "exiting" &&
-    css`
-      color: ${props.theme.colorTitle};
-      opacity: 0;
-      position: absolute;
-      top: 0;
-      z-index: 0;
-    `}
-
-  &::after {
-    content: '';
-    width: 100%;
-    height: 100%;
-    background: ${props => props.theme.accentColor};
-    opacity: 0;
-    animation-duration: 1.5s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ${props => props.theme.curveFastoutSlowin};
-    transform-origin: left;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-
-    ${props =>
-      props.status === "entering" &&
-      css`
-        animation-name: ${AnimTextRevealMask};
-      `}
-
-    ${props =>
-      props.status === "entered" &&
-      css`
-        opacity: 1;
-        transform: scaleX(0);
-        transform-origin: right;
-      `}
-  }
-
-  ${props =>
-    props.delay &&
-    css`
-      animation-delay: ${props.delay};
-
-      &::after {
-        animation-delay: ${props.delay};
-      }
-    `}
-
-  ${props =>
-    props.plus &&
-    css`
-      &::before {
-        content: "+";
-        margin-right: 10px;
-        opacity: 0.4;
-      }
-    `}
-`;
-
-const AnimLineIntro = keyframes`
-  0% {
-    transform: scaleX(0);
-    opacity: 1;
-  }
-  100% {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-`;
-
-const IntroTitleLine = styled.span`
-  content: "";
-  height: 2px;
-  background: ${props => rgba(props.theme.textColor, 0.3)};
-  width: 120%;
-  display: flex;
-  margin-left: 20px;
-  animation-duration: 0.8s;
-  animation-delay: 1s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
-  transform-origin: left;
-  opacity: 0;
-
-  ${props =>
-    props.status === "entering" &&
-    css`
-      animation-name: ${AnimLineIntro};
-    `}
-
-  ${props =>
-    props.status === "entered" &&
-    css`
-      transform: scaleX(1);
-      opacity: 1;
-    `}
 `;
 
 export default Intro;

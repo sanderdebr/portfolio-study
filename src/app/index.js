@@ -89,7 +89,7 @@ const AppRoutes = () => {
         <style>{fontStyles}</style>
       </Helmet>
       <GlobalStyles />
-      {!isEdge && <Cursor />}
+      {/* {!isEdge && <Cursor />} */}
       <Header location={location} />
       <TransitionGroup
         component={AppMainContent}
@@ -132,6 +132,7 @@ export const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
     font-weight: 300;
     line-height: 1.7rem;
+    /* cursor: url('https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8-draggable-list/cursor.png'), auto; */
     &:after {
       position: fixed;
       top: 0;
@@ -152,7 +153,7 @@ export const GlobalStyles = createGlobalStyle`
       ${props =>
         !props.theme.isEdge &&
         css`
-          cursor: none;
+          /* cursor: none; */
         `};
     }
 

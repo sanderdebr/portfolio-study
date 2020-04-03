@@ -1,4 +1,3 @@
-import rgba from "../utils/rgba";
 import isEdge from "../utils/isEdge";
 
 const fontStack = [
@@ -49,7 +48,7 @@ const dark = {
   ...media,
   ...spacing,
   ...base,
-  backgroundColor: "rgb(18, 32, 54)",
+  backgroundColor: "#020207",
   headingColor: base.colorWhite,
   textColor: "rgb(160,168,220)",
   accentColor: "rgb(211, 0, 105)"
@@ -61,8 +60,8 @@ const light = {
   ...spacing,
   ...base,
   backgroundColor: "rgb(242, 242, 242)",
-  headingColor: base.colorBlack,
-  textColor: rgba(base.colorBlack, 0.5),
+  headingColor: "grey",
+  textColor: "rgb(160,168,220)",
   accentColor: "rgb(211, 0, 105)"
 };
 

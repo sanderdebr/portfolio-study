@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { useRef, useMemo } from "react";
+import React, { useState, useCallback, useRef, useMemo } from "react";
 import { useFrame, useThree } from "react-three-fiber";
 
 export default function Particles({ count, mouse, color }) {
@@ -66,9 +66,9 @@ export default function Particles({ count, mouse, color }) {
   });
   return (
     <>
-      <pointLight ref={light} distance={40} intensity={8} color={color} />
+      <pointLight ref={light} distance={40} intensity={8} color={"black"} />
       <instancedMesh ref={mesh} args={[null, null, count]}>
-        <sphereBufferGeometry attach="geometry" args={[0.2, 0]} />
+        <sphereBufferGeometry attach="geometry" args={[0.5, 32, 32]} />
         <meshPhongMaterial attach="material" color={color} />
       </instancedMesh>
     </>

@@ -4,7 +4,7 @@ import styled, { css, useTheme } from "styled-components/macro";
 import { navLinks, socialLinks } from "../data/nav";
 import { useWindowSize, useAppContext } from "../hooks";
 import { Transition } from "react-transition-group";
-import rgba from "../utils/rgba";
+import { rgba } from "../utils/style";
 import NavToggle from "./NavToggle";
 import Icon from "./Icon";
 import Logo from "./Logo";

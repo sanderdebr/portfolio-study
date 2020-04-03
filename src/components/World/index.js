@@ -10,14 +10,15 @@ import React, {
 } from "react";
 import { Canvas, useFrame, useThree } from "react-three-fiber";
 import styled, { useTheme } from "styled-components";
+import { useThemeContext } from "../../hooks";
 import lerp from "lerp";
 import Text from "./Text";
 import Effects from "./Effects";
 import Sparks from "./Sparks";
 import Particles from "./Particles";
 import Number from "./Number";
-
-import { useThemeContext } from "../../hooks";
+import Controls from "./Controls";
+import Spheres from "./Spheres";
 
 function World() {
   const [hovered, hover] = useState(false);
@@ -35,25 +36,27 @@ function World() {
     <CanvasWrapper>
       <Canvas
         pixelRatio={Math.min(2, isMobile ? window.devicePixelRatio : 1)}
-        camera={{ fov: 100, position: [0, 0, 20] }}
+        camera={{ fov: 100, position: [0, 0, 50] }}
         onMouseMove={onMouseMove}
         onMouseUp={() => set(false)}
         onMouseDown={() => set(true)}
         onCreated={({ gl }) => {
-          gl.gammaInput = true;
           gl.toneMapping = THREE.Uncharted2ToneMapping;
+          gl.setClearColor(new THREE.Color("#020207"));
         }}
       >
+        <Controls />
         <fog attach="fog" args={["white", 50, 190]} />
         <ambientLight intensity={1.1} />
-        <pointLight position={[100, 100, 100]} intensity={2.2} />
-        <pointLight position={[-100, -100, -100]} intensity={5} color="red" />
-        <Number mouse={mouse} hover={hover} />
-        <Particles
-          color={theme.headingColor}
-          count={isMobile ? 500 : 1000}
-          mouse={mouse}
+        <pointLight position={[100, 100, 100]} intensity={1.2} />
+        <pointLight
+          position={[-100, -100, -100]}
+          intensity={5}
+          color={theme.id === "light" ? theme.textColor : theme.accentColor}
         />
+        <Number mouse={mouse} hover={hover} />
+        {/* <Particles color={"black"} count={isMobile ? 125 : 250} mouse={mouse} /> */}
+        <Spheres mouse={mouse} />
         {/* <Sparks
           count={20}
           mouse={mouse}
@@ -76,7 +79,7 @@ const CanvasWrapper = styled.div`
   z-index: 1;
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   top: 0;
   left: 0;
 `;
