@@ -2,7 +2,7 @@ import * as THREE from "three";
 import React, { useRef, useMemo } from "react";
 import { useFrame, useThree } from "react-three-fiber";
 
-export default function Particles({ count, mouse }) {
+export default function Particles({ count, mouse, color }) {
   const mesh = useRef();
   const light = useRef();
   const { size, viewport } = useThree();
@@ -38,7 +38,7 @@ export default function Particles({ count, mouse }) {
       t = particle.t += speed / 2;
       const a = Math.cos(t) + Math.sin(t * 1) / 10;
       const b = Math.sin(t) + Math.cos(t * 2) / 10;
-      const s = Math.cos(t);
+      const s = Math.max(1.5, Math.cos(t) * 5);
       particle.mx += (mouse.current[0] - particle.mx) * 0.01;
       particle.my += (mouse.current[1] * -1 - particle.my) * 0.01;
       // Update the dummy object
@@ -66,10 +66,10 @@ export default function Particles({ count, mouse }) {
   });
   return (
     <>
-      <pointLight ref={light} distance={40} intensity={8} color="lightblue" />
+      <pointLight ref={light} distance={40} intensity={8} color={color} />
       <instancedMesh ref={mesh} args={[null, null, count]}>
-        <dodecahedronBufferGeometry attach="geometry" args={[0.2, 0]} />
-        <meshPhongMaterial attach="material" color="#050505" />
+        <sphereBufferGeometry attach="geometry" args={[0.2, 0]} />
+        <meshPhongMaterial attach="material" color={color} />
       </instancedMesh>
     </>
   );

@@ -36,16 +36,10 @@ function Number({ mouse, hover }) {
       <group ref={ref}>
         <Text
           size={10}
-          onClick={e =>
-            window.open(
-              "https://github.com/react-spring/react-three-fiber/blob/master/whatsnew.md",
-              "_blank"
-            )
-          }
           onPointerOver={() => hover(true)}
           onPointerOut={() => hover(false)}
         >
-          4
+          S
         </Text>
       </group>
     </Suspense>

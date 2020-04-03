@@ -29,21 +29,32 @@ function World() {
     []
   );
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const theme = useThemeContext();
 
   return (
     <CanvasWrapper>
       <Canvas
         pixelRatio={Math.min(2, isMobile ? window.devicePixelRatio : 1)}
-        camera={{ fov: 100, position: [0, 0, 30] }}
+        camera={{ fov: 100, position: [0, 0, 20] }}
         onMouseMove={onMouseMove}
         onMouseUp={() => set(false)}
         onMouseDown={() => set(true)}
+        onCreated={({ gl }) => {
+          gl.gammaInput = true;
+          gl.toneMapping = THREE.Uncharted2ToneMapping;
+        }}
       >
         <fog attach="fog" args={["white", 50, 190]} />
-        <pointLight distance={100} intensity={4} color="white" />
+        <ambientLight intensity={1.1} />
+        <pointLight position={[100, 100, 100]} intensity={2.2} />
+        <pointLight position={[-100, -100, -100]} intensity={5} color="red" />
         <Number mouse={mouse} hover={hover} />
-        <Particles count={isMobile ? 5000 : 10000} mouse={mouse} />
-        <Sparks
+        <Particles
+          color={theme.headingColor}
+          count={isMobile ? 500 : 1000}
+          mouse={mouse}
+        />
+        {/* <Sparks
           count={20}
           mouse={mouse}
           colors={[
@@ -54,7 +65,7 @@ function World() {
             "lightpink",
             "lightblue"
           ]}
-        />
+        /> */}
         <Effects down={down} />
       </Canvas>
     </CanvasWrapper>

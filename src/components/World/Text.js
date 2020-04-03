@@ -14,7 +14,7 @@ const Text = forwardRef(
     },
     ref
   ) => {
-    const font = useLoader(THREE.FontLoader, "/bold.blob");
+    const font = useLoader(THREE.FontLoader, "/heebo.json");
     const config = useMemo(() => ({ font, size: 40, height: 50 }), [font]);
     const mesh = useUpdate(
       self => {

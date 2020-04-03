@@ -4,11 +4,14 @@ import { extend, useThree, useFrame } from "react-three-fiber";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
-import { UnrealBloomPass } from "./post/UnrealBloomPass";
+// import { UnrealBloomPass } from "./post/UnrealBloomPass";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
 import { BokehPass } from "three/examples/jsm/postprocessing/BokehPass";
 import { FilmPass } from "three/examples/jsm/postprocessing/FilmPass";
 import GlitchPass from "./post/Glitchpass";
 import { WaterPass } from "./post/Waterpass";
+import { SSAOPass } from "three/examples/jsm/postprocessing/SSAOPass";
+import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader";
 
 extend({
   EffectComposer,
@@ -18,7 +21,9 @@ extend({
   UnrealBloomPass,
   BokehPass,
   FilmPass,
-  GlitchPass
+  GlitchPass,
+  SSAOPass,
+  FXAAShader
 });
 
 export default function Effects({ down }) {
@@ -34,9 +39,20 @@ export default function Effects({ down }) {
   return (
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray="passes" scene={scene} camera={camera} />
-      <waterPass attachArray="passes" factor={1.5} />
-      {/* <unrealBloomPass attachArray="passes" args={[aspect, 2, 1, 0]} /> */}
-      <glitchPass attachArray="passes" factor={down ? 1 : 0} />
+      <sSAOPass
+        attachArray="passes"
+        args={[scene, camera, 1024, 1024]}
+        kernelRadius={0.8}
+        maxDistance={0.4}
+      />
+      {/* <shaderPass
+        attachArray="passes"
+        args={[FXAAShader]}
+        material-uniforms-resolution-value={[1 / size.width, 1 / size.height]}
+      /> */}
+      {/* <waterPass attachArray="passes" factor={1.5} /> */}
+      {/* <unrealBloomPass attachArray="passes" args={[undefined, 1.6, 1, 0.7]} /> */}
+      {/* <glitchPass attachArray="passes" factor={down ? 1 : 0} /> */}
     </effectComposer>
   );
 }
