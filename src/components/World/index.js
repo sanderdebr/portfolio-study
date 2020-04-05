@@ -1,11 +1,10 @@
 import * as THREE from "three";
-import React, { useState, useCallback, useRef } from "react";
+import React, { Suspense, useState, useCallback, useRef } from "react";
 import { Canvas, useFrame, useThree } from "react-three-fiber";
 import styled, { useTheme } from "styled-components";
 import { useThemeContext } from "../../hooks";
 import Effects from "./Effects";
 import Spheres from "./Spheres";
-import Swarm from "./Swarm";
 import Number from "./Number";
 import Controls from "./Controls";
 
@@ -36,21 +35,18 @@ function World() {
         }}
       >
         {/* <Controls /> */}
-        <ambientLight intensity={1.1} />
-        <pointLight position={[100, 100, 100]} intensity={1.2} />
+        <ambientLight intensity={1} />
+        <pointLight position={[100, 100, 100]} intensity={1.1} />
         <pointLight
           position={[-100, -100, -100]}
           intensity={5}
           color={theme.accentColor}
         />
-        <Number mouse={mouse} hover={hover} />
-        {/* <Swarm
-          color={theme.backgroundColor}
-          count={isMobile ? 50 : 100}
-          mouse={mouse}
-        /> */}
-        <Spheres count={isMobile ? 50 : 100} theme={theme} />
-        {/* <Effects /> */}
+        <Suspense fallback={null}>
+          <Number mouse={mouse} hover={hover} />
+          <Spheres count={isMobile ? 50 : 100} theme={theme} />
+          {/* <Effects /> */}
+        </Suspense>
       </Canvas>
     </CanvasWrapper>
   );

@@ -6,11 +6,13 @@ import React, {
   useCallback,
 } from "react";
 import { random } from "lodash";
-import { useFrame } from "react-three-fiber";
+import { useFrame, useThree } from "react-three-fiber";
+import { Tween, autoPlay, Easing } from "es6-tween";
 
 export default ({ accentColor, baseColor }) => {
   const mesh = useRef();
   const time = useRef(0);
+  const { camera } = useThree();
 
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -30,19 +32,45 @@ export default ({ accentColor, baseColor }) => {
   const timeMod = useMemo(() => random(0.1, 4, true), []);
 
   // color
-  const color = isHovered ? accentColor : isActive ? accentColor : baseColor;
+  const randomColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+    Math.random() * 256
+  )}, ${Math.floor(Math.random() * 256)})`;
+  const color = isHovered ? randomColor : isActive ? randomColor : baseColor;
 
   //useEffect of the activeState
   useEffect(() => {
     isActiveRef.current = isActive;
   }, [isActive]);
 
+  // Tween
+  // target position that camera tweens to
+  const meshGrow = {
+    x: 2,
+    y: 2,
+    z: 2,
+  };
+
+  const meshShrink = {
+    x: 1,
+    y: 1,
+    z: 1,
+  };
+
+  autoPlay(true);
+
+  function launchTween() {
+    new Tween(mesh.current.scale)
+      .to(isActiveRef.current ? meshShrink : meshGrow)
+      .easing(Easing.Back.InOut)
+      .start();
+  }
+
   // raf loop
   useFrame(() => {
     mesh.current.rotation.y += 0.01 * timeMod;
     if (isActiveRef.current) {
       time.current += 0.03;
-      mesh.current.position.y = position[1] + Math.sin(time.current) * 10;
+      // mesh.current.position.x = position[0] + Math.sin(time.current) * 5;
     }
   });
 
@@ -72,7 +100,10 @@ export default ({ accentColor, baseColor }) => {
     <mesh
       ref={mesh}
       position={position}
-      onClick={(e) => onClick(e)}
+      onClick={(e) => {
+        onClick(e);
+        launchTween();
+      }}
       onPointerOver={(e) => onHover(e, true)}
       onPointerOut={(e) => onHover(e, false)}
     >

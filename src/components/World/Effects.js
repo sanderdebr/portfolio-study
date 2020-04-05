@@ -1,45 +1,45 @@
-import * as THREE from "three";
-import React, { useRef, useMemo, useEffect } from "react";
-import { Canvas, extend, useFrame, useThree } from "react-three-fiber";
-import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
-import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass";
-import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
-import { AfterimagePass } from "three/examples/jsm/postprocessing/AfterimagePass";
-import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader";
-import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
-import { WaterPass } from "./post/Waterpass";
-
-// Makes these prototypes available as "native" jsx-string elements
-extend({
+import { useMemo, useEffect } from "react";
+import { useLoader, useThree, useFrame } from "react-three-fiber";
+import {
+  SMAAImageLoader,
+  BlendFunction,
+  KernelSize,
+  BloomEffect,
   EffectComposer,
-  ShaderPass,
+  EffectPass,
   RenderPass,
-  WaterPass,
-  AfterimagePass,
-  UnrealBloomPass,
-});
+  SMAAEffect,
+  GammaCorrectionEffect,
+  BokehEffect,
+} from "postprocessing";
+
+// Fix smaa loader signature
+// Will not be neccessary next version: https://github.com/vanruesc/postprocessing/commit/f05bb85fc9548458ee5e4a24026f308f0a8b72d4
+const _load = SMAAImageLoader.prototype.load;
+SMAAImageLoader.prototype.load = function (_, set) {
+  return _load.bind(this)(set);
+};
 
 export default function Effects() {
-  const composer = useRef();
-  const { scene, gl, size, camera } = useThree();
-  const aspect = useMemo(() => new THREE.Vector2(size.width, size.height), [
-    size,
-  ]);
-  useEffect(() => void composer.current.setSize(size.width, size.height), [
-    size,
-  ]);
-  useFrame(() => composer.current.render(), 1);
-  return (
-    <effectComposer ref={composer} args={[gl]}>
-      <renderPass attachArray="passes" scene={scene} camera={camera} />
-      <afterimagePass attachArray="passes" uniforms-damp-value={0.3} />
-      <unrealBloomPass attachArray="passes" args={[aspect, 1, 1, 0]} />
-      <shaderPass
-        attachArray="passes"
-        args={[FXAAShader]}
-        uniforms-resolution-value={[1 / size.width, 1 / size.height]}
-        renderToScreen
-      />
-    </effectComposer>
-  );
+  const { gl, scene, camera, size } = useThree();
+  const smaa = useLoader(SMAAImageLoader);
+  const composer = useMemo(() => {
+    const composer = new EffectComposer(gl);
+    composer.addPass(new RenderPass(scene, camera));
+    const smaaEffect = new SMAAEffect(...smaa);
+    smaaEffect.colorEdgesMaterial.setEdgeDetectionThreshold(0.1);
+    const gammaCorrection = new GammaCorrectionEffect();
+    const bokehEffect = new BokehEffect({
+      focus: 1,
+      aperture: 2,
+      maxBlur: 1,
+    });
+    composer.addPass(new EffectPass(camera, bokehEffect));
+    const effectPass = new EffectPass(camera);
+    effectPass.renderToScreen = true;
+    composer.addPass(effectPass);
+    return composer;
+  }, []);
+  useEffect(() => void composer.setSize(size.width, size.height), [size]);
+  return useFrame((_, delta) => composer.render(delta), 1);
 }
