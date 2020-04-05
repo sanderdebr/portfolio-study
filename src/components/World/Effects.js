@@ -1,52 +1,45 @@
 import * as THREE from "three";
 import React, { useRef, useMemo, useEffect } from "react";
-import { extend, useThree, useFrame } from "react-three-fiber";
+import { Canvas, extend, useFrame, useThree } from "react-three-fiber";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
-// import { UnrealBloomPass } from "./post/UnrealBloomPass";
-import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
-import { BokehPass } from "three/examples/jsm/postprocessing/BokehPass";
-import { FilmPass } from "three/examples/jsm/postprocessing/FilmPass";
-import GlitchPass from "./post/Glitchpass";
-import { WaterPass } from "./post/Waterpass";
-import { SSAOPass } from "three/examples/jsm/postprocessing/SSAOPass";
+import { AfterimagePass } from "three/examples/jsm/postprocessing/AfterimagePass";
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
+import { WaterPass } from "./post/Waterpass";
 
+// Makes these prototypes available as "native" jsx-string elements
 extend({
   EffectComposer,
   ShaderPass,
   RenderPass,
   WaterPass,
+  AfterimagePass,
   UnrealBloomPass,
-  BokehPass,
-  FilmPass,
-  GlitchPass,
-  SSAOPass,
-  FXAAShader
 });
 
-export default function Effects({ down }) {
+export default function Effects() {
   const composer = useRef();
   const { scene, gl, size, camera } = useThree();
   const aspect = useMemo(() => new THREE.Vector2(size.width, size.height), [
-    size
+    size,
   ]);
   useEffect(() => void composer.current.setSize(size.width, size.height), [
-    size
+    size,
   ]);
   useFrame(() => composer.current.render(), 1);
   return (
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray="passes" scene={scene} camera={camera} />
+      <afterimagePass attachArray="passes" uniforms-damp-value={0.3} />
+      <unrealBloomPass attachArray="passes" args={[aspect, 1, 1, 0]} />
       <shaderPass
         attachArray="passes"
         args={[FXAAShader]}
-        material-uniforms-resolution-value={[1 / size.width, 1 / size.height]}
+        uniforms-resolution-value={[1 / size.width, 1 / size.height]}
+        renderToScreen
       />
-      {/* <waterPass attachArray="passes" factor={1.5} /> */}
-      <unrealBloomPass attachArray="passes" args={[aspect, 1, 1, 0]} />
-      {/* <glitchPass attachArray="passes" factor={down ? 1 : 0} /> */}
     </effectComposer>
   );
 }

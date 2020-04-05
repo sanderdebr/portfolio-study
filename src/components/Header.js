@@ -20,7 +20,7 @@ const HeaderIcons = () => (
   </HeaderNavIcons>
 );
 
-const Header = props => {
+const Header = (props) => {
   const { menuOpen, dispatch } = useAppContext();
   const headerRef = useRef();
   const { location } = props;
@@ -50,7 +50,7 @@ const Header = props => {
           {navLinks.map(({ label, pathname, hash }, index) => (
             <HeaderNavLink
               exact
-              isActive={match => isMatch({ match, hash })}
+              isActive={(match) => isMatch({ match, hash })}
               delay={300 + index * 100}
               key={label}
               to={{ pathname, hash }}
@@ -67,7 +67,7 @@ const Header = props => {
         in={menuOpen}
         timeout={{ enter: 0, exit: 500 }}
       >
-        {status => (
+        {(status) => (
           <HeaderMobileNav status={status}>
             {navLinks.map(({ label, pathname, hash }, index) => (
               <HeaderMobileNavLink
@@ -105,20 +105,20 @@ const HeaderWrapper = styled.header`
   padding: 0;
   width: 45px;
   z-index: 2;
-  top: ${props => props.theme.spacingOuter.desktop}px;
-  left: ${props => props.theme.spacingOuter.desktop}px;
-  bottom: ${props => props.theme.spacingOuter.desktop}px;
+  top: ${(props) => props.theme.spacingOuter.desktop}px;
+  left: ${(props) => props.theme.spacingOuter.desktop}px;
+  bottom: ${(props) => props.theme.spacingOuter.desktop}px;
 
-  @media (max-width: ${props => props.theme.tablet}px) {
-    top: ${props => props.theme.spacingOuter.tablet}px;
-    left: ${props => props.theme.spacingOuter.tablet}px;
-    bottom: ${props => props.theme.spacingOuter.tablet}px;
+  @media (max-width: ${(props) => props.theme.tablet}px) {
+    top: ${(props) => props.theme.spacingOuter.tablet}px;
+    left: ${(props) => props.theme.spacingOuter.tablet}px;
+    bottom: ${(props) => props.theme.spacingOuter.tablet}px;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px),
-    (max-height: ${props => props.theme.mobile}px) {
-    top: ${props => props.theme.spacingOuter.mobile}px;
-    left: ${props => props.theme.spacingOuter.mobile}px;
+  @media (max-width: ${(props) => props.theme.mobile}px),
+    (max-height: ${(props) => props.theme.mobile}px) {
+    top: ${(props) => props.theme.spacingOuter.mobile}px;
+    left: ${(props) => props.theme.spacingOuter.mobile}px;
     bottom: auto;
   }
 `;
@@ -139,8 +139,8 @@ const HeaderNav = styled.nav`
   max-width: 45px;
   position: relative;
 
-  @media (max-width: ${props => props.theme.mobile}px),
-    (max-height: ${props => props.theme.mobile}px) {
+  @media (max-width: ${(props) => props.theme.mobile}px),
+    (max-height: ${(props) => props.theme.mobile}px) {
     display: none;
   }
 `;
@@ -153,7 +153,7 @@ const HeaderNavList = styled.div`
 
 const HeaderNavLink = styled(NavLink)`
   padding: 20px;
-  color: ${props => props.theme.headingColor};
+  color: ${(props) => props.theme.headingColor};
   text-decoration: none;
   font-weight: 400;
   font-size: 1rem;
@@ -166,7 +166,7 @@ const HeaderNavLink = styled(NavLink)`
   &:active,
   &:focus,
   &.active {
-    color: ${props => props.theme.headingColor};
+    color: ${(props) => props.theme.headingColor};
   }
 
   &::after {
@@ -176,9 +176,9 @@ const HeaderNavLink = styled(NavLink)`
     right: 17.5px;
     left: 17.5px;
     height: 2px;
-    background: ${props => props.theme.accentColor};
+    background: ${(props) => props.theme.accentColor};
     transform: scaleX(0) translateY(-2px);
-    transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
+    transition: transform 0.4s ${(props) => props.theme.curveFastoutSlowin};
     transform-origin: right;
   }
 
@@ -199,15 +199,15 @@ const HeaderNavIcons = styled.div`
   position: relative;
   z-index: 16;
 
-  @media (max-width: ${props => props.theme.mobile}px),
-    (max-height: ${props => props.theme.mobile}px) {
+  @media (max-width: ${(props) => props.theme.mobile}px),
+    (max-height: ${(props) => props.theme.mobile}px) {
     flex-direction: row;
     position: absolute;
     bottom: 30px;
     left: 10px;
   }
 
-  @media ${props => props.theme.mobileLS} {
+  @media ${(props) => props.theme.mobileLS} {
     transform: none;
     flex-direction: column;
     align-items: center;
@@ -217,21 +217,21 @@ const HeaderNavIcons = styled.div`
 
 const HeaderNavIconLink = styled.a.attrs({
   target: "_blank",
-  rel: "noopener noreferrer"
+  rel: "noopener noreferrer",
 })`
   display: flex;
   padding: 10px;
 `;
 
 const HeaderNavIcon = styled(Icon)`
-  fill: ${props => props.theme.textColor};
+  fill: ${(props) => props.theme.textColor};
   transition: fill 0.4s ease;
   position: relative;
 
   ${/* sc-selector */ HeaderNavIconLink}:hover &,
   ${/* sc-selector */ HeaderNavIconLink}:focus &,
   ${/* sc-selector */ HeaderNavIconLink}:active & {
-    fill: ${props => props.theme.accentColor};
+    fill: ${(props) => props.theme.accentColor};
   }
 `;
 
@@ -241,21 +241,21 @@ const HeaderMobileNav = styled.nav`
   right: 0;
   bottom: 0;
   left: 0;
-  background: ${props => rgba(props.theme.backgroundColor, 0.9)};
+  background: ${(props) => rgba(props.theme.backgroundColor, 0.9)};
   transform: translateX(
-    ${props => (props.status === "entered" ? "0%" : "-100%")}
+    ${(props) => (props.status === "entered" ? "0%" : "-100%")}
   );
   transition-property: transform, background;
   transition-duration: 0.5s;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: ${(props) => props.theme.curveFastoutSlowin};
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(10px);
 
-  @media (max-width: ${props => props.theme.mobile}px),
-    (max-height: ${props => props.theme.mobile}px) {
+  @media (max-width: ${(props) => props.theme.mobile}px),
+    (max-height: ${(props) => props.theme.mobile}px) {
     display: flex;
   }
 `;
@@ -265,16 +265,16 @@ const HeaderMobileNavLink = styled(NavLink)`
   font-size: 22px;
   text-align: center;
   text-decoration: none;
-  color: ${props => props.theme.headingColor};
+  color: ${(props) => props.theme.headingColor};
   padding: 20px 40px;
   opacity: 0;
   transform: translateY(50%);
-  transition: all 600ms ${props => props.theme.curveFastoutSlowin};
-  transition-delay: ${props => props.delay}ms;
+  transition: all 600ms ${(props) => props.theme.curveFastoutSlowin};
+  transition-delay: ${(props) => props.delay}ms;
   position: relative;
   top: -15px;
 
-  @media ${props => props.theme.mobileLS} {
+  @media ${(props) => props.theme.mobileLS} {
     top: auto;
   }
 
@@ -286,7 +286,7 @@ const HeaderMobileNavLink = styled(NavLink)`
     font-size: 30px;
   }
 
-  ${props =>
+  ${(props) =>
     props.status === "entered" &&
     css`
       opacity: 1;
@@ -300,12 +300,12 @@ const HeaderMobileNavLink = styled(NavLink)`
     width: 100%;
     top: 0;
     left: 0;
-    background: ${props => props.theme.backgroundColor};
+    background: ${(props) => props.theme.backgroundColor};
     transform: scaleY(1);
-    transition: transform 600ms ${props => props.theme.curveFastoutSlowin};
-    transition-delay: ${props => props.delay}ms;
+    transition: transform 600ms ${(props) => props.theme.curveFastoutSlowin};
+    transition-delay: ${(props) => props.delay}ms;
     transform-origin: bottom;
-    ${props =>
+    ${(props) =>
       props.status === "entered" &&
       css`
         transform: scaleY(0);
@@ -313,7 +313,7 @@ const HeaderMobileNavLink = styled(NavLink)`
   }
 
   &:hover {
-    color: ${props => props.theme.textColor};
+    color: ${(props) => props.theme.textColor};
   }
 `;
 

@@ -10,7 +10,7 @@ const Intro = () => {
   return (
     <IntroContent>
       <Transition appear={!prerender} in={!prerender} timeout={3000}>
-        {status => (
+        {(status) => (
           <>
             {!prerender && (
               <Suspense fallback={null}>
@@ -38,22 +38,22 @@ const IntroContent = styled.section`
 `;
 
 const IntroText = styled.header`
-  z-index: 3;
+  z-index: 1;
   margin-left: 25%;
   margin-top: -6%;
   width: 100%;
   position: relative;
   max-width: 400px;
 
-  @media (min-width: ${props => props.theme.desktop}px) {
+  @media (min-width: ${(props) => props.theme.desktop}px) {
     max-width: 600px;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${(props) => props.theme.mobile}px) {
     margin: 25px 0 0 25px;
   }
 
-  @media ${props => props.theme.mobileLS} {
+  @media ${(props) => props.theme.mobileLS} {
     top: -16px;
   }
 `;
@@ -61,7 +61,7 @@ const IntroText = styled.header`
 const IntroName = styled.h1`
   text-transform: uppercase;
   letter-spacing: 0.3em;
-  color: ${props => props.theme.accentColor};
+  color: ${(props) => props.theme.accentColor};
   margin-bottom: 20px;
   margin-top: 0;
   font-weight: bold;
@@ -81,27 +81,27 @@ const IntroName = styled.h1`
     transform: scaleX(0);
     transform-origin: 0 50%;
     pointer-events: none;
-    background-color: ${props => props.theme.accentColor};
-    animation: ${revealText} 800ms ${props => props.theme.curveFastoutSlowin};
+    background-color: ${(props) => props.theme.accentColor};
+    animation: ${revealText} 800ms ${(props) => props.theme.curveFastoutSlowin};
   }
 
-  @media (min-width: ${props => props.theme.desktop}px) {
+  @media (min-width: ${(props) => props.theme.desktop}px) {
     font-size: 28px;
   }
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${(props) => props.theme.tablet}px) {
     font-size: 18px;
     margin-bottom: 0px;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${(props) => props.theme.mobile}px) {
     margin-bottom: 20px;
     letter-spacing: 0.2em;
     white-space: nowrap;
     overflow: hidden;
   }
 
-  @media ${props => props.theme.mobileLS} {
+  @media ${(props) => props.theme.mobileLS} {
     margin-bottom: 20px;
     margin-top: 30px;
   }
@@ -112,13 +112,14 @@ const IntroTitle = styled.h2`
   font-size: 80px;
   margin: 0;
   letter-spacing: 0.1rem;
-  color: white;
+  color: ${(props) => props.theme.headingColor};
   font-weight: normal;
   line-height: 1.1em;
   text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-  opacity: ${props => (props.theme.id === "light" ? 0.5 : 1)};
+  opacity: 1;
+  /* opacity: ${(props) => (props.theme.id === "light" ? 0.5 : 1)}; */
 
-  @media (min-width: ${props => props.theme.desktop}px) {
+  @media (min-width: ${(props) => props.theme.desktop}px) {
     font-size: 110px;
   }
 

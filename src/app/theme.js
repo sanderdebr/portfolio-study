@@ -12,7 +12,7 @@ const fontStack = [
   "Ubuntu",
   "Cantarell",
   "Helvetica Neue",
-  "sans-serif"
+  "sans-serif",
 ];
 
 const spacing = {
@@ -20,8 +20,8 @@ const spacing = {
   spacingOuter: {
     desktop: 60,
     tablet: 40,
-    mobile: 30
-  }
+    mobile: 30,
+  },
 };
 
 const media = {
@@ -29,7 +29,7 @@ const media = {
   laptop: 1280,
   tablet: 1024,
   mobile: 696,
-  mobileLS: `(max-width: 820px) and (max-height: 420px)`
+  mobileLS: `(max-width: 820px) and (max-height: 420px)`,
 };
 
 const base = {
@@ -40,7 +40,7 @@ const base = {
   fontStack: fontStack.join(", "),
   colorWhite: "rgb(255, 255, 255)",
   colorBlack: "rgb(0, 0, 0)",
-  isEdge
+  isEdge,
 };
 
 const dark = {
@@ -48,10 +48,10 @@ const dark = {
   ...media,
   ...spacing,
   ...base,
-  backgroundColor: "#020207",
+  backgroundColor: "#09091f",
   headingColor: base.colorWhite,
   textColor: "rgb(160,168,220)",
-  accentColor: "rgb(211, 0, 105)"
+  accentColor: "rgb(211, 0, 105)",
 };
 
 const light = {
@@ -59,10 +59,10 @@ const light = {
   ...media,
   ...spacing,
   ...base,
-  backgroundColor: "rgb(242, 242, 242)",
-  headingColor: "grey",
+  backgroundColor: "rgb(255, 255, 255)",
+  headingColor: "#09091f",
   textColor: "rgb(160,168,220)",
-  accentColor: "rgb(211, 0, 105)"
+  accentColor: "rgb(211, 0, 105)",
 };
 
 export const theme = { dark, light };

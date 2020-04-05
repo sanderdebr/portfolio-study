@@ -4,14 +4,14 @@ import React, {
   Suspense,
   useReducer,
   useEffect,
-  createContext
+  createContext,
 } from "react";
 import { BrowserRouter, Switch, Route, useLocation } from "react-router-dom";
 import styled, {
   ThemeProvider,
   createGlobalStyle,
   css,
-  ThemeContext
+  ThemeContext,
 } from "styled-components";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import { Transition, TransitionGroup } from "react-transition-group";
@@ -60,7 +60,7 @@ const App = () => {
   const { currentTheme } = state;
 
   useEffect(() => dispatch({ type: "setTheme", value: theme[storedTheme] }), [
-    storedTheme
+    storedTheme,
   ]);
 
   return (
@@ -89,7 +89,7 @@ const AppRoutes = () => {
         <style>{fontStyles}</style>
       </Helmet>
       <GlobalStyles />
-      {/* {!isEdge && <Cursor />} */}
+      {!isEdge && <Cursor />}
       <Header location={location} />
       <TransitionGroup
         component={AppMainContent}
@@ -98,7 +98,7 @@ const AppRoutes = () => {
         role="main"
       >
         <Transition timeout={300}>
-          {status => (
+          {(status) => (
             <TransitionContext.Provider value={{ status }}>
               <AppPage status={status}>
                 <Suspense fallback={<Fragment>Loading...</Fragment>}>
@@ -123,9 +123,9 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
-    font-family: ${props => props.theme.fontStack};
-    background-color: ${props => props.theme.backgroundColor};
-    color: ${props => props.theme.textColor};
+    font-family: ${(props) => props.theme.fontStack};
+    background-color: ${(props) => props.theme.backgroundColor};
+    color: ${(props) => props.theme.textColor};
     border: 0;
     margin: 0;
     width: 100vw;
@@ -150,7 +150,7 @@ export const GlobalStyles = createGlobalStyle`
     *::before,
     *::after {
       box-sizing: inherit;
-      ${props =>
+      ${(props) =>
         !props.theme.isEdge &&
         css`
           /* cursor: none; */
@@ -158,10 +158,10 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     ::selection {
-      background: ${props => props.theme.accentColor}; 
+      background: ${(props) => props.theme.accentColor}; 
     }
     ::-moz-selection {
-      background: ${props => props.theme.accentColor}; ;
+      background: ${(props) => props.theme.accentColor}; ;
     }
 `;
 
@@ -182,13 +182,13 @@ const AppPage = styled.div`
   grid-row: 1;
   transition: opacity 0.3s ease;
 
-  ${props =>
+  ${(props) =>
     (props.status === "exiting" || props.status === "entering") &&
     css`
       opacity: 0;
     `}
 
-  ${props =>
+  ${(props) =>
     props.status === "entered" &&
     css`
       transition-duration: 0.5s;

@@ -6,7 +6,7 @@ import React, {
   useCallback,
   useEffect,
   useRef,
-  useMemo
+  useMemo,
 } from "react";
 import { Canvas, useFrame, useThree } from "react-three-fiber";
 import lerp from "lerp";
@@ -16,7 +16,7 @@ function Number({ mouse, hover }) {
   const ref = useRef();
   const { size, viewport } = useThree();
   const aspect = size.width / viewport.width;
-  useFrame(state => {
+  useFrame((state) => {
     if (ref.current) {
       ref.current.position.x = lerp(
         ref.current.position.x,

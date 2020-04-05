@@ -11,8 +11,8 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
 
   const toggleButton = useRef();
 
-  const toggleAnimation = groups => {
-    groups.forEach(g => {
+  const toggleAnimation = (groups) => {
+    groups.forEach((g) => {
       if (g.classList.contains("active")) {
         g.classList.remove("active");
         g.classList.add("active-reverse");
@@ -34,7 +34,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
   }, []);
 
   return (
-    <div ref={toggleButton}>
+    <a ref={toggleButton}>
       <ThemeToggleButton iconOnly isMobile={isMobile} {...otherProps}>
         <ThemeToggleSVG
           width="100"
@@ -88,7 +88,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
               height="214.727852"
               x="0"
               transform="matrix(1 0 0 1 403.72550000000001 292.63607400000001)"
-              fill={theme.id === "light" ? theme.textColor : theme.accentColor}
+              fill="#ccc"
               stroke="none"
               strokeWidth="1"
               rx="50"
@@ -348,12 +348,13 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
           </g>
         </ThemeToggleSVG>
       </ThemeToggleButton>
-    </div>
+    </a>
   );
 };
 
 const ThemeToggleSVG = styled.svg`
   pointer-events: all;
+  cursor: pointer;
 `;
 
 const ThemeToggleButton = styled.div`
@@ -362,29 +363,29 @@ const ThemeToggleButton = styled.div`
   width: auto;
   height: auto;
   padding: 6px;
-  top: ${props => props.theme.spacingOuter.desktop - 8}px;
-  right: ${props => props.theme.spacingOuter.desktop - 24}px;
+  top: ${(props) => props.theme.spacingOuter.desktop - 8}px;
+  right: ${(props) => props.theme.spacingOuter.desktop - 24}px;
   transform: translate3d(0, 0, 0);
 
-  @media (max-width: ${props => props.theme.tablet}px) {
-    top: ${props =>
+  @media (max-width: ${(props) => props.theme.tablet}px) {
+    top: ${(props) =>
       props.isMobile ? "unset" : `${props.theme.spacingOuter.tablet - 8}px`};
-    right: ${props =>
+    right: ${(props) =>
       props.isMobile ? "10px" : `${props.theme.spacingOuter.tablet - 8}px`};
   }
 
-  ${props =>
+  ${(props) =>
     props.isMobile &&
     css`
       top: unset;
       bottom: 20px;
     `}
 
-  ${props =>
+  ${(props) =>
     !props.isMobile &&
     css`
-      @media (max-width: ${props => props.theme.mobile}px),
-        (max-height: ${props => props.theme.mobile}px) {
+      @media (max-width: ${(props) => props.theme.mobile}px),
+        (max-height: ${(props) => props.theme.mobile}px) {
         display: none;
       }
     `}

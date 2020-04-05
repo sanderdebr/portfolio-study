@@ -1,28 +1,16 @@
 import * as THREE from "three";
-import ReactDOM from "react-dom";
-import React, {
-  Suspense,
-  useState,
-  useCallback,
-  useEffect,
-  useRef,
-  useMemo
-} from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { Canvas, useFrame, useThree } from "react-three-fiber";
 import styled, { useTheme } from "styled-components";
 import { useThemeContext } from "../../hooks";
-import lerp from "lerp";
-import Text from "./Text";
 import Effects from "./Effects";
-import Sparks from "./Sparks";
-import Particles from "./Particles";
+import Spheres from "./Spheres";
+import Swarm from "./Swarm";
 import Number from "./Number";
 import Controls from "./Controls";
-import Spheres from "./Spheres";
 
 function World() {
   const [hovered, hover] = useState(false);
-  const [down, set] = useState(false);
   const mouse = useRef([0, 0]);
   const onMouseMove = useCallback(
     ({ clientX: x, clientY: y }) =>
@@ -35,41 +23,34 @@ function World() {
   return (
     <CanvasWrapper>
       <Canvas
+        gl={{ alpha: true, antialias: true, logarithmicDepthBuffer: true }}
         pixelRatio={Math.min(2, isMobile ? window.devicePixelRatio : 1)}
-        camera={{ fov: 100, position: [0, 0, 50] }}
+        camera={{
+          fov: 100,
+          position: [0, 0, 30],
+        }}
         onMouseMove={onMouseMove}
-        onMouseUp={() => set(false)}
-        onMouseDown={() => set(true)}
         onCreated={({ gl }) => {
-          gl.toneMapping = THREE.Uncharted2ToneMapping;
-          gl.setClearColor(new THREE.Color("#020207"));
+          gl.toneMapping = THREE.ACESFilmicToneMapping;
+          gl.outputEncoding = THREE.sRGBEncoding;
         }}
       >
-        <Controls />
-        <fog attach="fog" args={["white", 50, 190]} />
+        {/* <Controls /> */}
         <ambientLight intensity={1.1} />
         <pointLight position={[100, 100, 100]} intensity={1.2} />
         <pointLight
           position={[-100, -100, -100]}
           intensity={5}
-          color={theme.id === "light" ? theme.textColor : theme.accentColor}
+          color={theme.accentColor}
         />
         <Number mouse={mouse} hover={hover} />
-        {/* <Particles color={"black"} count={isMobile ? 125 : 250} mouse={mouse} /> */}
-        <Spheres mouse={mouse} />
-        {/* <Sparks
-          count={20}
+        {/* <Swarm
+          color={theme.backgroundColor}
+          count={isMobile ? 50 : 100}
           mouse={mouse}
-          colors={[
-            "#A2CCB6",
-            "#FCEEB5",
-            "#EE786E",
-            "#e0feff",
-            "lightpink",
-            "lightblue"
-          ]}
         /> */}
-        <Effects down={down} />
+        <Spheres count={isMobile ? 50 : 100} theme={theme} />
+        {/* <Effects /> */}
       </Canvas>
     </CanvasWrapper>
   );

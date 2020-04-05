@@ -1,36 +1,27 @@
 import * as THREE from "three";
-import React, { useState, useCallback, useRef, useMemo } from "react";
+import React, { useRef, useMemo } from "react";
+import { EventDispatcher } from "three";
 import { useFrame, useThree } from "react-three-fiber";
 
-export default function Particles({ count, mouse, color }) {
+function Swarm({ count = 50, mouse, color }) {
   const mesh = useRef();
-  const light = useRef();
-  const { size, viewport } = useThree();
-  const aspect = size.width / viewport.width;
-
   const dummy = useMemo(() => new THREE.Object3D(), []);
-  // Generate some random positions, speed factors and timings
+
   const particles = useMemo(() => {
     const temp = [];
     for (let i = 0; i < count; i++) {
       const t = Math.random() * 100;
       const factor = 20 + Math.random() * 100;
-      const speed = 0.01 + Math.random() / 200;
-      const xFactor = -50 + Math.random() * 100;
-      const yFactor = -50 + Math.random() * 100;
-      const zFactor = -50 + Math.random() * 100;
+      const speed = 0.01 + Math.random() / 2000;
+      const xFactor = -20 + Math.random() * 40;
+      const yFactor = -20 + Math.random() * 40;
+      const zFactor = -20 + Math.random() * 40;
       temp.push({ t, factor, speed, xFactor, yFactor, zFactor, mx: 0, my: 0 });
     }
     return temp;
   }, [count]);
-  // The innards of this hook will run every frame
-  useFrame(state => {
-    // Makes the light follow the mouse
-    light.current.position.set(
-      mouse.current[0] / aspect,
-      -mouse.current[1] / aspect,
-      0
-    );
+
+  useFrame((state) => {
     // Run through the randomized data to calculate some movement
     particles.forEach((particle, i) => {
       let { t, factor, speed, xFactor, yFactor, zFactor } = particle;
@@ -38,7 +29,7 @@ export default function Particles({ count, mouse, color }) {
       t = particle.t += speed / 2;
       const a = Math.cos(t) + Math.sin(t * 1) / 10;
       const b = Math.sin(t) + Math.cos(t * 2) / 10;
-      const s = Math.max(1.5, Math.cos(t) * 5);
+      const s = Math.cos(t) * 2;
       particle.mx += (mouse.current[0] - particle.mx) * 0.01;
       particle.my += (mouse.current[1] * -1 - particle.my) * 0.01;
       // Update the dummy object
@@ -64,13 +55,18 @@ export default function Particles({ count, mouse, color }) {
     });
     mesh.current.instanceMatrix.needsUpdate = true;
   });
+
   return (
     <>
-      <pointLight ref={light} distance={40} intensity={8} color={"black"} />
       <instancedMesh ref={mesh} args={[null, null, count]}>
-        <sphereBufferGeometry attach="geometry" args={[0.5, 32, 32]} />
-        <meshPhongMaterial attach="material" color={color} />
+        <sphereBufferGeometry attach="geometry" args={[1, 32, 32]} />
+        <meshPhongMaterial
+          attach="material"
+          color={color === "white" ? "#ccc" : color}
+        />
       </instancedMesh>
     </>
   );
 }
+
+export default Swarm;
