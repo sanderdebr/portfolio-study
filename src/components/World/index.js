@@ -22,7 +22,12 @@ function World() {
   return (
     <CanvasWrapper>
       <Canvas
-        gl={{ alpha: true, antialias: true, logarithmicDepthBuffer: true }}
+        gl={{
+          alpha: true,
+          antialias: true,
+          logarithmicDepthBuffer: false,
+          powerPreference: "high-performance",
+        }}
         pixelRatio={Math.min(2, isMobile ? window.devicePixelRatio : 1)}
         camera={{
           fov: 100,

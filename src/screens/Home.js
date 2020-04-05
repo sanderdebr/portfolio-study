@@ -1,15 +1,17 @@
-import React, { Fragment } from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import Intro from "./Intro";
 import AboutMe from "./AboutMe";
 
-const Home = props => {
+const Home = (props) => {
+  const [pullBallHidden, setPullBallHidden] = useState(false);
+
   return (
-    <Fragment>
+    <>
       <Helmet title="Sander de Bruijn" />
-      <Intro />
+      <Intro pullBallHidden={pullBallHidden} />
       <AboutMe />
-    </Fragment>
+    </>
   );
 };
 

@@ -45,23 +45,19 @@ export default ({ accentColor, baseColor }) => {
   // Tween
   // target position that camera tweens to
   const meshGrow = {
-    x: 2,
-    y: 2,
-    z: 2,
+    scale: { x: 1.5, y: 1.5, z: 1.5 },
   };
 
   const meshShrink = {
-    x: 1,
-    y: 1,
-    z: 1,
+    scale: { x: 1, y: 1, z: 1 },
   };
 
   autoPlay(true);
 
   function launchTween() {
-    new Tween(mesh.current.scale)
+    new Tween(mesh.current)
       .to(isActiveRef.current ? meshShrink : meshGrow)
-      .easing(Easing.Back.InOut)
+      .easing(Easing.Cubic.InOut)
       .start();
   }
 
@@ -70,7 +66,7 @@ export default ({ accentColor, baseColor }) => {
     mesh.current.rotation.y += 0.01 * timeMod;
     if (isActiveRef.current) {
       time.current += 0.03;
-      // mesh.current.position.x = position[0] + Math.sin(time.current) * 5;
+      mesh.current.position.y = position[1] + Math.sin(time.current) * 5;
     }
   });
 
@@ -107,7 +103,7 @@ export default ({ accentColor, baseColor }) => {
       onPointerOver={(e) => onHover(e, true)}
       onPointerOut={(e) => onHover(e, false)}
     >
-      <sphereBufferGeometry attach="geometry" args={[3, 30, 30]} />
+      <sphereBufferGeometry attach="geometry" args={[2, 30, 30]} />
       <meshStandardMaterial
         attach="material"
         color={color}
