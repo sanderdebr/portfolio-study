@@ -5,6 +5,7 @@ import prerender from "../utils/prerender";
 import { revealText, clipText } from "../utils/style";
 import { useWindowSize, useThemeContext } from "../hooks";
 import { rgba } from "../utils/style";
+import PullBall from "../components/PullBall";
 
 const World = lazy(() => import("../components/World"));
 
@@ -28,7 +29,7 @@ const Intro = (props) => {
               <IntroTitle status={status}>Creative Developer</IntroTitle>
             </IntroText>
             {windowSize.width > theme.tablet && (
-              <MemoizedPullBall isHidden={pullBallHidden} status={status} />
+              <PullBall isHidden={pullBallHidden} status={status} />
             )}
           </>
         )}
@@ -144,56 +145,5 @@ const IntroTitle = styled.h2`
     font-size: 42px;
   }
 `;
-
-const AnimPullBall = keyframes`
-  0% {
-    transform: translate3d(-1px, 0, 0);
-    opacity: 0;
-  }
-  20% {
-    transform: translate3d(-1px, 0, 0);
-    opacity: 1;
-  }
-  100% {
-    transform: translate3d(-1px, 8px, 0);
-    opacity: 0;
-  }
-`;
-
-const PullBall = styled.div`
-  border: 2px solid ${(props) => rgba(props.theme.textColor, 0.4)};
-  border-radius: 20px;
-  width: 26px;
-  height: 38px;
-  position: fixed;
-  bottom: 64px;
-  transition-property: opacity, transform;
-  transition-duration: 0.6s;
-  transition-timing-function: ease;
-  opacity: ${(props) =>
-    props.status === "entered" && !props.isHidden ? 1 : 0};
-  transform: translate3d(0, ${(props) => (props.isHidden ? "20px" : 0)}, 0);
-
-  &::before {
-    content: "";
-    height: 7px;
-    width: 2px;
-    background: ${(props) => rgba(props.theme.textColor, 0.4)};
-    border-radius: 4px;
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    transform: translateX(-1px);
-    animation: ${css`
-      ${AnimPullBall} 2s ease infinite
-    `};
-  }
-
-  @media ${(props) => props.theme.mobileLS} {
-    display: none;
-  }
-`;
-
-const MemoizedPullBall = memo(PullBall);
 
 export default memo(Intro);

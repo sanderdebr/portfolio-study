@@ -10,7 +10,7 @@ const Home = (props) => {
     <>
       <Helmet title="Sander de Bruijn" />
       <Intro pullBallHidden={pullBallHidden} />
-      <AboutMe />
+      {/* <AboutMe /> */}
     </>
   );
 };

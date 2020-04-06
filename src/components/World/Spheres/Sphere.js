@@ -8,6 +8,7 @@ import React, {
 import { random } from "lodash";
 import { useFrame, useThree } from "react-three-fiber";
 import { Tween, autoPlay, Easing } from "es6-tween";
+import { randomColor } from "../../../utils/style";
 
 export default ({ accentColor, baseColor }) => {
   const mesh = useRef();
@@ -16,6 +17,7 @@ export default ({ accentColor, baseColor }) => {
 
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [activeColor, setActiveColor] = useState("black");
 
   const isActiveRef = useRef(isActive);
 
@@ -32,9 +34,6 @@ export default ({ accentColor, baseColor }) => {
   const timeMod = useMemo(() => random(0.1, 4, true), []);
 
   // color
-  const randomColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
-    Math.random() * 256
-  )}, ${Math.floor(Math.random() * 256)})`;
   const color = isHovered ? randomColor : isActive ? randomColor : baseColor;
 
   //useEffect of the activeState
@@ -71,18 +70,16 @@ export default ({ accentColor, baseColor }) => {
   });
 
   // Events
-  const setHovered = useCallback(
+  const onHover = useCallback(
     (e, value) => {
+      document.body.style.cursor = "pointer";
+      const color = randomColor();
       e.stopPropagation();
+      setActiveColor(color);
       setIsHovered(value);
     },
     [setIsHovered]
   );
-
-  const onHover = (e, value) => {
-    document.body.style.cursor = "pointer";
-    setHovered(e, value);
-  };
 
   const onClick = useCallback(
     (e) => {
@@ -100,13 +97,13 @@ export default ({ accentColor, baseColor }) => {
         onClick(e);
         launchTween();
       }}
-      onPointerOver={(e) => onHover(e, true)}
+      onPointerOver={(e) => onHover(e, true, color)}
       onPointerOut={(e) => onHover(e, false)}
     >
       <sphereBufferGeometry attach="geometry" args={[2, 30, 30]} />
       <meshStandardMaterial
         attach="material"
-        color={color}
+        color={activeColor}
         roughness={0.6}
         metalness={0.1}
       />
