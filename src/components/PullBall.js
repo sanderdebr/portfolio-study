@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { rgba } from "../utils/style";
 import clamp from "lodash-es/clamp";
@@ -7,8 +7,34 @@ import { useGesture } from "react-with-gesture";
 
 const PullBall = (props) => {
   const circle = useRef();
+  const text = useRef();
+  const [active, setActive] = useState(false);
+
+  const handleDown = () => {
+    circle.current.classList.add("active");
+  };
+
+  const handleUp = () => {
+    circle.current.classList.remove("active");
+  };
+
   const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }));
   const bind = useGesture(({ down, delta, velocity }) => {
+    if (!active) {
+      setActive(true);
+    }
+    if (active) {
+      console.log("niet actief");
+      setActive(false);
+      setTimeout(() => alert(), 5000);
+    }
+
+    if (down) {
+      if (delta[0] < 0 || delta[0] > 0) handleDown();
+    } else {
+      handleUp();
+    }
+
     velocity = clamp(velocity, 1, 8);
     set({
       xy: down ? delta : [0, 0],
@@ -16,15 +42,9 @@ const PullBall = (props) => {
     });
   });
 
-  const handleClick = () => {
-    circle.current.classList.toggle("active");
-  };
-
   return (
     <PullBallWrapper>
       <animated.svg
-        onMouseEnter={handleClick}
-        // onMouseUp={handleClick}
         className="pullball"
         {...bind()}
         style={{
@@ -32,7 +52,14 @@ const PullBall = (props) => {
         }}
       >
         <circle ref={circle} cx="50" cy="50" r="50" />
-        <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="white">
+        <text
+          ref={text}
+          x="50%"
+          y="50%"
+          text-anchor="middle"
+          dy=".3em"
+          fill="white"
+        >
           Pull me
         </text>
       </animated.svg>
@@ -62,11 +89,10 @@ const PullBallWrapper = styled.div`
     white-space: pre;
     position: fixed;
     bottom: 64px;
-    opacity: 5;
     circle {
       fill: ${(props) => rgba(props.theme.headingColor, 0.1)};
-      stroke: ${(props) => rgba(props.theme.headingColor, 0.1)};
-      stroke-width: 10;
+      stroke: ${(props) => rgba(props.theme.headingColor, 1)};
+      stroke-width: 3;
       stroke-dasharray: 1000;
       stroke-dashoffset: 1000;
       &.active {

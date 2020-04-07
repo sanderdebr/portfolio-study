@@ -9,7 +9,7 @@ const Text = forwardRef(
       vAlign = "center",
       hAlign = "center",
       size = 1,
-      color = "#000000",
+      color = "#000",
       ...props
     },
     ref
@@ -17,7 +17,7 @@ const Text = forwardRef(
     const font = useLoader(THREE.FontLoader, "/heebo.json");
     const config = useMemo(() => ({ font, size: 40, height: 50 }), [font]);
     const mesh = useUpdate(
-      self => {
+      (self) => {
         const size = new THREE.Vector3();
         self.geometry.computeBoundingBox();
         self.geometry.boundingBox.getSize(size);
@@ -31,8 +31,17 @@ const Text = forwardRef(
     return (
       <group ref={ref} {...props} scale={[0.1 * size, 0.1 * size, 0.1]}>
         <mesh ref={mesh}>
-          <textGeometry attach="geometry" args={[children, config]} />
-          <meshNormalMaterial attach="material" />
+          <textGeometry
+            attach="geometry"
+            args={[children, config]}
+            color="pink"
+          />
+          <meshStandardMaterial
+            attach="material"
+            color="white"
+            roughness={0.1}
+            metalness={0.1}
+          />
         </mesh>
       </group>
     );

@@ -10,14 +10,14 @@ import { useFrame, useThree } from "react-three-fiber";
 import { Tween, autoPlay, Easing } from "es6-tween";
 import { randomColor } from "../../../utils/style";
 
-export default ({ accentColor, baseColor }) => {
+const Sphere = ({ baseColor }) => {
   const mesh = useRef();
   const time = useRef(0);
   const { camera } = useThree();
 
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [activeColor, setActiveColor] = useState("black");
+  const [activeColor, setActiveColor] = useState(baseColor);
 
   const isActiveRef = useRef(isActive);
 
@@ -40,6 +40,10 @@ export default ({ accentColor, baseColor }) => {
   useEffect(() => {
     isActiveRef.current = isActive;
   }, [isActive]);
+
+  useEffect(() => {
+    setActiveColor(baseColor);
+  }, [baseColor]);
 
   // Tween
   // target position that camera tweens to
@@ -110,3 +114,5 @@ export default ({ accentColor, baseColor }) => {
     </mesh>
   );
 };
+
+export default Sphere;

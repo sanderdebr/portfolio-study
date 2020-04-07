@@ -1,7 +1,7 @@
 import { css, keyframes } from "styled-components";
 
 export const randomColor = () => {
-  const colors = ["00bdaa", "#400082", "#fe346e", "#f1e7b6"];
+  const colors = ["#00bdaa", "#400082", "#fe346e", "#f1e7b6"];
   return colors[Math.floor(Math.random() * 5)];
 };
 
