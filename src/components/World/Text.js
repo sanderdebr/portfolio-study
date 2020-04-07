@@ -38,7 +38,7 @@ const Text = forwardRef(
           />
           <meshStandardMaterial
             attach="material"
-            color="white"
+            color="#999"
             roughness={0.1}
             metalness={0.1}
           />

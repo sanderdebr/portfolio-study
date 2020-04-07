@@ -20,29 +20,29 @@ import { useLocalStorage } from "../hooks";
 import { initialState, reducer } from "./reducer";
 import Header from "../components/Header";
 import Cursor from "../components/Cursor";
-import HeeboLight from "../assets/fonts/Heebo-Light.woff2";
-import HeeboRegular from "../assets/fonts/Heebo-Regular.woff2";
-import HeeboMedium from "../assets/fonts/Heebo-Medium.woff2";
+import InriaLight from "../assets/fonts/InriaSans-Light.woff2";
+import InriaRegular from "../assets/fonts/InriaSans-Regular.woff2";
+import InriaBold from "../assets/fonts/InriaSans-Bold.woff2";
 import Noise from "../assets/img/noise.gif";
 import isEdge from "../utils/isEdge";
 
 export const fontStyles = `
 @font-face {
-  font-family: 'Heebo';
+  font-family: 'Inria';
   font-weight: 500;
-  src: url(${HeeboLight}) format('woff2');
+  src: url(${InriaLight}) format('woff2');
   font-display: swap;
 }
   @font-face {
-    font-family: 'Heebo';
+    font-family: 'Inria';
     font-weight: 400;
-    src: url(${HeeboRegular}) format('woff2');
+    src: url(${InriaRegular}) format('woff2');
     font-display: swap;
   }
   @font-face {
-    font-family: 'Heebo';
+    font-family: 'Inria';
     font-weight: 500;
-    src: url(${HeeboMedium}) format('woff2');
+    src: url(${InriaBold}) format('woff2');
     font-display: swap;
   }
 `;
@@ -83,9 +83,9 @@ const AppRoutes = () => {
   return (
     <Fragment>
       <Helmet>
-        <link rel="preload" href={HeeboLight} as="font" crossorigin="" />
-        <link rel="preload" href={HeeboRegular} as="font" crossorigin="" />
-        <link rel="preload" href={HeeboMedium} as="font" crossorigin="" />
+        <link rel="preload" href={InriaLight} as="font" crossorigin="" />
+        <link rel="preload" href={InriaRegular} as="font" crossorigin="" />
+        <link rel="preload" href={InriaBold} as="font" crossorigin="" />
         <style>{fontStyles}</style>
       </Helmet>
       <GlobalStyles />

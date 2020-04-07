@@ -1,6 +1,7 @@
 import isEdge from "../utils/isEdge";
 
 const fontStack = [
+  "Inria",
   "Heebo",
   "system-ui",
   "-apple-system",
@@ -50,7 +51,7 @@ const dark = {
   ...base,
   backgroundColor: "#09091f",
   headingColor: base.colorWhite,
-  textColor: "rgb(160,168,220)",
+  textColor: "#999",
   accentColor: "rgb(211, 0, 105)",
 };
 
@@ -60,8 +61,8 @@ const light = {
   ...spacing,
   ...base,
   backgroundColor: "rgb(255, 255, 255)",
-  headingColor: "#09091f",
-  textColor: "rgb(160,168,220)",
+  headingColor: base.colorBlack,
+  textColor: "#999",
   accentColor: "rgb(211, 0, 105)",
 };
 

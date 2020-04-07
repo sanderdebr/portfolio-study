@@ -8,31 +8,37 @@ import { useGesture } from "react-with-gesture";
 const PullBall = (props) => {
   const circle = useRef();
   const text = useRef();
-  const [active, setActive] = useState(false);
 
   const handleDown = () => {
     circle.current.classList.add("active");
   };
 
-  const handleUp = () => {
-    circle.current.classList.remove("active");
+  let myTime;
+  const handlePull = () => {
+    myTime = setTimeout(() => alert("Hello"), 1200);
   };
 
-  const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }));
-  const bind = useGesture(({ down, delta, velocity }) => {
-    if (!active) {
-      setActive(true);
-    }
-    if (active) {
-      console.log("niet actief");
-      setActive(false);
-      setTimeout(() => alert(), 5000);
-    }
+  const handleUp = () => {
+    circle.current.classList.remove("active");
+    clearTimeout(myTime);
+  };
 
+  let bool = true;
+  const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }));
+  const bind = useGesture(({ down, delta, velocity }, timeOut) => {
     if (down) {
-      if (delta[0] < 0 || delta[0] > 0) handleDown();
+      if (delta[1] < -100) {
+        if (bool) handlePull();
+        bool = false;
+        handleDown();
+        text.current.textContent = "Keep going";
+      } else {
+        text.current.textContent = "Further";
+      }
     } else {
       handleUp();
+      bool = true;
+      text.current.textContent = "Pull me";
     }
 
     velocity = clamp(velocity, 1, 8);
@@ -77,7 +83,7 @@ const dash = keyframes`
 
 const PullBallWrapper = styled.div`
   svg {
-    z-index: 3;
+    z-index: 4;
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -90,13 +96,19 @@ const PullBallWrapper = styled.div`
     position: fixed;
     bottom: 64px;
     circle {
-      fill: ${(props) => rgba(props.theme.headingColor, 0.1)};
-      stroke: ${(props) => rgba(props.theme.headingColor, 1)};
-      stroke-width: 3;
+      fill: ${(props) => rgba(props.theme.headingColor, 0.25)};
+      stroke: ${(props) => rgba(props.theme.colorWhite, 0.5)};
+      stroke-width: 15;
       stroke-dasharray: 1000;
       stroke-dashoffset: 1000;
+      transition: fill 150ms ease;
+      &:hover,
+      &:active,
+      &:focus {
+        fill: ${(props) => rgba(props.theme.headingColor, 0.5)};
+      }
       &.active {
-        animation: ${dash} 5s linear forwards;
+        animation: ${dash} 4s ease;
       }
     }
   }

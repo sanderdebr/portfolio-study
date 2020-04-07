@@ -49,10 +49,7 @@ function World() {
         />
         <Suspense fallback={null}>
           <Number mouse={mouse} hover={hover} />
-          <Spheres
-            count={isMobile ? 50 : 100}
-            baseColor={theme.backgroundColor}
-          />
+          <Spheres count={isMobile ? 50 : 100} themeId={theme.id} />
           {/* <Effects /> */}
         </Suspense>
       </Canvas>

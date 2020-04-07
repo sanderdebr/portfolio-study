@@ -89,6 +89,7 @@ const ThemeToggle = ({ isMobile, ...otherProps }) => {
               x="0"
               transform="matrix(1 0 0 1 403.72550000000001 292.63607400000001)"
               fill="#ccc"
+              opacity=".5"
               stroke="none"
               strokeWidth="1"
               rx="50"

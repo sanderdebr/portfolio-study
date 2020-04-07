@@ -10,10 +10,11 @@ import { useFrame, useThree } from "react-three-fiber";
 import { Tween, autoPlay, Easing } from "es6-tween";
 import { randomColor } from "../../../utils/style";
 
-const Sphere = ({ baseColor }) => {
+const Sphere = ({ themeId }) => {
   const mesh = useRef();
   const time = useRef(0);
   const { camera } = useThree();
+  const baseColor = themeId === "light" ? "#999" : "#000";
 
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
