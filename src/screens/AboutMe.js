@@ -1,10 +1,9 @@
 import React, { Fragment, memo } from "react";
 import styled, { css } from "styled-components/macro";
 import { Transition } from "react-transition-group";
-
+import Anchor from "../components/Anchor";
 import { Link } from "../components/Link";
 import { RouterButton } from "../components/Button";
-
 import ProgressiveImage from "../components/ProgressiveImage";
 import ProfileImg from "../assets/img/profile.jpg";
 import ProfileImgLarge from "../assets/img/profile-large.jpg";
@@ -14,47 +13,45 @@ import { sectionPadding } from "../utils/style";
 const ProfileText = ({ status, titleId }) => (
   <Fragment>
     <ProfileTitle status={status} id={titleId}>
-      Hi
+      <p>Hi</p>
     </ProfileTitle>
     <ProfileDescription status={status}>
       I’m Cody. Currently, I am based in Austin, working as the lead designer at{" "}
+      <Anchor as={Link} to="/projects/dtt">
+        DevTechTools
+      </Anchor>
       . I am a designer, full-stack developer, and creator of web & mobile
       solutions with a focus on motion and user experience.
     </ProfileDescription>
     <ProfileDescription status={status}>
-      In my spare time, I like to play guitar and . I’m always interested in new
-      projects, so feel free to drop me a line.
+      In my spare time, I like to play guitar and{" "}
+      <Anchor href="https://codepen.io/cbenn" target="_blank">
+        experiment with new tech
+      </Anchor>
+      . I’m always interested in new projects, so feel free to drop me a line.
     </ProfileDescription>
   </Fragment>
 );
 
-function AboutMe(props) {
-  const { id, visible, sectionRef } = props;
+function Profile(props) {
+  const { id, visible } = props;
   const titleId = `${id}-title`;
 
   return (
-    <ProfileSection
-      id={id}
-      ref={sectionRef}
-      aria-labelledby={titleId}
-      tabIndex={-1}
-    >
+    <ProfileSection id={id}>
       <Transition in={visible} timeout={0}>
         {(status) => (
           <ProfileContent>
+            {console.log(status)}
             <ProfileColumn>
               <ProfileText status={status} titleId={titleId} />
-              <ProfileButton
-                secondary
-                status={status}
-                to="/contact"
-                icon="send"
-              >
+              <ProfileButton secondary status={status} to="/contact">
                 Send me a message
               </ProfileButton>
             </ProfileColumn>
             <ProfileColumn>
               <ProfileTag aria-hidden>
+                <p>divider</p>
                 <ProfileTagText status={status}>About Me</ProfileTagText>
               </ProfileTag>
               <ProfileImage
@@ -209,7 +206,7 @@ const ProfileTag = styled.div`
 const ProfileTagText = styled.div`
   font-size: 16px;
   font-weight: 500;
-  color: ${(props) => props.theme.colorPrimary};
+  color: ${(props) => props.theme.accentColor};
   transform: translateX(-10px);
   opacity: 0;
   transition-property: opacity, transform;
@@ -242,4 +239,4 @@ const ProfileButton = styled(RouterButton)`
     `}
 `;
 
-export default memo(AboutMe);
+export default memo(Profile);

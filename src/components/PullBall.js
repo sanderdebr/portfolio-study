@@ -62,7 +62,7 @@ const PullBall = (props) => {
           ref={text}
           x="50%"
           y="50%"
-          text-anchor="middle"
+          textAnchor="middle"
           dy=".3em"
           fill="white"
         >
@@ -91,21 +91,24 @@ const PullBallWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
     white-space: pre;
     position: fixed;
     bottom: 64px;
+    border: 1px solid ${(props) => rgba(props.theme.headingColor, 0.2)};
+    text {
+      fill: ${(props) => props.theme.headingColor};
+    }
     circle {
-      fill: ${(props) => rgba(props.theme.headingColor, 0.25)};
-      stroke: ${(props) => rgba(props.theme.colorWhite, 0.5)};
+      fill: ${(props) => rgba(props.theme.headingColor, 0)};
+      stroke: ${(props) => rgba(props.theme.accentColor, 1)};
       stroke-width: 15;
       stroke-dasharray: 1000;
       stroke-dashoffset: 1000;
-      transition: fill 150ms ease;
+      transition: fill 250ms ease;
       &:hover,
       &:active,
       &:focus {
-        fill: ${(props) => rgba(props.theme.headingColor, 0.5)};
+        fill: ${(props) => rgba(props.theme.headingColor, 0.2)};
       }
       &.active {
         animation: ${dash} 4s ease;
@@ -115,5 +118,14 @@ const PullBallWrapper = styled.div`
 
   > svg:active {
     cursor: -webkit-grabbing;
+  }
+
+  @media (max-width: ${(props) => props.theme.mobile}px),
+    (max-height: ${(props) => props.theme.mobile}px) {
+    svg {
+      bottom: 24px;
+      position: fixed;
+      left: 40%;
+    }
   }
 `;

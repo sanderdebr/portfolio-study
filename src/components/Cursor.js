@@ -10,17 +10,20 @@ const Cursor = () => {
 
   const onMouseMove = (event) => {
     const { pageX: x, pageY: y } = event;
+    const { tagName } = event.target;
 
     // cursorSmall.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
     cursorFollow.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
 
     if (
       // isDescendant("A", event.target) ||
-      event.target.tagName === "A"
+      tagName === "A" ||
+      tagName === "circle" ||
+      tagName === "svg"
     ) {
-      let translateX = (1 - 2.5) * x;
-      let translateY = (1 - 2.5) * y;
-      cursorFollow.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(2.5) translateX(${x}px) translateY(${y}px)`;
+      let translateX = (1 - 3) * x;
+      let translateY = (1 - 3) * y;
+      cursorFollow.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(3) translateX(${x}px) translateY(${y}px)`;
     }
   };
 
@@ -54,10 +57,10 @@ const CursorSmall = styled.div`
 
 const CursorFollow = styled.div`
   position: absolute;
-  width: 50px;
-  height: 50px;
-  top: -25px;
-  left: -25px;
+  width: 20px;
+  height: 20px;
+  top: -10px;
+  left: -10px;
   pointer-events: none;
   border-radius: 50%;
   border: 1px solid ${(props) => props.theme.headingColor};

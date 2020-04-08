@@ -132,6 +132,7 @@ export const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
     font-weight: 300;
     line-height: 1.7rem;
+    scroll-behavior: smooth;
     /* cursor: url('https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8-draggable-list/cursor.png'), auto; */
     &:after {
       position: fixed;

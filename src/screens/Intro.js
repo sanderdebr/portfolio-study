@@ -12,7 +12,6 @@ const World = lazy(() => import("../components/World"));
 const Intro = (props) => {
   const windowSize = useWindowSize();
   const theme = useThemeContext();
-  const { pullBallHidden } = props;
 
   return (
     <IntroContent>
@@ -28,9 +27,7 @@ const Intro = (props) => {
               <IntroName status={status}>Sander de Bruijn</IntroName>
               <IntroTitle status={status}>Creative Developer</IntroTitle>
             </IntroText>
-            {windowSize.width > theme.tablet && (
-              <PullBall isHidden={pullBallHidden} status={status} />
-            )}
+            <PullBall status={status} />
           </>
         )}
       </Transition>

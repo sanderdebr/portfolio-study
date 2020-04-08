@@ -42,12 +42,12 @@ const Sphere = ({ themeId }) => {
     isActiveRef.current = isActive;
   }, [isActive]);
 
+  //useEffect of the baseColor
   useEffect(() => {
     setActiveColor(baseColor);
   }, [baseColor]);
 
   // Tween
-  // target position that camera tweens to
   const meshGrow = {
     scale: { x: 1.5, y: 1.5, z: 1.5 },
   };
