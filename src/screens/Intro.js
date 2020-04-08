@@ -9,12 +9,11 @@ import PullBall from "../components/PullBall";
 
 const World = lazy(() => import("../components/World"));
 
-const Intro = (props) => {
-  const windowSize = useWindowSize();
-  const theme = useThemeContext();
+function Intro(props) {
+  const { sectionRef, ...otherProps } = props;
 
   return (
-    <IntroContent>
+    <IntroContent ref={sectionRef} {...otherProps}>
       <Transition appear={!prerender} in={!prerender} timeout={3000}>
         {(status) => (
           <>
@@ -33,7 +32,7 @@ const Intro = (props) => {
       </Transition>
     </IntroContent>
   );
-};
+}
 
 const IntroContent = styled.section`
   height: 100vh;

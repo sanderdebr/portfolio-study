@@ -13,36 +13,37 @@ import { sectionPadding } from "../utils/style";
 const ProfileText = ({ status, titleId }) => (
   <Fragment>
     <ProfileTitle status={status} id={titleId}>
-      <p>Hi</p>
+      <p>Hi!</p>
     </ProfileTitle>
     <ProfileDescription status={status}>
-      I’m Cody. Currently, I am based in Austin, working as the lead designer at{" "}
+      I'm Sander. Currently based in Breda, the Netherlands, working as a
+      designer and developer at{" "}
       <Anchor as={Link} to="/projects/dtt">
-        DevTechTools
+        Fujifilm
       </Anchor>
-      . I am a designer, full-stack developer, and creator of web & mobile
-      solutions with a focus on motion and user experience.
+      . I am a front-end designer and developer, specialized in JavaScript with
+      over 5 years of professional experience in building the web and working
+      with technologies like NodeJS.
     </ProfileDescription>
     <ProfileDescription status={status}>
-      In my spare time, I like to play guitar and{" "}
-      <Anchor href="https://codepen.io/cbenn" target="_blank">
-        experiment with new tech
+      In my spare time I like to go for a run, have a workout or{" "}
+      <Anchor href="https://dev.to/sanderdebr" target="_blank">
+        write tech tutorials
       </Anchor>
       . I’m always interested in new projects, so feel free to drop me a line.
     </ProfileDescription>
   </Fragment>
 );
 
-function Profile(props) {
-  const { id, visible } = props;
+function AboutMe(props) {
+  const { id, visible, sectionRef } = props;
   const titleId = `${id}-title`;
 
   return (
-    <ProfileSection id={id}>
+    <ProfileSection id={id} ref={sectionRef}>
       <Transition in={visible} timeout={0}>
         {(status) => (
           <ProfileContent>
-            {console.log(status)}
             <ProfileColumn>
               <ProfileText status={status} titleId={titleId} />
               <ProfileButton secondary status={status} to="/contact">
@@ -239,4 +240,4 @@ const ProfileButton = styled(RouterButton)`
     `}
 `;
 
-export default memo(Profile);
+export default memo(AboutMe);

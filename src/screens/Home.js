@@ -11,13 +11,22 @@ export default function Home(props) {
   useEffect(() => {
     const revealSections = [intro, about];
 
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-      console.log(entries, observer);
-    });
+    const sectionObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const section = entry.target;
+            observer.unobserve(section);
+            if (visibleSections.includes(section)) return;
+            setVisibleSections((prevSections) => [...prevSections, section]);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -10% 0px" }
+    );
 
     revealSections.forEach((section) => {
-      // sectionObserver.observe(section.current);
-      console.log(section);
+      sectionObserver.observe(section.current);
     });
 
     return function cleanUp() {
@@ -28,9 +37,9 @@ export default function Home(props) {
   return (
     <>
       <Helmet title="Sander de Bruijn" />
-      <Intro ref={intro} />
+      <Intro sectionRef={intro} />
       <AboutMe
-        ref={about}
+        sectionRef={about}
         visible={visibleSections.includes(about.current)}
         id="about"
       />
