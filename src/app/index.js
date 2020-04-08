@@ -55,7 +55,7 @@ export const CursorContext = createContext();
 
 const App = () => {
   console.log("rerender");
-  const [storedTheme] = useLocalStorage("theme", "dark");
+  const [storedTheme] = useLocalStorage("theme", "light");
   const [state, dispatch] = useReducer(reducer, initialState);
   const { currentTheme } = state;
 

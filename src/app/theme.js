@@ -41,6 +41,8 @@ const base = {
   fontStack: fontStack.join(", "),
   colorWhite: "rgb(255, 255, 255)",
   colorBlack: "rgb(0, 0, 0)",
+  maxWidthDesktop: 1600,
+  maxWidthLaptop: 1000,
   isEdge,
 };
 

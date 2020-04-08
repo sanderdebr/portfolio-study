@@ -1,19 +1,19 @@
-import React, { Fragment, memo } from "react";
-import styled, { css } from "styled-components/macro";
+import React, { memo } from "react";
+import styled, { css, keyframes } from "styled-components/macro";
 import { Transition } from "react-transition-group";
 import Anchor from "../components/Anchor";
 import { Link } from "../components/Link";
 import { RouterButton } from "../components/Button";
-import ProgressiveImage from "../components/ProgressiveImage";
-import ProfileImg from "../assets/img/profile.jpg";
+import ProgressiveImage from "react-progressive-graceful-image";
 import ProfileImgLarge from "../assets/img/profile-large.jpg";
 import ProfileImgPlaceholder from "../assets/img/profile-placeholder.jpg";
-import { sectionPadding } from "../utils/style";
 
 const ProfileText = ({ status, titleId }) => (
-  <Fragment>
+  <>
     <ProfileTitle status={status} id={titleId}>
-      <p>Hi!</p>
+      <p>
+        Hi there! I'm Sander, a passionate front-end developer and designer.
+      </p>
     </ProfileTitle>
     <ProfileDescription status={status}>
       I'm Sander. Currently based in Breda, the Netherlands, working as a
@@ -32,7 +32,7 @@ const ProfileText = ({ status, titleId }) => (
       </Anchor>
       . I’m always interested in new projects, so feel free to drop me a line.
     </ProfileDescription>
-  </Fragment>
+  </>
 );
 
 function AboutMe(props) {
@@ -51,20 +51,16 @@ function AboutMe(props) {
               </ProfileButton>
             </ProfileColumn>
             <ProfileColumn>
-              <ProfileTag aria-hidden>
-                <p>divider</p>
-                <ProfileTagText status={status}>About Me</ProfileTagText>
-              </ProfileTag>
-              <ProfileImage
-                reveal
-                delay={100}
-                visible={visible}
-                placeholder={ProfileImgPlaceholder}
-                srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
-                sizes={`(max-width: ${(props) =>
-                  props.theme.mobile}px) 100vw, 480px`}
-                alt=""
-              />
+              <ProfileImageWrapper status={status}>
+                <ProgressiveImage
+                  src={ProfileImgLarge}
+                  placeholder={ProfileImgPlaceholder}
+                >
+                  {(src) => (
+                    <ProfileImage src={src} alt="Profile of Sander de Bruijn" />
+                  )}
+                </ProgressiveImage>
+              </ProfileImageWrapper>
             </ProfileColumn>
           </ProfileContent>
         )}
@@ -81,17 +77,16 @@ const ProfileSection = styled.section`
   padding-top: 60px;
   padding-right: 80px;
   padding-bottom: 40px;
-  padding-left: 220px;
+  padding-left: 170px;
   display: flex;
   justify-content: center;
-  ${sectionPadding}
 
   &:focus {
     outline: none;
   }
 
   @media (min-width: ${(props) => props.theme.desktop}px) {
-    padding-left: 120px;
+    padding-left: 160px;
   }
 
   @media (max-width: ${(props) => props.theme.tablet}px) {
@@ -153,11 +148,11 @@ const ProfileColumn = styled.div`
 `;
 
 const ProfileTitle = styled.h2`
-  font-size: 42px;
+  font-size: 36px;
   margin: 0;
   font-weight: 500;
-  margin-bottom: 40px;
-  white-space: nowrap;
+  margin-bottom: 0px;
+  line-height: 3rem;
   opacity: ${(props) => (props.status === "entered" ? 1 : 0)};
   transition: opacity 0.8s ease 0.4s;
   color: ${(props) => props.theme.headingColor};
@@ -191,44 +186,6 @@ const ProfileDescription = styled.p`
   }
 `;
 
-const ProfileTag = styled.div`
-  margin-top: 220px;
-  margin-bottom: 40px;
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  grid-gap: 12px;
-  align-items: center;
-
-  @media (max-width: ${(props) => props.theme.tablet}px) {
-    margin-top: 30px;
-  }
-`;
-
-const ProfileTagText = styled.div`
-  font-size: 16px;
-  font-weight: 500;
-  color: ${(props) => props.theme.accentColor};
-  transform: translateX(-10px);
-  opacity: 0;
-  transition-property: opacity, transform;
-  transition-timing-function: ${(props) => props.theme.curveFastoutSlowin};
-  transition-duration: 0.4s;
-  transition-delay: 1.3s;
-
-  ${(props) =>
-    props.status === "entered" &&
-    css`
-      transform: translateX(0);
-      opacity: 1;
-    `}
-`;
-
-const ProfileImage = styled(ProgressiveImage)`
-  max-width: 100%;
-  width: 960px;
-  height: auto;
-`;
-
 const ProfileButton = styled(RouterButton)`
   opacity: 0;
   transition: opacity 0.8s ease 0.6s;
@@ -238,6 +195,68 @@ const ProfileButton = styled(RouterButton)`
     css`
       opacity: 1;
     `}
+`;
+
+const AnimImageReveal = keyframes`
+  0% {
+    transform: scale3d(0, 1, 1);
+    transform-origin: left;
+  }
+  49% {
+    transform: scale3d(1, 1, 1);
+    transform-origin: left;
+  }
+  50% {
+    transform: scale3d(1, 1, 1);
+    transform-origin: right;
+  }
+  100% {
+    transform: scale3d(0, 1, 1);
+    transform-origin: right;
+  }
+`;
+
+const ProfileImageWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.6s;
+
+  ${(props) =>
+    props.status === "entered" &&
+    css`
+      opacity: 1;
+    `}
+
+  ${(props) =>
+    css`
+      &::before {
+        content: "";
+        background: ${(props) => props.theme.accentColor};
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: scale3d(0, 1, 1);
+        transform-origin: left;
+        z-index: 16;
+        animation: ${props.status === "entered" &&
+        css`
+        ${AnimImageReveal} 1.8s ${props.theme.curveFastoutSlowin} ${
+          props.delay + 200
+        }ms
+      `};
+      }
+    `}
+`;
+
+const ProfileImage = styled.img`
+  max-width: 100%;
+  width: 960px;
+  height: auto;
 `;
 
 export default memo(AboutMe);
