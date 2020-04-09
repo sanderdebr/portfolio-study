@@ -49,33 +49,34 @@ export const sectionPadding = css`
   }
 `;
 
-export const revealText = keyframes`
-	0%, 50% {
-		transform-origin: 0 50%;
-	}
-	
-	60%, 100% {
-		transform-origin: 100% 50%;		
-        
-	}
-
-	
-	60% {
-		transform: scaleX(1);
-	}
-	
-	100% {
-		transform: scaleX(0);
-	}
-}`;
-
-export const clipText = keyframes`
-	from {
-		clip-path: inset(0 100% 0 0);
-	}
-	to {
-		clip-path: inset(0 0 0 0);
-	}
+export const AnimTextReveal = (color) => keyframes`
+  0% { color: ${rgba(color, 0)}; }
+  50% { color: ${rgba(color, 0)}; }
+  60% { color: ${color}; }
+  100% { color: ${color}; }
 `;
 
-export default revealText;
+export const AnimTextRevealMask = keyframes`
+  0% {
+    opacity: 1;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  51% {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+`;
+
+export default rgba;

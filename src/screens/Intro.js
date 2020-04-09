@@ -1,8 +1,7 @@
 import React, { Suspense, lazy, memo } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { Transition } from "react-transition-group";
-import prerender from "../utils/prerender";
-import { revealText, clipText } from "../utils/style";
+import { AnimTextReveal, AnimTextRevealMask } from "../utils/style";
 import { useWindowSize, useThemeContext } from "../hooks";
 import { rgba } from "../utils/style";
 import PullBall from "../components/PullBall";
@@ -14,17 +13,30 @@ function Intro(props) {
 
   return (
     <IntroContent ref={sectionRef} {...otherProps}>
-      <Transition appear={!prerender} in={!prerender} timeout={3000}>
+      <Transition appear in timeout={3000}>
         {(status) => (
           <>
-            {!prerender && (
-              <Suspense fallback={null}>
-                <World />{" "}
-              </Suspense>
-            )}
+            <Suspense fallback={null}>
+              <World />{" "}
+            </Suspense>
             <IntroText>
-              <IntroName status={status}>Sander de Bruijn</IntroName>
-              <IntroTitle status={status}>Creative Developer</IntroTitle>
+              <IntroName>
+                <IntroNameWord status={status} delay="300ms">
+                  Sander de Bruijn
+                </IntroNameWord>
+              </IntroName>
+              <IntroTitle>
+                <IntroTitleRow>
+                  <IntroTitleWord status={status} delay="600ms">
+                    Creative
+                  </IntroTitleWord>
+                </IntroTitleRow>
+                <IntroTitleRow>
+                  <IntroTitleWord delay="900ms" status={status}>
+                    Developer
+                  </IntroTitleWord>
+                </IntroTitleRow>
+              </IntroTitle>
             </IntroText>
             <PullBall status={status} />
           </>
@@ -73,23 +85,7 @@ const IntroName = styled.h1`
   font-weight: 400;
   line-height: 1;
   font-size: 24px;
-  animation: ${clipText} 800ms ease;
   text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-
-  &::after {
-    content: "";
-    position: absolute;
-    height: 30px;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    transform: scaleX(0);
-    transform-origin: 0 50%;
-    pointer-events: none;
-    background-color: ${(props) => props.theme.accentColor};
-    animation: ${revealText} 800ms ${(props) => props.theme.curveFastoutSlowin};
-  }
 
   @media (min-width: ${(props) => props.theme.desktop}px) {
     font-size: 28px;
@@ -113,6 +109,71 @@ const IntroName = styled.h1`
   }
 `;
 
+const IntroNameWord = styled.span`
+  position: relative;
+  display: inline;
+  line-height: 1;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ${(props) => props.theme.curveFastoutSlowin};
+  color: ${(props) => rgba(props.theme.accentColor, 0)};
+  transition: all 0.5s ease;
+
+  ${(props) =>
+    props.status === "entering" &&
+    css`
+      animation-name: ${AnimTextReveal(props.theme.accentColor)};
+    `}
+
+  ${(props) =>
+    props.status === "entered" &&
+    css`
+      color: ${props.theme.accentColor};
+    `}
+
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: ${(props) => props.theme.accentColor};
+    opacity: 0;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ${(props) => props.theme.curveFastoutSlowin};
+    transform-origin: left;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+
+    ${(props) =>
+      props.status === "entering" &&
+      css`
+        animation-name: ${AnimTextRevealMask};
+      `}
+
+    ${(props) =>
+      props.status === "entered" &&
+      css`
+        opacity: 1;
+        transform: scaleX(0);
+        transform-origin: right;
+      `}
+  }
+
+  ${(props) =>
+    props.delay &&
+    css`
+      animation-delay: ${props.delay};
+
+      &::after {
+        animation-delay: ${props.delay};
+      }
+    `}
+`;
+
 const IntroTitle = styled.h2`
   width: 100%;
   font-size: 90px;
@@ -123,7 +184,6 @@ const IntroTitle = styled.h2`
   line-height: 1.1em;
   text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
   opacity: 1;
-  /* opacity: ${(props) => (props.theme.id === "light" ? 0.5 : 1)}; */
 
   @media (min-width: ${(props) => props.theme.desktop}px) {
     font-size: 110px;
@@ -140,6 +200,79 @@ const IntroTitle = styled.h2`
   @media (max-width: 400px) {
     font-size: 42px;
   }
+`;
+
+const IntroTitleRow = styled.span`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+`;
+
+const IntroTitleWord = styled.span`
+  position: relative;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ${(props) => props.theme.curveFastoutSlowin};
+  color: ${(props) => rgba(props.theme.headingColor, 0)};
+  transition: opacity 0.5s ease 0.4s;
+
+  ${(props) =>
+    props.status === "entering" &&
+    css`
+      animation-name: ${AnimTextReveal(props.theme.headingColor)};
+    `}
+
+  ${(props) =>
+    props.status === "entered" &&
+    css`
+      color: ${props.theme.headingColor};
+    `}
+
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: ${(props) => props.theme.accentColor};
+    opacity: 0;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ${(props) => props.theme.curveFastoutSlowin};
+    transform-origin: left;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+
+    ${(props) =>
+      props.status === "entering" &&
+      css`
+        animation-name: ${AnimTextRevealMask};
+      `}
+
+    ${(props) =>
+      props.status === "entered" &&
+      css`
+        opacity: 1;
+        transform: scaleX(0);
+        transform-origin: right;
+      `}
+  }
+
+  ${(props) =>
+    props.delay &&
+    css`
+      animation-delay: ${props.delay};
+
+      &::after {
+        animation-delay: ${props.delay};
+      }
+    `}
 `;
 
 export default memo(Intro);

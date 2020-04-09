@@ -228,10 +228,6 @@ const ProfileImageWrapper = styled.div`
     props.status === "entered" &&
     css`
       opacity: 1;
-    `}
-
-  ${(props) =>
-    css`
       &::before {
         content: "";
         background: ${(props) => props.theme.accentColor};
@@ -243,12 +239,8 @@ const ProfileImageWrapper = styled.div`
         transform: scale3d(0, 1, 1);
         transform-origin: left;
         z-index: 16;
-        animation: ${props.status === "entered" &&
-        css`
-        ${AnimImageReveal} 1.8s ${props.theme.curveFastoutSlowin} ${
-          props.delay + 200
-        }ms
-      `};
+        animation: ${AnimImageReveal} 1.8s ${props.theme.curveFastoutSlowin};
+        animation-delay: 600ms;
       }
     `}
 `;

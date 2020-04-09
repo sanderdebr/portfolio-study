@@ -1,30 +1,28 @@
 import React, { useRef, useEffect } from "react";
 import styled, { useTheme } from "styled-components";
-import isDescendant from "../utils/isDescendant";
-import { rgba } from "../utils/style";
+// import isDescendant from "../utils/isDescendant";
+// import { rgba } from "../utils/style";
 
 const Cursor = () => {
-  const theme = useTheme();
   const cursorFollow = useRef();
   const cursorSmall = useRef();
 
   const onMouseMove = (event) => {
     const { pageX: x, pageY: y } = event;
-    const { tagName } = event.target;
 
     // cursorSmall.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
     cursorFollow.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
 
-    if (
-      // isDescendant("A", event.target) ||
-      tagName === "A" ||
-      tagName === "circle" ||
-      tagName === "svg"
-    ) {
-      let translateX = (1 - 3) * x;
-      let translateY = (1 - 3) * y;
-      cursorFollow.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(3) translateX(${x}px) translateY(${y}px)`;
-    }
+    // if (
+    //   isDescendant("A", event.target) ||
+    //   tagName === "A" ||
+    //   tagName === "circle" ||
+    //   tagName === "svg"
+    // ) {
+    //   let translateX = (1 - 3) * x;
+    //   let translateY = (1 - 3) * y;
+    //   cursorFollow.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(3) translateX(${x}px) translateY(${y}px)`;
+    // }
   };
 
   useEffect(() => {
@@ -38,7 +36,7 @@ const Cursor = () => {
   return (
     <>
       <CursorFollow ref={cursorFollow}></CursorFollow>
-      {/* <CursorSmall ref={cursorSmall}></CursorSmall> */}
+      <CursorSmall ref={cursorSmall}></CursorSmall>
     </>
   );
 };
@@ -53,6 +51,9 @@ const CursorSmall = styled.div`
   margin-top: -3px;
   margin-left: -3px;
   background: ${(props) => props.theme.accentColor};
+  transition: transform ${(props) => props.theme.easeInOutBack};
+  transition-duration: 500ms;
+  transition-delay: 0;
 `;
 
 const CursorFollow = styled.div`
@@ -67,7 +68,6 @@ const CursorFollow = styled.div`
   opacity: 0.15;
   z-index: 2;
   background: transparent;
-  transition: all 300ms ease;
 `;
 
 export default Cursor;

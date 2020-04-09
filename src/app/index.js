@@ -23,7 +23,7 @@ import Cursor from "../components/Cursor";
 import InriaLight from "../assets/fonts/InriaSans-Light.woff2";
 import InriaRegular from "../assets/fonts/InriaSans-Regular.woff2";
 import InriaBold from "../assets/fonts/InriaSans-Bold.woff2";
-import Noise from "../assets/img/noise.gif";
+import Noise from "../assets/img/noise.jpg";
 import isEdge from "../utils/isEdge";
 
 export const fontStyles = `
@@ -67,7 +67,6 @@ const App = () => {
     <HelmetProvider>
       <ThemeProvider theme={currentTheme}>
         <AppContext.Provider value={{ ...state, dispatch }}>
-          <GlobalStyles />
           <BrowserRouter>
             <AppRoutes />
           </BrowserRouter>
@@ -133,7 +132,6 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: 300;
     line-height: 1.7rem;
     scroll-behavior: smooth;
-    /* cursor: url('https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8-draggable-list/cursor.png'), auto; */
     &:after {
       position: fixed;
       top: 0;
@@ -142,7 +140,7 @@ export const GlobalStyles = createGlobalStyle`
       height: 100%;
       content: "";
       background-image: url(${Noise});
-      opacity: .0115;
+      opacity: .025;
       z-index: 0;
     }
   }
@@ -151,11 +149,6 @@ export const GlobalStyles = createGlobalStyle`
     *::before,
     *::after {
       box-sizing: inherit;
-      ${(props) =>
-        !props.theme.isEdge &&
-        css`
-          /* cursor: none; */
-        `};
     }
 
     ::selection {
