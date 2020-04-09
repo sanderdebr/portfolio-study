@@ -4,10 +4,13 @@ import { rgba } from "../utils/style";
 import clamp from "lodash-es/clamp";
 import { useSpring, animated } from "react-spring";
 import { useGesture } from "react-with-gesture";
+import { useAppContext } from "../hooks";
 
 const PullBall = (props) => {
   const circle = useRef();
   const text = useRef();
+  const pullRef = useRef();
+  const { pulled, dispatch } = useAppContext();
 
   const handleDown = () => {
     circle.current.classList.add("active");
@@ -15,7 +18,13 @@ const PullBall = (props) => {
 
   let myTime;
   const handlePull = () => {
-    myTime = setTimeout(() => alert("Hello"), 1200);
+    myTime = setTimeout(() => {
+      pullRef.current.style.display = "none";
+      dispatch({ type: "togglePulled" });
+      document.getElementById("about").scrollIntoView({
+        behavior: "smooth",
+      });
+    }, 700);
   };
 
   const handleUp = () => {
@@ -31,14 +40,14 @@ const PullBall = (props) => {
         if (bool) handlePull();
         bool = false;
         handleDown();
-        text.current.textContent = "Keep going";
+        text.current.textContent = "Keep going!";
       } else {
-        text.current.textContent = "Further";
+        text.current.textContent = "A bit more";
       }
     } else {
       handleUp();
       bool = true;
-      text.current.textContent = "Pull me";
+      text.current.textContent = "Pull to enter";
     }
 
     velocity = clamp(velocity, 1, 8);
@@ -49,12 +58,13 @@ const PullBall = (props) => {
   });
 
   return (
-    <PullBallWrapper>
+    <PullBallWrapper ref={pullRef}>
       <animated.svg
         className="pullball"
         {...bind()}
         style={{
           transform: xy.interpolate((x, y) => `translate3d(${x}px,${y}px,0)`),
+          touchAction: "none",
         }}
       >
         <circle ref={circle} cx="50" cy="50" r="50" />
@@ -66,7 +76,7 @@ const PullBall = (props) => {
           dy=".3em"
           fill="white"
         >
-          Pull me
+          Pull to enter
         </text>
       </animated.svg>
     </PullBallWrapper>
@@ -95,6 +105,7 @@ const PullBallWrapper = styled.div`
     position: fixed;
     bottom: 64px;
     border: 1px solid ${(props) => rgba(props.theme.headingColor, 0.2)};
+    font-size: 90%;
     text {
       fill: ${(props) => props.theme.headingColor};
     }
@@ -108,10 +119,10 @@ const PullBallWrapper = styled.div`
       &:hover,
       &:active,
       &:focus {
-        fill: ${(props) => rgba(props.theme.headingColor, 0.2)};
+        fill: ${(props) => rgba(props.theme.headingColor, 0.1)};
       }
       &.active {
-        animation: ${dash} 4s ease;
+        animation: ${dash} 3s ease;
       }
     }
   }

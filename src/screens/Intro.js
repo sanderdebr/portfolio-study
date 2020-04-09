@@ -19,20 +19,20 @@ function Intro(props) {
             <Suspense fallback={null}>
               <World />{" "}
             </Suspense>
-            <IntroText>
+            <IntroText status={status}>
               <IntroName>
-                <IntroNameWord status={status} delay="300ms">
+                <IntroNameWord status={status} delay="600ms">
                   Sander de Bruijn
                 </IntroNameWord>
               </IntroName>
               <IntroTitle>
                 <IntroTitleRow>
-                  <IntroTitleWord status={status} delay="600ms">
+                  <IntroTitleWord status={status} delay="800ms">
                     Creative
                   </IntroTitleWord>
                 </IntroTitleRow>
                 <IntroTitleRow>
-                  <IntroTitleWord delay="900ms" status={status}>
+                  <IntroTitleWord delay="1000ms" status={status}>
                     Developer
                   </IntroTitleWord>
                 </IntroTitleRow>
@@ -53,6 +53,7 @@ const IntroContent = styled.section`
   justify-content: center;
   flex-direction: column;
   outline: none;
+  user-select: none;
 `;
 
 const IntroText = styled.header`
@@ -68,7 +69,7 @@ const IntroText = styled.header`
   }
 
   @media (max-width: ${(props) => props.theme.mobile}px) {
-    margin: 25px 0 0 25px;
+    margin: -25px 0 0 50px;
   }
 
   @media ${(props) => props.theme.mobileLS} {
@@ -92,7 +93,7 @@ const IntroName = styled.h1`
   }
 
   @media (max-width: ${(props) => props.theme.tablet}px) {
-    font-size: 18px;
+    font-size: 22px;
     margin-bottom: 0px;
   }
 
@@ -198,7 +199,7 @@ const IntroTitle = styled.h2`
   }
 
   @media (max-width: 400px) {
-    font-size: 42px;
+    font-size: 52px;
   }
 `;
 

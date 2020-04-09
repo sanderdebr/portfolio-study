@@ -5,6 +5,7 @@ import React, {
   useReducer,
   useEffect,
   createContext,
+  useState,
 } from "react";
 import { BrowserRouter, Switch, Route, useLocation } from "react-router-dom";
 import styled, {
@@ -16,7 +17,7 @@ import styled, {
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import { Transition, TransitionGroup } from "react-transition-group";
 import { theme } from "./theme";
-import { useLocalStorage } from "../hooks";
+import { useLocalStorage, useAppContext } from "../hooks";
 import { initialState, reducer } from "./reducer";
 import Header from "../components/Header";
 import Cursor from "../components/Cursor";
@@ -78,6 +79,10 @@ const App = () => {
 
 const AppRoutes = () => {
   const location = useLocation();
+  const { pulled } = useAppContext();
+
+  // Scroll to top when not pulled yet
+  !pulled && window.scrollTo(0, 0);
 
   return (
     <Fragment>
@@ -87,7 +92,7 @@ const AppRoutes = () => {
         <link rel="preload" href={InriaBold} as="font" crossorigin="" />
         <style>{fontStyles}</style>
       </Helmet>
-      <GlobalStyles />
+      <GlobalStyles pulled={pulled} />
       {!isEdge && <Cursor />}
       <Header location={location} />
       <TransitionGroup
@@ -100,7 +105,7 @@ const AppRoutes = () => {
           {(status) => (
             <TransitionContext.Provider value={{ status }}>
               <AppPage status={status}>
-                <Suspense fallback={<Fragment>Loading...</Fragment>}>
+                <Suspense fallback={<Fragment></Fragment>}>
                   <Switch>
                     <Route exact path="/" component={Home} />
                   </Switch>
@@ -132,6 +137,7 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: 300;
     line-height: 1.7rem;
     scroll-behavior: smooth;
+    overflow-y: ${(props) => (props.pulled ? "visible" : "hidden")} ;
     &:after {
       position: fixed;
       top: 0;

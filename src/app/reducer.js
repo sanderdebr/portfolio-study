@@ -2,7 +2,8 @@ import { theme } from "./theme";
 
 export const initialState = {
   menuOpen: false,
-  currentTheme: theme.dark
+  currentTheme: theme.dark,
+  pulled: false,
 };
 
 export function reducer(state, action) {
@@ -12,7 +13,7 @@ export function reducer(state, action) {
     case "updateTheme":
       return {
         ...state,
-        currentTheme: { ...theme[state.currentTheme.id], ...action.value }
+        currentTheme: { ...theme[state.currentTheme.id], ...action.value },
       };
     case "toggleTheme": {
       const newThemeKey = state.currentTheme.id === "dark" ? "light" : "dark";
@@ -21,6 +22,8 @@ export function reducer(state, action) {
     }
     case "toggleMenu":
       return { ...state, menuOpen: !state.menuOpen };
+    case "togglePulled":
+      return { ...state, pulled: true };
     default:
       throw new Error();
   }
