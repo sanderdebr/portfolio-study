@@ -10,7 +10,7 @@ import { useFrame, useThree } from "react-three-fiber";
 import { Tween, autoPlay, Easing } from "es6-tween";
 import { randomColor } from "../../../utils/style";
 
-const Sphere = ({ themeId }) => {
+const Sphere = ({ themeId, accentColor }) => {
   const mesh = useRef();
   const time = useRef(0);
   const { camera } = useThree();
@@ -33,9 +33,6 @@ const Sphere = ({ themeId }) => {
 
   // random time mod factor
   const timeMod = useMemo(() => random(0.1, 4, true), []);
-
-  // color
-  const color = isHovered ? randomColor : isActive ? randomColor : baseColor;
 
   //useEffect of the activeState
   useEffect(() => {
@@ -102,7 +99,7 @@ const Sphere = ({ themeId }) => {
         onClick(e);
         launchTween();
       }}
-      onPointerOver={(e) => onHover(e, true, color)}
+      onPointerOver={(e) => onHover(e, true)}
       onPointerOut={(e) => onHover(e, false)}
     >
       <sphereBufferGeometry attach="geometry" args={[2, 30, 30]} />

@@ -4,7 +4,7 @@ import { useFrame } from "react-three-fiber";
 
 import Sphere from "./Sphere";
 
-export default ({ count, themeId }) => {
+export default ({ count, themeId, accentColor }) => {
   const group = useRef();
 
   useFrame(() => {
@@ -12,7 +12,7 @@ export default ({ count, themeId }) => {
   });
 
   const nodesCubes = map(new Array(count), (el, i) => {
-    return <Sphere key={i} themeId={themeId} />;
+    return <Sphere key={i} themeId={themeId} accentColor={accentColor} />;
   });
 
   return <group ref={group}>{nodesCubes}</group>;

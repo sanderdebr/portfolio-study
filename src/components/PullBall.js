@@ -4,7 +4,8 @@ import { rgba } from "../utils/style";
 import clamp from "lodash-es/clamp";
 import { useSpring, animated } from "react-spring";
 import { useGesture } from "react-with-gesture";
-import { useAppContext } from "../hooks";
+import { useAppContext, useLocalStorage } from "../hooks";
+import { useEffect } from "react";
 
 const PullBall = (props) => {
   const circle = useRef();
@@ -19,7 +20,7 @@ const PullBall = (props) => {
   let myTime;
   const handlePull = () => {
     myTime = setTimeout(() => {
-      pullRef.current.style.display = "none";
+      text.current.textContent = "Welcome";
       dispatch({ type: "togglePulled" });
       document.getElementById("about").scrollIntoView({
         behavior: "smooth",
@@ -47,7 +48,7 @@ const PullBall = (props) => {
     } else {
       handleUp();
       bool = true;
-      text.current.textContent = "Pull to enter";
+      if (!pulled) text.current.textContent = "Pull to enter";
     }
 
     velocity = clamp(velocity, 1, 8);
@@ -58,7 +59,7 @@ const PullBall = (props) => {
   });
 
   return (
-    <PullBallWrapper ref={pullRef}>
+    <PullBallWrapper pulled={pulled} ref={pullRef}>
       <animated.svg
         className="pullball"
         {...bind()}
@@ -92,6 +93,8 @@ const dash = keyframes`
 `;
 
 const PullBallWrapper = styled.div`
+  transition: opacity 350ms ease;
+  opacity: ${(props) => (props.pulled ? 0 : 1)};
   svg {
     z-index: 4;
     width: 100px;

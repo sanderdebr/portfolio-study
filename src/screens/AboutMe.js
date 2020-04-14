@@ -77,7 +77,7 @@ const ProfileSection = styled.section`
   padding-top: 60px;
   padding-right: 80px;
   padding-bottom: 40px;
-  padding-left: 170px;
+  padding-left: 120px;
   display: flex;
   justify-content: center;
 
@@ -86,7 +86,7 @@ const ProfileSection = styled.section`
   }
 
   @media (min-width: ${(props) => props.theme.desktop}px) {
-    padding-left: 160px;
+    padding-left: 180px;
   }
 
   @media (max-width: ${(props) => props.theme.tablet}px) {
@@ -217,8 +217,9 @@ const AnimImageReveal = keyframes`
 `;
 
 const ProfileImageWrapper = styled.div`
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  width: 550px;
+  height: auto;
   background: transparent;
   position: relative;
   opacity: 0;
@@ -246,8 +247,7 @@ const ProfileImageWrapper = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  max-width: 100%;
-  width: 960px;
+  width: 100%;
   height: auto;
 `;
 

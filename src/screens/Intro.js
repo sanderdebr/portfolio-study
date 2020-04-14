@@ -2,7 +2,7 @@ import React, { Suspense, lazy, memo } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { Transition } from "react-transition-group";
 import { AnimTextReveal, AnimTextRevealMask } from "../utils/style";
-import { useWindowSize, useThemeContext } from "../hooks";
+import { useLocalStorage } from "../hooks";
 import { rgba } from "../utils/style";
 import PullBall from "../components/PullBall";
 
@@ -10,6 +10,7 @@ const World = lazy(() => import("../components/World"));
 
 function Intro(props) {
   const { sectionRef, ...otherProps } = props;
+  const [storedPulled] = useLocalStorage("pulled");
 
   return (
     <IntroContent ref={sectionRef} {...otherProps}>
@@ -38,7 +39,7 @@ function Intro(props) {
                 </IntroTitleRow>
               </IntroTitle>
             </IntroText>
-            <PullBall status={status} />
+            {!storedPulled && <PullBall status={status} />}
           </>
         )}
       </Transition>
@@ -59,7 +60,7 @@ const IntroContent = styled.section`
 const IntroText = styled.header`
   z-index: 1;
   margin-left: -22.5%;
-  margin-top: -2.5%;
+  margin-top: -5%;
   width: 100%;
   position: relative;
   max-width: 400px;
@@ -177,7 +178,7 @@ const IntroNameWord = styled.span`
 
 const IntroTitle = styled.h2`
   width: 100%;
-  font-size: 90px;
+  font-size: 110px;
   margin: 0;
   letter-spacing: 0.1rem;
   color: ${(props) => props.theme.headingColor};
@@ -187,7 +188,7 @@ const IntroTitle = styled.h2`
   opacity: 1;
 
   @media (min-width: ${(props) => props.theme.desktop}px) {
-    font-size: 110px;
+    font-size: 140px;
   }
 
   @media (max-width: 860px) {

@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import { Link, NavLink } from "./Link";
 import styled, { css, useTheme } from "styled-components/macro";
 import { navLinks, socialLinks } from "../data/nav";
@@ -24,9 +24,14 @@ const Header = (props) => {
   const { menuOpen, dispatch } = useAppContext();
   const headerRef = useRef();
   const { location } = props;
+  const [hashKey, setHashKey] = useState();
   const mobile = useTheme();
   const windowSize = useWindowSize();
   const isMobile = windowSize.width <= mobile || windowSize.height <= 696;
+
+  const handleNavClick = () => {
+    setHashKey(Math.random().toString(32).substr(2, 8));
+  };
 
   const handleMobileNavClick = () =>
     menuOpen && dispatch({ type: "toggleMenu" });
@@ -38,7 +43,10 @@ const Header = (props) => {
 
   return (
     <HeaderWrapper role="banner" ref={headerRef}>
-      <HeaderLogo to={{ pathname: "/", hash: "#intro" }}>
+      <HeaderLogo
+        to={{ pathname: "/", hash: "#intro", state: hashKey }}
+        onClick={handleMobileNavClick}
+      >
         <Logo />
       </HeaderLogo>
       <NavToggle
@@ -50,8 +58,9 @@ const Header = (props) => {
           {navLinks.map(({ label, pathname, hash }, index) => (
             <HeaderNavLink
               exact
-              isActive={(match) => isMatch({ match, hash })}
+              isActive={(match) => isMatch({ match, hash, state: hashKey })}
               delay={300 + index * 100}
+              onClick={handleNavClick}
               key={label}
               to={{ pathname, hash }}
             >
@@ -75,7 +84,7 @@ const Header = (props) => {
                 delay={300 + index * 100}
                 status={status}
                 onClick={handleMobileNavClick}
-                to={{ pathname, hash }}
+                to={{ pathname, hash, state: hashKey }}
               >
                 {label}
               </HeaderMobileNavLink>

@@ -79,10 +79,7 @@ const App = () => {
 
 const AppRoutes = () => {
   const location = useLocation();
-  const { pulled } = useAppContext();
-
-  // Scroll to top when not pulled yet
-  !pulled && window.scrollTo(0, 0);
+  const [storedPulled] = useLocalStorage("pulled");
 
   return (
     <Fragment>
@@ -92,7 +89,7 @@ const AppRoutes = () => {
         <link rel="preload" href={InriaBold} as="font" crossorigin="" />
         <style>{fontStyles}</style>
       </Helmet>
-      <GlobalStyles pulled={pulled} />
+      <GlobalStyles storedPulled={storedPulled} />
       {!isEdge && <Cursor />}
       <Header location={location} />
       <TransitionGroup
@@ -137,7 +134,7 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: 300;
     line-height: 1.7rem;
     scroll-behavior: smooth;
-    overflow-y: ${(props) => (props.pulled ? "visible" : "hidden")} ;
+    overflow-y: ${(props) => (props.storedPulled ? "visible" : "hidden")} ;
     &:after {
       position: fixed;
       top: 0;
