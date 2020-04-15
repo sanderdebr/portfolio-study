@@ -79,7 +79,7 @@ const App = () => {
 
 const AppRoutes = () => {
   const location = useLocation();
-  const [storedPulled] = useLocalStorage("pulled");
+  const { pulled } = useAppContext();
 
   return (
     <Fragment>
@@ -89,7 +89,7 @@ const AppRoutes = () => {
         <link rel="preload" href={InriaBold} as="font" crossorigin="" />
         <style>{fontStyles}</style>
       </Helmet>
-      <GlobalStyles storedPulled={storedPulled} />
+      <GlobalStyles pulled={pulled} />
       {!isEdge && <Cursor />}
       <Header location={location} />
       <TransitionGroup
@@ -134,7 +134,7 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: 300;
     line-height: 1.7rem;
     scroll-behavior: smooth;
-    overflow-y: ${(props) => (props.storedPulled ? "visible" : "hidden")} ;
+    overflow-y: ${(props) => (props.pulled ? "visible" : "hidden")} ;
     &:after {
       position: fixed;
       top: 0;

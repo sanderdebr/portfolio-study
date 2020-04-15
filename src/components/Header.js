@@ -2,7 +2,7 @@ import React, { Suspense, useRef, useState } from "react";
 import { Link, NavLink } from "./Link";
 import styled, { css, useTheme } from "styled-components/macro";
 import { navLinks, socialLinks } from "../data/nav";
-import { useWindowSize, useAppContext } from "../hooks";
+import { useWindowSize, useAppContext, useLocalStorage } from "../hooks";
 import { Transition } from "react-transition-group";
 import { rgba } from "../utils/style";
 import NavToggle from "./NavToggle";
@@ -28,8 +28,11 @@ const Header = (props) => {
   const mobile = useTheme();
   const windowSize = useWindowSize();
   const isMobile = windowSize.width <= mobile || windowSize.height <= 696;
+  const { pulled } = useAppContext();
+  console.log(pulled);
 
-  const handleNavClick = () => {
+  const handleNavClick = (e) => {
+    !pulled && e.preventDefault();
     setHashKey(Math.random().toString(32).substr(2, 8));
   };
 
@@ -63,6 +66,7 @@ const Header = (props) => {
               onClick={handleNavClick}
               key={label}
               to={{ pathname, hash }}
+              pulled={pulled}
             >
               {label}
             </HeaderNavLink>
@@ -189,6 +193,7 @@ const HeaderNavLink = styled(NavLink)`
     transform: scaleX(0) translateY(-2px);
     transition: transform 0.4s ${(props) => props.theme.curveFastoutSlowin};
     transform-origin: right;
+    opacity: ${(props) => (props.pulled === true ? 1 : 0)};
   }
 
   &:hover:after,

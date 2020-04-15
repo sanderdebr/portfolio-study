@@ -84,10 +84,8 @@ export default function Home(props) {
       }
     };
 
-    console.log(hasEntered);
-
     if (hash && initHash.current && hasEntered) {
-      handleHashchange(hash, false);
+      handleHashchange(storedPulled ? hash : "#intro", false);
       initHash.current = false;
     } else if (!hash && initHash.current && hasEntered) {
       window.scrollTo(0, 0);

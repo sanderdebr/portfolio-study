@@ -77,7 +77,7 @@ const ProfileSection = styled.section`
   padding-top: 60px;
   padding-right: 80px;
   padding-bottom: 40px;
-  padding-left: 120px;
+  padding-left: 150px;
   display: flex;
   justify-content: center;
 
@@ -86,7 +86,7 @@ const ProfileSection = styled.section`
   }
 
   @media (min-width: ${(props) => props.theme.desktop}px) {
-    padding-left: 180px;
+    padding-left: 260px;
   }
 
   @media (max-width: ${(props) => props.theme.tablet}px) {
@@ -120,8 +120,8 @@ const ProfileSection = styled.section`
 
 const ProfileContent = styled.div`
   display: grid;
-  grid-template-columns: 44% 48%;
-  grid-column-gap: 8%;
+  grid-template-columns: 44% 46%;
+  grid-column-gap: 6%;
   max-width: ${(props) => props.theme.maxWidthLaptop}px;
   width: 100%;
 
@@ -218,17 +218,24 @@ const AnimImageReveal = keyframes`
 
 const ProfileImageWrapper = styled.div`
   max-width: 100%;
-  width: 550px;
+  width: 500px;
   height: auto;
   background: transparent;
   position: relative;
   opacity: 0;
   transition: opacity 0.8s ease 0.6s;
 
+  @media (max-width: ${(props) => props.theme.tablet}px) {
+    width: 425px;
+  }
+
   ${(props) =>
     props.status === "entered" &&
     css`
       opacity: 1;
+      img {
+        opacity: 1;
+      }
       &::before {
         content: "";
         background: ${(props) => props.theme.accentColor};
@@ -249,6 +256,8 @@ const ProfileImageWrapper = styled.div`
 const ProfileImage = styled.img`
   width: 100%;
   height: auto;
+  opacity: 0;
+  transition: opacity 0.8s ease 1.2s;
 `;
 
 export default memo(AboutMe);

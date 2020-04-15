@@ -23,8 +23,8 @@ Link.defaultProps = {
   as: RouterLink,
 };
 
-export const NavLink = forwardRef((props, ref) => (
-  <Link as={RouterNavLink} ref={ref} {...props} />
-));
+export const NavLink = forwardRef((props, ref) => {
+  return <Link as={RouterNavLink} ref={ref} {...props} />;
+});
 
 export default Link;
