@@ -24,7 +24,7 @@ import Cursor from "../components/Cursor";
 import InriaLight from "../assets/fonts/InriaSans-Light.woff2";
 import InriaRegular from "../assets/fonts/InriaSans-Regular.woff2";
 import InriaBold from "../assets/fonts/InriaSans-Bold.woff2";
-import Noise from "../assets/img/noise.jpg";
+import Noise from "../assets/img/noise.png";
 import isEdge from "../utils/isEdge";
 
 export const fontStyles = `
@@ -56,13 +56,19 @@ export const CursorContext = createContext();
 
 const App = () => {
   console.log("rerender");
-  const [storedTheme] = useLocalStorage("theme", "light");
+  const [storedTheme] = useLocalStorage("theme", "dark");
+  const [storedPulled] = useLocalStorage("pulled");
   const [state, dispatch] = useReducer(reducer, initialState);
   const { currentTheme } = state;
 
   useEffect(() => dispatch({ type: "setTheme", value: theme[storedTheme] }), [
     storedTheme,
   ]);
+
+  useEffect(
+    () => dispatch({ type: "setPulled", value: storedPulled === "true" }),
+    [storedPulled]
+  );
 
   return (
     <HelmetProvider>
@@ -135,17 +141,7 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 1.7rem;
     scroll-behavior: smooth;
     overflow-y: ${(props) => (props.pulled ? "visible" : "hidden")} ;
-    &:after {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      content: "";
-      background-image: url(${Noise});
-      opacity: .025;
-      z-index: 0;
-    }
+    background-image: url(${Noise});
   }
 
     *,

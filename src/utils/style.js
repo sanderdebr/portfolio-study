@@ -79,4 +79,13 @@ export const AnimTextRevealMask = keyframes`
   }
 `;
 
+export const AnimTextSlide = keyframes`
+  from {
+    transform: translateY(100px)
+  }
+  to {
+    transform: translateY(0)
+  }
+`;
+
 export default rgba;

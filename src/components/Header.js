@@ -2,7 +2,7 @@ import React, { Suspense, useRef, useState } from "react";
 import { Link, NavLink } from "./Link";
 import styled, { css, useTheme } from "styled-components/macro";
 import { navLinks, socialLinks } from "../data/nav";
-import { useWindowSize, useAppContext, useLocalStorage } from "../hooks";
+import { useWindowSize, useAppContext } from "../hooks";
 import { Transition } from "react-transition-group";
 import { rgba } from "../utils/style";
 import NavToggle from "./NavToggle";
@@ -29,10 +29,9 @@ const Header = (props) => {
   const windowSize = useWindowSize();
   const isMobile = windowSize.width <= mobile || windowSize.height <= 696;
   const { pulled } = useAppContext();
-  console.log(pulled);
 
   const handleNavClick = (e) => {
-    !pulled && e.preventDefault();
+    if (!pulled) e.preventDefault();
     setHashKey(Math.random().toString(32).substr(2, 8));
   };
 
@@ -61,12 +60,11 @@ const Header = (props) => {
           {navLinks.map(({ label, pathname, hash }, index) => (
             <HeaderNavLink
               exact
-              isActive={(match) => isMatch({ match, hash, state: hashKey })}
+              isActive={(match) => isMatch({ match, hash })}
               delay={300 + index * 100}
               onClick={handleNavClick}
               key={label}
-              to={{ pathname, hash }}
-              pulled={pulled}
+              to={{ pathname, hash, state: hashKey }}
             >
               {label}
             </HeaderNavLink>
@@ -193,7 +191,6 @@ const HeaderNavLink = styled(NavLink)`
     transform: scaleX(0) translateY(-2px);
     transition: transform 0.4s ${(props) => props.theme.curveFastoutSlowin};
     transform-origin: right;
-    opacity: ${(props) => (props.pulled === true ? 1 : 0)};
   }
 
   &:hover:after,

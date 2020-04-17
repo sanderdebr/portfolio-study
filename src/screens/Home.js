@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useRouteTransition, useLocalStorage } from "../hooks";
+import { useRouteTransition, useAppContext } from "../hooks";
 import Intro from "./Intro";
 import AboutMe from "./AboutMe";
 
@@ -12,7 +12,7 @@ export default function Home(props) {
   const [visibleSections, setVisibleSections] = useState([]);
   const intro = useRef();
   const about = useRef();
-  const [storedPulled] = useLocalStorage("pulled");
+  const { pulled } = useAppContext();
 
   useEffect(() => {
     const revealSections = [intro, about];
@@ -85,7 +85,7 @@ export default function Home(props) {
     };
 
     if (hash && initHash.current && hasEntered) {
-      handleHashchange(storedPulled ? hash : "#intro", false);
+      handleHashchange(pulled ? hash : "#intro", false);
       initHash.current = false;
     } else if (!hash && initHash.current && hasEntered) {
       window.scrollTo(0, 0);
@@ -100,12 +100,12 @@ export default function Home(props) {
         scrollObserver.disconnect();
       }
     };
-  }, [hash, state, status, storedPulled]);
+  }, [hash, state, status, pulled]);
 
   return (
     <>
       <Helmet title="Sander de Bruijn" />
-      <Intro sectionRef={intro} />
+      <Intro sectionRef={intro} id="intro" />
       <AboutMe
         sectionRef={about}
         visible={visibleSections.includes(about.current)}

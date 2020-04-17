@@ -7,23 +7,31 @@ import { RouterButton } from "../components/Button";
 import ProgressiveImage from "react-progressive-graceful-image";
 import ProfileImgLarge from "../assets/img/profile-large.jpg";
 import ProfileImgPlaceholder from "../assets/img/profile-placeholder.jpg";
+import { AnimTextSlide } from "../utils/style";
 
 const ProfileText = ({ status, titleId }) => (
   <>
     <ProfileTitle status={status} id={titleId}>
-      <p>
-        Hi there! I'm Sander, a passionate front-end developer and designer.
-      </p>
+      <TextReveal>
+        <TextRevealInner status={status}>
+          Hi there! I'm Sander, a passionate
+        </TextRevealInner>
+      </TextReveal>
+      <br />
+      <TextReveal>
+        <TextRevealInner status={status}>
+          front-end developer and designer.
+        </TextRevealInner>
+      </TextReveal>
     </ProfileTitle>
     <ProfileDescription status={status}>
-      I'm Sander. Currently based in Breda, the Netherlands, working as a
-      designer and developer at{" "}
+      Currently based in Breda, the Netherlands, working as a designer and
+      developer at{" "}
       <Anchor as={Link} to="/projects/dtt">
         Fujifilm
       </Anchor>
-      . I am a front-end designer and developer, specialized in JavaScript with
-      over 5 years of professional experience in building the web and working
-      with technologies like NodeJS.
+      . I'm specialized in JavaScript with over 5 years of professional
+      experience in building the web and working with technologies like NodeJS.
     </ProfileDescription>
     <ProfileDescription status={status}>
       In my spare time I like to go for a run, have a workout or{" "}
@@ -120,7 +128,7 @@ const ProfileSection = styled.section`
 
 const ProfileContent = styled.div`
   display: grid;
-  grid-template-columns: 44% 46%;
+  grid-template-columns: 50% 40%;
   grid-column-gap: 6%;
   max-width: ${(props) => props.theme.maxWidthLaptop}px;
   width: 100%;
@@ -149,16 +157,15 @@ const ProfileColumn = styled.div`
 
 const ProfileTitle = styled.h2`
   font-size: 36px;
-  margin: 0;
   font-weight: 500;
-  margin-bottom: 0px;
+  margin-bottom: 12px;
   line-height: 3rem;
   opacity: ${(props) => (props.status === "entered" ? 1 : 0)};
-  transition: opacity 0.8s ease 0.4s;
+  transition: opacity 0.8s ease 0.6s;
   color: ${(props) => props.theme.headingColor};
 
-  @media (max-width: 1245px) {
-    font-size: 36px;
+  @media (max-width: 1600px) {
+    font-size: 32px;
   }
 
   @media (max-width: ${(props) => props.theme.mobile}px) {
@@ -167,13 +174,29 @@ const ProfileTitle = styled.h2`
   }
 `;
 
+const TextReveal = styled.span`
+  overflow: hidden;
+  display: inline-block;
+`;
+
+const TextRevealInner = styled.span`
+  display: inline-block;
+  transform: translateY(100px);
+  ${(props) =>
+    props.status === "entered" &&
+    css`
+      animation: ${AnimTextSlide} 1.6s forwards ${props.theme.easeOutExpo};
+      animation-delay: 600ms;
+    `};
+`;
+
 const ProfileDescription = styled.p`
   font-size: 22px;
   line-height: 1.4;
   margin: 0;
   margin-bottom: 30px;
   opacity: 0;
-  transition: opacity 0.8s ease 0.6s;
+  transition: opacity 1.2s ease 0.6s;
 
   ${(props) =>
     props.status === "entered" &&
@@ -188,7 +211,7 @@ const ProfileDescription = styled.p`
 
 const ProfileButton = styled(RouterButton)`
   opacity: 0;
-  transition: opacity 0.8s ease 0.6s;
+  transition: opacity 1.2s ease 0.6s;
 
   ${(props) =>
     props.status === "entered" &&
@@ -217,13 +240,13 @@ const AnimImageReveal = keyframes`
 `;
 
 const ProfileImageWrapper = styled.div`
-  max-width: 100%;
-  width: 500px;
+  max-width: 600px;
+  width: 100%;
   height: auto;
   background: transparent;
   position: relative;
   opacity: 0;
-  transition: opacity 0.8s ease 0.6s;
+  transition: opacity 1.2s ease 600ms;
 
   @media (max-width: ${(props) => props.theme.tablet}px) {
     width: 425px;
@@ -257,7 +280,7 @@ const ProfileImage = styled.img`
   width: 100%;
   height: auto;
   opacity: 0;
-  transition: opacity 0.8s ease 1.2s;
+  transition: opacity 1.2s ease 1.2s;
 `;
 
 export default memo(AboutMe);

@@ -22,6 +22,8 @@ export function reducer(state, action) {
     }
     case "toggleMenu":
       return { ...state, menuOpen: !state.menuOpen };
+    case "setPulled":
+      return { ...state, pulled: action.value };
     case "togglePulled":
       window.localStorage.setItem("pulled", JSON.stringify("true"));
       return { ...state, pulled: true };
