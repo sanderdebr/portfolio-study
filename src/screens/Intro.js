@@ -3,7 +3,7 @@ import styled, { css, keyframes } from "styled-components";
 import { Transition } from "react-transition-group";
 import { AnimTextReveal, AnimTextRevealMask } from "../utils/style";
 import { useLocalStorage } from "../hooks";
-import { rgba } from "../utils/style";
+import { rgba, AnimTextSlide } from "../utils/style";
 import PullBall from "../components/PullBall";
 
 const World = lazy(() => import("../components/World"));
@@ -29,12 +29,20 @@ function Intro(props) {
               <IntroTitle>
                 <IntroTitleRow>
                   <IntroTitleWord status={status} delay="800ms">
-                    Creative
+                    <TextReveal status={status}>
+                      <TextRevealInner delay="800ms" status={status}>
+                        Creative
+                      </TextRevealInner>
+                    </TextReveal>
                   </IntroTitleWord>
                 </IntroTitleRow>
                 <IntroTitleRow>
                   <IntroTitleWord delay="1000ms" status={status}>
-                    Developer
+                    <TextReveal status={status}>
+                      <TextRevealInner delay="1000ms" status={status}>
+                        Developer
+                      </TextRevealInner>
+                    </TextReveal>
                   </IntroTitleWord>
                 </IntroTitleRow>
               </IntroTitle>
@@ -233,47 +241,33 @@ const IntroTitleWord = styled.span`
     css`
       color: ${props.theme.headingColor};
     `}
+`;
 
-  &::after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    background: ${(props) => props.theme.accentColor};
-    opacity: 0;
-    animation-duration: 1.5s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ${(props) => props.theme.curveFastoutSlowin};
-    transform-origin: left;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-
-    ${(props) =>
-      props.status === "entering" &&
-      css`
-        animation-name: ${AnimTextRevealMask};
-      `}
-
-    ${(props) =>
-      props.status === "entered" &&
-      css`
-        opacity: 1;
-        transform: scaleX(0);
-        transform-origin: right;
-      `}
-  }
+const TextReveal = styled.span`
+  overflow: hidden;
+  display: table-cell;
 
   ${(props) =>
-    props.delay &&
+    props.status === "entered" &&
     css`
-      animation-delay: ${props.delay};
+      overflow: visible;
+    `}
+`;
 
-      &::after {
-        animation-delay: ${props.delay};
-      }
+const TextRevealInner = styled.span`
+  display: inline-block;
+  transform: translateY(200px);
+  ${(props) =>
+    props.status === "entering" &&
+    css`
+      animation: ${AnimTextSlide} 3s forwards cubic-bezier(0.16, 1, 0.3, 1);
+      animation-delay: ${props.delay};
+    `};
+
+  ${(props) =>
+    props.status === "entered" &&
+    css`
+      transform: translateY(0);
     `}
 `;
 
