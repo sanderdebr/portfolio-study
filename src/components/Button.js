@@ -13,7 +13,7 @@ const ButtonContent = ({
   iconOnly,
   isLoading,
   loadingText,
-  iconHoverShift
+  iconHoverShift,
 }) => {
   const theme = useTheme();
 
@@ -58,7 +58,7 @@ const ButtonContent = ({
   );
 };
 
-export const Button = props => {
+export const Button = (props) => {
   const { className, style, loading, ...otherProps } = props;
 
   return (
@@ -68,7 +68,7 @@ export const Button = props => {
   );
 };
 
-export const LinkButton = props => {
+export const LinkButton = (props) => {
   const { className, style, href, rel, target, ...rest } = props;
 
   return (
@@ -86,7 +86,7 @@ export const LinkButton = props => {
   );
 };
 
-export const RouterButton = props => {
+export const RouterButton = (props) => {
   const { className, style, to, secondary, ...rest } = props;
 
   return (
@@ -113,15 +113,15 @@ const ButtonLoader = styled(Loader)`
 const ButtonContainer = styled.button`
   background: none;
   height: 56px;
-  padding: ${props => (props.iconOnly ? 0 : " 0 26px")};
+  padding: ${(props) => (props.iconOnly ? 0 : " 0 26px")};
   border: 0;
   margin: 0;
   cursor: pointer;
-  transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
+  transition: all 0.3s ${(props) => props.theme.curveFastoutSlowin};
   display: flex;
   display: inline-flex;
   align-items: center;
-  color: ${props => props.theme.backgroundColor};
+  color: ${(props) => props.theme.backgroundColor};
   text-decoration: none;
   font-family: inherit;
   position: relative;
@@ -131,7 +131,7 @@ const ButtonContainer = styled.button`
     border: 0;
   }
 
-  ${props =>
+  ${(props) =>
     !props.secondary &&
     css`
       &::before {
@@ -162,7 +162,7 @@ const ButtonContainer = styled.button`
       }
     `}
 
-  ${props =>
+  ${(props) =>
     props.iconOnly &&
     css`
       width: 56px;
@@ -188,7 +188,7 @@ const ButtonContainer = styled.button`
       }
     `}
 
-  ${props =>
+  ${(props) =>
     !props.disabled &&
     !props.secondary &&
     css`
@@ -208,63 +208,33 @@ const ButtonContainer = styled.button`
     transition-duration: 0.1s;
   }
 
-  ${props =>
+  ${(props) =>
     props.secondary &&
     css`
       background: none;
       color: ${props.theme.accentColor};
-      padding-left: 10px;
-      padding-right: 10px;
       position: relative;
-      left: -10px;
 
-      &::after {
+      ::after {
         content: "";
-        height: 30px;
         position: absolute;
-        top: 50%;
-        right: 0;
-        bottom: 0;
+        top: 0;
         left: 0;
-        background: ${rgba(props.theme.accentColor, 0.2)};
-        transform: scale3d(0, 1, 1) translateY(-50%);
+        width: 100%;
+        height: 100%;
+        background: ${(props) => rgba(props.theme.headingColor, 0.1)};
+        transform: scaleX(0) translateY(-2px);
+        transition: transform 0.4s ${(props) => props.theme.curveFastoutSlowin};
         transform-origin: right;
-        transition: transform 0.4s ${props.theme.curveFastoutSlowin};
       }
 
-      &:hover,
-      &:focus,
-      &:active {
-        outline: none;
-        transform: none;
-        background: transparent;
-      }
-
-      &:hover::after,
-      &:focus::after,
-      &:active::after {
-        transform: scale3d(1, 1, 1) translateY(-50%);
+      :hover::after {
+        transform: scaleX(1) translateY(-2px);
         transform-origin: left;
-      }
-
-      &::before {
-        content: "";
-        transition: box-shadow 0.4s ${props.theme.curveFastoutSlowin};
-        transform: translateY(-50%);
-        height: 30px;
-        position: absolute;
-        top: 50%;
-        right: 0;
-        bottom: 0;
-        left: 0;
-      }
-
-      &:focus::before {
-        box-shadow: 0 0 0 4px ${props => rgba(props.theme.accentColor, 0.4)};
       }
     `}
 
-  ${props =>
+  ${(props) =>
     props.icon &&
     !props.secondary &&
     !props.iconOnly &&
@@ -280,19 +250,19 @@ const ButtonText = styled.span`
   line-height: 1;
   flex: 1 1 auto;
 
-  ${props =>
+  ${(props) =>
     props.isLoading &&
     css`
       visibility: hidden;
     `}
 
-  ${props =>
+  ${(props) =>
     props.secondary
       ? `color: ${props.theme.accentColor};`
       : `color: ${props.theme.colorBackground};
   `}
 
-  ${props =>
+  ${(props) =>
     props.iconOnly &&
     `
     color: ${props.theme.textColor};
@@ -300,18 +270,18 @@ const ButtonText = styled.span`
 `;
 
 const ButtonIcon = styled(Icon)`
-  margin-left: ${props => (props.left ? "0" : "6px")};
-  margin-right: ${props => (props.left ? "6px" : "0")};
-  transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
-  fill: ${props => props.theme.colorBackground};
+  margin-left: ${(props) => (props.left ? "0" : "6px")};
+  margin-right: ${(props) => (props.left ? "6px" : "0")};
+  transition: all 0.3s ${(props) => props.theme.curveFastoutSlowin};
+  fill: ${(props) => props.theme.colorBackground};
 
-  ${props =>
+  ${(props) =>
     props.secondary &&
     css`
       fill: ${props.theme.accentColor};
     `}
 
-  ${props =>
+  ${(props) =>
     props.iconOnly &&
     css`
       fill: ${props.theme.textColor};
@@ -320,14 +290,14 @@ const ButtonIcon = styled(Icon)`
 
   ${/* sc-selector */ ButtonContainer}:hover &,
   ${/* sc-selector */ ButtonContainer}:focus & {
-    ${props =>
+    ${(props) =>
       props.iconHoverShift &&
       css`
         transform: translate3d(4px, 0, 0);
       `}
   }
 
-  ${props =>
+  ${(props) =>
     props.isLoading &&
     css`
       opacity: 0;

@@ -260,7 +260,7 @@ const TextRevealInner = styled.span`
   ${(props) =>
     props.status === "entering" &&
     css`
-      animation: ${AnimTextSlide} 3s forwards cubic-bezier(0.16, 1, 0.3, 1);
+      animation: ${AnimTextSlide} 2s forwards cubic-bezier(0.16, 1, 0.3, 1);
       animation-delay: ${props.delay};
     `};
 
