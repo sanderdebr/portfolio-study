@@ -41,7 +41,7 @@ const PullBall = (props) => {
         if (bool) handlePull();
         bool = false;
         handleDown();
-        text.current.textContent = "Keep going!";
+        text.current.textContent = "Keep going";
       } else {
         text.current.textContent = "A bit more";
       }

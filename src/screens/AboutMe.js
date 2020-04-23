@@ -7,7 +7,7 @@ import { RouterButton } from "../components/Button";
 import ProgressiveImage from "react-progressive-graceful-image";
 import ProfileImgLarge from "../assets/img/profile-large.jpg";
 import ProfileImgPlaceholder from "../assets/img/profile-placeholder.jpg";
-import { AnimTextSlide } from "../utils/style";
+import { rgba, AnimTextSlide } from "../utils/style";
 
 const ProfileText = ({ status, titleId }) => (
   <>
@@ -54,7 +54,13 @@ function AboutMe(props) {
           <ProfileContent>
             <ProfileColumn>
               <ProfileText status={status} titleId={titleId} />
-              <ProfileButton secondary status={status} to="/contact">
+              <ProfileButton
+                left
+                secondary
+                status={status}
+                icon="rightArrow"
+                to="/contact"
+              >
                 Send me a message
               </ProfileButton>
             </ProfileColumn>
@@ -211,7 +217,15 @@ const ProfileDescription = styled.p`
 
 const ProfileButton = styled(RouterButton)`
   opacity: 0;
-  transition: opacity 1.2s ease 0.6s;
+  border-bottom: 2px solid ${(props) => rgba(props.theme.accentColor, 0.2)};
+  transition: all 0.8s ease;
+
+  &:hover {
+    background-color: ${(props) => rgba(props.theme.accentColor, 0.1)};
+    svg {
+      transform: translateX(-5px);
+    }
+  }
 
   ${(props) =>
     props.status === "entered" &&

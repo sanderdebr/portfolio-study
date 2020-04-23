@@ -6,6 +6,7 @@ import { ReactComponent as IconDev } from "../assets/icons/dev.svg";
 import { ReactComponent as IconCodepen } from "../assets/icons/codepen.svg";
 import { ReactComponent as IconMenu } from "../assets/icons/menu.svg";
 import { ReactComponent as IconClose } from "../assets/icons/close.svg";
+import { ReactComponent as RightArrow } from "../assets/icons/right-arrow.svg";
 
 const icons = {
   dribbble: IconDribbble,
@@ -13,7 +14,8 @@ const icons = {
   dev: IconDev,
   codepen: IconCodepen,
   menu: IconMenu,
-  close: IconClose
+  close: IconClose,
+  rightArrow: RightArrow,
 };
 
 const Icon = ({ icon, className }) => {

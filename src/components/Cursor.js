@@ -10,7 +10,7 @@ const Cursor = () => {
   const onMouseMove = (event) => {
     const { pageX: x, pageY: y } = event;
 
-    // cursorSmall.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
+    cursorSmall.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
     cursorFollow.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
 
     // if (
@@ -51,8 +51,8 @@ const CursorSmall = styled.div`
   margin-top: -3px;
   margin-left: -3px;
   background: ${(props) => props.theme.accentColor};
-  transition: transform ${(props) => props.theme.easeInOutBack};
-  transition-duration: 500ms;
+  transition: transform ease;
+  transition-duration: 100ms;
   transition-delay: 0;
 `;
 

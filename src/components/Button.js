@@ -113,7 +113,7 @@ const ButtonLoader = styled(Loader)`
 const ButtonContainer = styled.button`
   background: none;
   height: 56px;
-  padding: ${(props) => (props.iconOnly ? 0 : " 0 26px")};
+  padding: ${(props) => (props.iconOnly ? 0 : " 0 18px")};
   border: 0;
   margin: 0;
   cursor: pointer;
@@ -212,26 +212,7 @@ const ButtonContainer = styled.button`
     props.secondary &&
     css`
       background: none;
-      color: ${props.theme.accentColor};
       position: relative;
-
-      ::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: ${(props) => rgba(props.theme.headingColor, 0.1)};
-        transform: scaleX(0) translateY(-2px);
-        transition: transform 0.4s ${(props) => props.theme.curveFastoutSlowin};
-        transform-origin: right;
-      }
-
-      :hover::after {
-        transform: scaleX(1) translateY(-2px);
-        transform-origin: left;
-      }
     `}
 
   ${(props) =>
@@ -259,7 +240,7 @@ const ButtonText = styled.span`
   ${(props) =>
     props.secondary
       ? `color: ${props.theme.accentColor};`
-      : `color: ${props.theme.colorBackground};
+      : `color: ${props.theme.backgroundColor};
   `}
 
   ${(props) =>
@@ -270,10 +251,10 @@ const ButtonText = styled.span`
 `;
 
 const ButtonIcon = styled(Icon)`
-  margin-left: ${(props) => (props.left ? "0" : "6px")};
-  margin-right: ${(props) => (props.left ? "6px" : "0")};
+  margin-left: ${(props) => (props.left ? "0" : "18px")};
+  margin-right: ${(props) => (props.left ? "18px" : "0")};
   transition: all 0.3s ${(props) => props.theme.curveFastoutSlowin};
-  fill: ${(props) => props.theme.colorBackground};
+  fill: ${(props) => props.theme.backgroundColor};
 
   ${(props) =>
     props.secondary &&
