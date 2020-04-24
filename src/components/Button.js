@@ -213,6 +213,13 @@ const ButtonContainer = styled.button`
     css`
       background: none;
       position: relative;
+      transition: transform 0.8s ease;
+
+      &:hover {
+        svg {
+          transform: translateX(-5px);
+        }
+      }
     `}
 
   ${(props) =>

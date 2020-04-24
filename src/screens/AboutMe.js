@@ -7,6 +7,14 @@ import { RouterButton } from "../components/Button";
 import ProgressiveImage from "react-progressive-graceful-image";
 import ProfileImgLarge from "../assets/img/profile-large.jpg";
 import ProfileImgPlaceholder from "../assets/img/profile-placeholder.jpg";
+import JSImg from "../assets/img/tech/js.png";
+import ReactImg from "../assets/img/tech/react.png";
+import ReduxImg from "../assets/img/tech/redux.png";
+import NodeImg from "../assets/img/tech/node.png";
+import GitImg from "../assets/img/tech/git.png";
+import HTMLCSSImg from "../assets/img/tech/HTMLCSS.png";
+import AdobeXDImg from "../assets/img/tech/adobexd.png";
+import FigmaImg from "../assets/img/tech/figma.png";
 import { rgba, AnimTextSlide } from "../utils/style";
 
 const ProfileText = ({ status, titleId }) => (
@@ -33,6 +41,19 @@ const ProfileText = ({ status, titleId }) => (
       . I'm specialized in JavaScript with over 5 years of professional
       experience in building the web and working with technologies like NodeJS.
     </ProfileDescription>
+    <ProfileTech status={status}>
+      Favorite technologies:
+      <ProfileTechList>
+        <ProfileTechImg src={JSImg} alt="JS" />
+        <ProfileTechImg src={ReactImg} alt="React" />
+        <ProfileTechImg src={ReduxImg} alt="Redux" />
+        <ProfileTechImg src={NodeImg} alt="Node" />
+        <ProfileTechImg src={GitImg} alt="Git" />
+        <ProfileTechImg src={HTMLCSSImg} alt="HTML and CSS" />
+        <ProfileTechImg src={AdobeXDImg} alt="Adobe XD" />
+        <ProfileTechImg src={FigmaImg} alt="Figma" />
+      </ProfileTechList>
+    </ProfileTech>
     <ProfileDescription status={status}>
       In my spare time I like to go for a run, have a workout or{" "}
       <Anchor href="https://dev.to/sanderdebr" target="_blank">
@@ -175,6 +196,7 @@ const ProfileTitle = styled.h2`
   }
 
   @media (max-width: ${(props) => props.theme.mobile}px) {
+    line-height: 2rem;
     font-size: 28px;
     margin-bottom: 30px;
   }
@@ -215,17 +237,50 @@ const ProfileDescription = styled.p`
   }
 `;
 
+const ProfileTech = styled.div`
+font-size: 22px;
+  line-height: 1.4;
+  margin: 0;
+  margin-bottom: 30px;
+  opacity: 0;
+  transition: opacity 1.2s ease 0.6s;
+
+  ${(props) =>
+    props.status === "entered" &&
+    css`
+      opacity: 1;
+    `}
+
+  @media (max-width: ${(props) => props.theme.mobile}px) {
+    font-size: 18px;
+  }
+`;
+
+const ProfileTechList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const ProfileTechImg = styled.img`
+  width: auto;
+  height: auto;
+  margin-right: 15px;
+  margin-top: 15px;
+  max-height: 40px;
+  transition: all ease 250ms;
+  filter: grayscale();
+
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    filter: none;
+  }
+`;
+
 const ProfileButton = styled(RouterButton)`
   opacity: 0;
   border-bottom: 2px solid ${(props) => rgba(props.theme.accentColor, 0.2)};
-  transition: all 0.8s ease;
-
-  &:hover {
-    background-color: ${(props) => rgba(props.theme.accentColor, 0.1)};
-    svg {
-      transform: translateX(-5px);
-    }
-  }
+  transition: opacity 0.8s ease 0.6s;
 
   ${(props) =>
     props.status === "entered" &&
@@ -254,17 +309,13 @@ const AnimImageReveal = keyframes`
 `;
 
 const ProfileImageWrapper = styled.div`
-  max-width: 600px;
+  max-width: 500px;
   width: 100%;
   height: auto;
   background: transparent;
   position: relative;
   opacity: 0;
   transition: opacity 1.2s ease 600ms;
-
-  @media (max-width: ${(props) => props.theme.tablet}px) {
-    width: 425px;
-  }
 
   ${(props) =>
     props.status === "entered" &&

@@ -104,7 +104,15 @@ export default function Home(props) {
 
   return (
     <>
-      <Helmet title="Sander de Bruijn" />
+      <Helmet
+        title="Sander de Bruijn | Creative Developer"
+        meta={[
+          {
+            name: "description",
+            content: "Portfolio of Sander de Bruijn | Creative Developer",
+          },
+        ]}
+      />
       <Intro sectionRef={intro} id="intro" />
       <AboutMe
         sectionRef={about}
