@@ -25,7 +25,6 @@ const ProfileText = ({ status, titleId }) => (
           Hi there! I'm Sander, a passionate
         </TextRevealInner>
       </TextReveal>
-      <br />
       <TextReveal>
         <TextRevealInner status={status}>
           front-end developer and designer.
@@ -110,9 +109,9 @@ const ProfileSection = styled.section`
   margin-top: 60px;
   margin-bottom: 40px;
   padding-top: 60px;
-  padding-right: 80px;
+  padding-right: 0px;
   padding-bottom: 40px;
-  padding-left: 150px;
+  padding-left: 0px;
   display: flex;
   justify-content: center;
 
@@ -155,13 +154,15 @@ const ProfileSection = styled.section`
 
 const ProfileContent = styled.div`
   display: grid;
-  grid-template-columns: 50% 40%;
-  grid-column-gap: 6%;
+  grid-template-columns: 52% 40%;
+  grid-column-gap: 8%;
   max-width: ${(props) => props.theme.maxWidthLaptop}px;
   width: 100%;
 
   @media (min-width: ${(props) => props.theme.desktop}px) {
     max-width: ${(props) => props.theme.maxWidthDesktop}px;
+    grid-template-columns: 40% 40%;
+    grid-column-gap: 10%;
   }
 
   @media (max-width: ${(props) => props.theme.tablet}px) {
@@ -183,13 +184,15 @@ const ProfileColumn = styled.div`
 `;
 
 const ProfileTitle = styled.h2`
+  margin-top: 0;
   font-size: 36px;
   font-weight: 500;
   margin-bottom: 12px;
-  line-height: 3rem;
+  line-height: 2.5rem;
   opacity: ${(props) => (props.status === "entered" ? 1 : 0)};
   transition: opacity 0.8s ease 0.6s;
   color: ${(props) => props.theme.headingColor};
+  letter-spacing: ${(props) => props.theme.letterSpacing};
 
   @media (max-width: 1600px) {
     font-size: 32px;
@@ -219,36 +222,36 @@ const TextRevealInner = styled.span`
 `;
 
 const ProfileDescription = styled.p`
-  font-size: 22px;
-  line-height: 1.4;
   margin: 0;
-  margin-bottom: 30px;
+  margin: 1.5em 0;
   opacity: 0;
   transition: opacity 1.2s ease 0.6s;
-
-  ${(props) =>
-    props.status === "entered" &&
-    css`
-      opacity: 1;
-    `}
-
-  @media (max-width: ${(props) => props.theme.mobile}px) {
+  font-size: ${(props) => props.theme.fontSize};
+  letter-spacing: ${(props) => props.theme.letterSpacing};
+  line-height: ${(props) => props.theme.lineHeight};
+    ${(props) =>
+      props.status === "entered" &&
+      css`
+        opacity: 0.85;
+      `}
+    @media (max-width: ${(props) => props.theme.mobile}px) {
     font-size: 18px;
   }
 `;
 
 const ProfileTech = styled.div`
-font-size: 22px;
-  line-height: 1.4;
   margin: 0;
-  margin-bottom: 30px;
   opacity: 0;
   transition: opacity 1.2s ease 0.6s;
+  font-size: ${(props) => props.theme.fontSize};
+  letter-spacing: ${(props) => props.theme.letterSpacing};
+  line-height: ${(props) => props.theme.lineHeight};
+  margin: 1em 0;
 
   ${(props) =>
     props.status === "entered" &&
     css`
-      opacity: 1;
+      opacity: 0.85;
     `}
 
   @media (max-width: ${(props) => props.theme.mobile}px) {
@@ -269,19 +272,20 @@ const ProfileTechImg = styled.img`
   max-height: 40px;
   transition: all ease 250ms;
   filter: grayscale();
+  opacity: 0.5;
 
   &:hover {
     transform: scale(1.1);
     cursor: pointer;
     filter: none;
+    opacity: 1;
   }
 `;
 
 const ProfileButton = styled(RouterButton)`
+  margin-top: 2em;
   opacity: 0;
-  border-bottom: 2px solid ${(props) => rgba(props.theme.accentColor, 0.2)};
   transition: opacity 0.8s ease 0.6s;
-
   ${(props) =>
     props.status === "entered" &&
     css`

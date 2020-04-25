@@ -215,9 +215,24 @@ const ButtonContainer = styled.button`
       position: relative;
       transition: transform 0.8s ease;
 
+      &:before {
+        content: "";
+        position: absolute;
+        width: 45px;
+        height: 45px;
+        background: ${(props) => props.theme.accentColor};
+        border-radius: 40px;
+        left: 5px;
+        z-index: -1;
+        transition: width 250ms ${(props) => props.theme.curveFastoutSlowin};
+      }
+
       &:hover {
+        &:before {
+          width: 100%;
+        }
         svg {
-          transform: translateX(-5px);
+          transform: translateX(5px);
         }
       }
     `}
@@ -232,11 +247,14 @@ const ButtonContainer = styled.button`
 `;
 
 const ButtonText = styled.span`
-  font-size: 18px;
-  font-weight: 500;
+  font-size: ${(props) => props.theme.fontSize};
+  font-weight: 400;
   position: relative;
   line-height: 1;
   flex: 1 1 auto;
+  text-transform: uppercase;
+  letter-spacing: ${(props) => props.theme.letterSpacing};
+  opacity: .85;
 
   ${(props) =>
     props.isLoading &&
@@ -246,7 +264,7 @@ const ButtonText = styled.span`
 
   ${(props) =>
     props.secondary
-      ? `color: ${props.theme.accentColor};`
+      ? `color: ${props.theme.headingColor};`
       : `color: ${props.theme.backgroundColor};
   `}
 
@@ -258,15 +276,15 @@ const ButtonText = styled.span`
 `;
 
 const ButtonIcon = styled(Icon)`
-  margin-left: ${(props) => (props.left ? "0" : "18px")};
-  margin-right: ${(props) => (props.left ? "18px" : "0")};
+  margin-left: ${(props) => (props.left ? "0" : "28px")};
+  margin-right: ${(props) => (props.left ? "28px" : "0")};
   transition: all 0.3s ${(props) => props.theme.curveFastoutSlowin};
   fill: ${(props) => props.theme.backgroundColor};
 
   ${(props) =>
     props.secondary &&
     css`
-      fill: ${props.theme.accentColor};
+      fill: ${props.theme.headingColor};
     `}
 
   ${(props) =>

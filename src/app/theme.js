@@ -45,6 +45,9 @@ const base = {
   maxWidthDesktop: 1600,
   maxWidthLaptop: 1000,
   isEdge,
+  letterSpacing: "0.04em",
+  lineHeight: "27px",
+  fontSize: "18px",
 };
 
 const dark = {
@@ -54,7 +57,7 @@ const dark = {
   ...base,
   backgroundColor: "#09091f",
   headingColor: base.colorWhite,
-  textColor: "#999",
+  textColor: base.colorWhite,
   accentColor: "rgb(211, 0, 105)",
 };
 
@@ -65,7 +68,7 @@ const light = {
   ...base,
   backgroundColor: "rgb(255, 255, 255)",
   headingColor: base.colorBlack,
-  textColor: "#999",
+  textColor: base.colorBlack,
   accentColor: "rgb(211, 0, 105)",
 };
 

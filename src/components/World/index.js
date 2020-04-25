@@ -9,6 +9,7 @@ import Effects from "./Effects";
 import Spheres from "./Spheres";
 import Number from "./Number";
 import Controls from "./Controls";
+import Swarm from "./Swarm";
 
 function World() {
   const [hovered, hover] = useState(false);
@@ -57,6 +58,11 @@ function World() {
                 count={isMobile ? 50 : 100}
                 themeId={theme.id}
                 accentColor={theme.accentColor}
+              />
+              <Swarm
+                count={isMobile ? 5 : 10}
+                color={theme.backgroundColor}
+                mouse={mouse}
               />
               {/* <Effects /> */}
             </Suspense>

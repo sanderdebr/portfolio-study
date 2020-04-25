@@ -172,6 +172,7 @@ const HeaderNavLink = styled(NavLink)`
   transition: color 0.3s ease 0.1s;
   line-height: 1;
   width: max-content;
+  letter-spacing: ${(props) => props.theme.letterSpacing};
 
   &:hover,
   &:active,
