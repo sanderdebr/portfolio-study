@@ -6,6 +6,7 @@ import React, {
   useEffect,
   createContext,
   useState,
+  useRef,
 } from "react";
 import { BrowserRouter, Switch, Route, useLocation } from "react-router-dom";
 import styled, {
@@ -26,6 +27,8 @@ import InriaRegular from "../assets/fonts/InriaSans-Regular.woff2";
 import InriaBold from "../assets/fonts/InriaSans-Bold.woff2";
 import Noise from "../assets/img/noise.png";
 import isEdge from "../utils/isEdge";
+import { rgba } from "../utils/style";
+import Scrollbar from "smooth-scrollbar";
 
 export const fontStyles = `
 @font-face {
@@ -56,6 +59,7 @@ export const CursorContext = createContext();
 
 const App = () => {
   console.log("rerender");
+
   const [storedTheme] = useLocalStorage("theme", "dark");
   const [storedPulled] = useLocalStorage("pulled");
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -86,6 +90,11 @@ const App = () => {
 const AppRoutes = () => {
   const location = useLocation();
   const { pulled } = useAppContext();
+
+  useEffect(() => {
+    console.log(document);
+    //    Scrollbar.init(document);
+  }, []);
 
   return (
     <Fragment>
@@ -142,6 +151,19 @@ export const GlobalStyles = createGlobalStyle`
     scroll-behavior: smooth;
     overflow-y: ${(props) => (props.pulled ? "visible" : "hidden")} ;
     background-image: url(${Noise});
+
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      background-color: ${(props) => props.theme.backgroundColor};
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      background-color: ${(props) => props.theme.backgroundColor};;
+    }
+    ::-webkit-scrollbar-thumb{
+      border-radius: 4px;
+      background-color: ${(props) => rgba(props.theme.headingColor, 0.2)};
+    }
   }
 
     *,
@@ -151,10 +173,10 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     ::selection {
-      background: ${(props) => props.theme.accentColor}; 
+      background: ${(props) => props.theme.textSelectionColor}; 
     }
     ::-moz-selection {
-      background: ${(props) => props.theme.accentColor}; ;
+      background: ${(props) => props.theme.textSelectionColor}; ;
     }
 `;
 

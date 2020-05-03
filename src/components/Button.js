@@ -113,7 +113,7 @@ const ButtonLoader = styled(Loader)`
 const ButtonContainer = styled.button`
   background: none;
   height: 56px;
-  padding: ${(props) => (props.iconOnly ? 0 : " 0 18px")};
+  padding: ${(props) => (props.iconOnly ? 0 : " 0 24px")};
   border: 0;
   margin: 0;
   cursor: pointer;
@@ -218,8 +218,8 @@ const ButtonContainer = styled.button`
       &:before {
         content: "";
         position: absolute;
-        width: 45px;
-        height: 45px;
+        width: 56px;
+        height: 56px;
         background: ${(props) => props.theme.accentColor};
         border-radius: 40px;
         left: 5px;

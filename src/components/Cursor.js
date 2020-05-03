@@ -1,28 +1,36 @@
 import React, { useRef, useEffect } from "react";
 import styled, { useTheme } from "styled-components";
-// import isDescendant from "../utils/isDescendant";
-// import { rgba } from "../utils/style";
+import isDescendant from "../utils/isDescendant";
+import { rgba } from "../utils/style";
 
 const Cursor = () => {
   const cursorFollow = useRef();
   const cursorSmall = useRef();
 
   const onMouseMove = (event) => {
-    const { pageX: x, pageY: y } = event;
+    const {
+      pageX: x,
+      pageY: y,
+      target: { tagName },
+    } = event;
 
-    cursorSmall.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
-    cursorFollow.current.style.transform = `translateX(${x}px) translateY(${y}px)`;
+    cursorSmall.current.style.opacity = 1;
 
-    // if (
-    //   isDescendant("A", event.target) ||
-    //   tagName === "A" ||
-    //   tagName === "circle" ||
-    //   tagName === "svg"
-    // ) {
-    //   let translateX = (1 - 3) * x;
-    //   let translateY = (1 - 3) * y;
-    //   cursorFollow.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(3) translateX(${x}px) translateY(${y}px)`;
-    // }
+    cursorSmall.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    cursorFollow.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+
+    if (
+      isDescendant("A", event.target) ||
+      tagName === "A" ||
+      tagName === "circle" ||
+      tagName === "svg"
+    ) {
+      let translateX = (1 - 5) * x;
+      let translateY = (1 - 5) * y;
+      cursorFollow.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(5) translate3d(${x}px, ${y}px, 0)`;
+
+      cursorSmall.current.style.opacity = 0;
+    }
   };
 
   useEffect(() => {
@@ -68,6 +76,9 @@ const CursorFollow = styled.div`
   opacity: 0.15;
   z-index: 2;
   background: transparent;
+  transition: transform ease;
+  transition-duration: 0ms;
+  transition-delay: 0;
 `;
 
 export default Cursor;

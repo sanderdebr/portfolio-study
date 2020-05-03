@@ -3,7 +3,7 @@ import styled, { css, keyframes } from "styled-components";
 import { Transition } from "react-transition-group";
 import { AnimTextReveal, AnimTextRevealMask } from "../utils/style";
 import { useLocalStorage } from "../hooks";
-import { rgba, AnimTextSlide } from "../utils/style";
+import { rgba, AnimTextSlideIntro } from "../utils/style";
 import PullBall from "../components/PullBall";
 
 const World = lazy(() => import("../components/World"));
@@ -28,18 +28,18 @@ function Intro(props) {
               </IntroName>
               <IntroTitle>
                 <IntroTitleRow>
-                  <IntroTitleWord status={status} delay="800ms">
+                  <IntroTitleWord status={status} delay="600ms">
                     <TextReveal status={status}>
-                      <TextRevealInner delay="800ms" status={status}>
+                      <TextRevealInner delay="600ms" status={status}>
                         Creative
                       </TextRevealInner>
                     </TextReveal>
                   </IntroTitleWord>
                 </IntroTitleRow>
                 <IntroTitleRow>
-                  <IntroTitleWord delay="1000ms" status={status}>
+                  <IntroTitleWord delay="1100ms" status={status}>
                     <TextReveal status={status}>
-                      <TextRevealInner delay="1000ms" status={status}>
+                      <TextRevealInner delay="1100ms" status={status}>
                         Developer
                       </TextRevealInner>
                     </TextReveal>
@@ -147,7 +147,7 @@ const IntroNameWord = styled.span`
     height: 100%;
     background: ${(props) => props.theme.accentColor};
     opacity: 0;
-    animation-duration: 1.5s;
+    animation-duration: 2s;
     animation-fill-mode: forwards;
     animation-timing-function: ${(props) => props.theme.curveFastoutSlowin};
     transform-origin: left;
@@ -256,18 +256,19 @@ const TextReveal = styled.span`
 
 const TextRevealInner = styled.span`
   display: inline-block;
-  transform: translateY(200px);
+  transform: translateY(300px);
   ${(props) =>
     props.status === "entering" &&
     css`
-      animation: ${AnimTextSlide} 2s forwards cubic-bezier(0.16, 1, 0.3, 1);
+      animation: ${AnimTextSlideIntro} 2.8s forwards
+        ${(props) => props.theme.easeOutExpo};
       animation-delay: ${props.delay};
     `};
 
   ${(props) =>
     props.status === "entered" &&
     css`
-      transform: translateY(0);
+      transform: translateY(-20px);
     `}
 `;
 

@@ -1,7 +1,7 @@
 import { css, keyframes } from "styled-components";
 
 export const randomColor = () => {
-  const colors = ["#003f5c", "#58508d", "#bc5090", "#ff6361"];
+  const colors = ["#00f764", "#ff3100", "#ffb700", "#ff6361"];
   return colors[Math.floor(Math.random() * 5)];
 };
 
@@ -79,12 +79,21 @@ export const AnimTextRevealMask = keyframes`
   }
 `;
 
+export const AnimTextSlideIntro = keyframes`
+  from {
+    transform: translateY(100px)
+  }
+  to {
+    transform: translateY(-20px)
+  }
+`;
+
 export const AnimTextSlide = keyframes`
   from {
     transform: translateY(100px)
   }
   to {
-    transform: translateY(0)
+    transform: translateY(0px)
   }
 `;
 

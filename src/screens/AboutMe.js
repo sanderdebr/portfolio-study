@@ -22,12 +22,7 @@ const ProfileText = ({ status, titleId }) => (
     <ProfileTitle status={status} id={titleId}>
       <TextReveal>
         <TextRevealInner status={status}>
-          Hi there! I'm Sander, a passionate
-        </TextRevealInner>
-      </TextReveal>
-      <TextReveal>
-        <TextRevealInner status={status}>
-          front-end developer and designer.
+          Hi there! I'm Sander, a passionate front-end developer and designer.
         </TextRevealInner>
       </TextReveal>
     </ProfileTitle>
@@ -185,10 +180,10 @@ const ProfileColumn = styled.div`
 
 const ProfileTitle = styled.h2`
   margin-top: 0;
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 500;
-  margin-bottom: 12px;
-  line-height: 2.5rem;
+  margin-bottom: 20px;
+  line-height: 2.7rem;
   opacity: ${(props) => (props.status === "entered" ? 1 : 0)};
   transition: opacity 0.8s ease 0.6s;
   color: ${(props) => props.theme.headingColor};
@@ -224,6 +219,7 @@ const TextRevealInner = styled.span`
 const ProfileDescription = styled.p`
   margin: 0;
   margin: 1.5em 0;
+  margin-top: 0;
   opacity: 0;
   transition: opacity 1.2s ease 0.6s;
   font-size: ${(props) => props.theme.fontSize};
@@ -246,7 +242,7 @@ const ProfileTech = styled.div`
   font-size: ${(props) => props.theme.fontSize};
   letter-spacing: ${(props) => props.theme.letterSpacing};
   line-height: ${(props) => props.theme.lineHeight};
-  margin: 1em 0;
+  margin: .6em 0 2em 0;
 
   ${(props) =>
     props.status === "entered" &&

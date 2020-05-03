@@ -6,7 +6,8 @@ import "../utils/logoAnimation.css";
 const Logo = () => {
   const logo = useRef();
 
-  const toggle = groups => groups.forEach(g => g.classList.toggle("active"));
+  const toggle = (groups) =>
+    groups.forEach((g) => g.classList.toggle("active"));
 
   useEffect(() => {
     const groups = Array.from(document.querySelectorAll("#eq8f6pzz6u41 g"));
@@ -39,17 +40,17 @@ const Logo = () => {
             <stop
               id="eq8f6pzz6u44-fill-0"
               offset="0%"
-              stopColor="rgb(211,0,105)"
+              stopColor="rgb(6, 170, 245)"
             />
             <stop
               id="eq8f6pzz6u44-fill-1"
               offset="23.500000%"
-              stopColor="rgb(211,0,105)"
+              stopColor="rgb(6, 170, 245)"
             />
             <stop
               id="eq8f6pzz6u44-fill-2"
               offset="100%"
-              stopColor="rgb(119,0,59)"
+              stopColor="rgb(0, 89, 130)"
             />
           </linearGradient>
           <linearGradient
@@ -64,17 +65,17 @@ const Logo = () => {
             <stop
               id="eq8f6pzz6u45-fill-0"
               offset="0%"
-              stopColor="rgb(133,16,74)"
+              stopColor="rgb(0, 89, 130)"
             />
             <stop
               id="eq8f6pzz6u45-fill-1"
               offset="36.100000%"
-              stopColor="rgb(177,0,88)"
+              stopColor="rgb(6, 170, 245)"
             />
             <stop
               id="eq8f6pzz6u45-fill-2"
               offset="100%"
-              stopColor="rgb(211,0,105)"
+              stopColor="rgb(6, 170, 245)"
             />
           </linearGradient>
         </defs>
@@ -142,7 +143,7 @@ const Logo = () => {
 
 const LogoWrapper = styled.svg`
   pointer-events: all;
-  transition: transform 400ms ${props => props.theme.curveFastoutSlowin};
+  transition: transform 400ms ${(props) => props.theme.curveFastoutSlowin};
   &:hover {
     transform: rotate(360deg);
   }
