@@ -78,7 +78,7 @@ const IntroText = styled.header`
   }
 
   @media (max-width: ${(props) => props.theme.mobile}px) {
-    margin: -25px 0 0 50px;
+    margin: 15px 0 0 50px;
   }
 
   @media ${(props) => props.theme.mobileLS} {
@@ -268,7 +268,10 @@ const TextRevealInner = styled.span`
   ${(props) =>
     props.status === "entered" &&
     css`
-      transform: translateY(-20px);
+      transform: translateY(-5px);
+      @media (min-width: ${(props) => props.theme.tablet}px) {
+        transform: translateY(-5px);
+      }
     `}
 `;
 

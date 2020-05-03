@@ -84,7 +84,10 @@ export const AnimTextSlideIntro = keyframes`
     transform: translateY(100px)
   }
   to {
-    transform: translateY(-20px)
+    transform: translateY(-5px);
+      @media (min-width: ${(props) => props.theme.tablet}px) {
+        transform: translateY(-15px);
+      }
   }
 `;
 

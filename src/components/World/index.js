@@ -10,6 +10,7 @@ import Spheres from "./Spheres";
 import Number from "./Number";
 import Controls from "./Controls";
 import Swarm from "./Swarm";
+import Terrain from "./Terrain";
 
 function World() {
   const [hovered, hover] = useState(false);
@@ -21,6 +22,7 @@ function World() {
   );
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const theme = useThemeContext();
+  const cameraY = window.innerSize > 900 ? 30 : 60;
 
   return (
     <Transition appear in timeout={3000}>
@@ -36,7 +38,7 @@ function World() {
             pixelRatio={Math.min(2, isMobile ? window.devicePixelRatio : 1)}
             camera={{
               fov: 100,
-              position: [0, 0, 30],
+              position: [0, 10, cameraY],
             }}
             onMouseMove={onMouseMove}
             onCreated={({ gl }) => {
@@ -54,16 +56,7 @@ function World() {
             />
             <Suspense fallback={null}>
               <Number mouse={mouse} hover={hover} />
-              <Spheres
-                count={isMobile ? 50 : 100}
-                themeId={theme.id}
-                accentColor={theme.accentColor}
-              />
-              <Swarm
-                count={isMobile ? 5 : 10}
-                color={theme.backgroundColor}
-                mouse={mouse}
-              />
+              <Terrain color={theme.id === "light" ? "#666" : "black"} />
               {/* <Effects /> */}
             </Suspense>
           </Canvas>

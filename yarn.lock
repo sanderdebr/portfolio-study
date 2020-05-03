@@ -1262,10 +1262,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@juggle/resize-observer@^3.1.2":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.1.2.tgz#e2b4ee9e50ac36e957e34031055f5ddc8494a9e2"
-  integrity sha512-Yao5AFq8HKHsyLCLZn15BybqN67cdbgDbVDnnaN54IUaffkwDHj0VMgBp1C/IxOsFsNltsI7LdnW4GEHmQarLQ==
+"@juggle/resize-observer@^3.1.3":
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.1.3.tgz#d7373eb9a1afc371342b8cf1a07e34368f3d65d7"
+  integrity sha512-y7qc6SzZBlSpx8hEDfV0S9Cx6goROX/vBhS2Ru1Q78Jp1FlCMbxp7UcAN90rLgB3X8DSMBgDFxcmoG/VfdAhFA==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -11038,13 +11038,13 @@ react-textarea-autosize@^7.1.0:
     "@babel/runtime" "^7.1.2"
     prop-types "^15.6.0"
 
-react-three-fiber@^4.0.25:
-  version "4.0.25"
-  resolved "https://registry.yarnpkg.com/react-three-fiber/-/react-three-fiber-4.0.25.tgz#222af36e0df23b5d99a51bd5062db4f64214b4a2"
-  integrity sha512-0lviEXsNB6G+QczQ937Sac6g6+dnXTFcUBZMb5vtKK3nr27UgzIAKT3xglgKKybSlIMs+wJlZNlSHc02SxtjAQ==
+react-three-fiber@^4.1.4:
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/react-three-fiber/-/react-three-fiber-4.1.4.tgz#55ea847f6aa7bd88eea077c1212151343be94427"
+  integrity sha512-c1NchqRPAP27GQchSKkpRgz+XwwPvRJo/cTjPWQmX0H2MqnIu4vBTV1GKBqn+uWeDHjjfcWHZyq8zH5JccP+NA==
   dependencies:
     "@babel/runtime" "^7.9.2"
-    "@juggle/resize-observer" "^3.1.2"
+    "@juggle/resize-observer" "^3.1.3"
     react-merge-refs "^1.0.0"
     react-promise-suspense "^0.3.2"
     react-reconciler "0.25.1"
