@@ -14,7 +14,12 @@ const Cursor = () => {
       target: { tagName },
     } = event;
 
-    cursorSmall.current.style.opacity = 1;
+    cursorSmall.current.style.backgroundColor = "rgb(6, 170, 245)";
+
+    cursorFollow.current.style.width = "30px";
+    cursorFollow.current.style.height = "30px";
+    cursorFollow.current.style.top = "-15px";
+    cursorFollow.current.style.left = "-15px";
 
     cursorSmall.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     cursorFollow.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
@@ -25,11 +30,12 @@ const Cursor = () => {
       tagName === "circle" ||
       tagName === "svg"
     ) {
-      let translateX = (1 - 5) * x;
-      let translateY = (1 - 5) * y;
-      cursorFollow.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(5) translate3d(${x}px, ${y}px, 0)`;
+      cursorFollow.current.style.width = "100px";
+      cursorFollow.current.style.height = "100px";
+      cursorFollow.current.style.top = "-50px";
+      cursorFollow.current.style.left = "-50px";
 
-      cursorSmall.current.style.opacity = 0;
+      cursorSmall.current.style.backgroundColor = "rgb(0, 247, 100)";
     }
   };
 
@@ -58,26 +64,26 @@ const CursorSmall = styled.div`
   z-index: 2;
   margin-top: -3px;
   margin-left: -3px;
-  background: ${(props) => props.theme.accentColor};
-  transition: transform ease;
-  transition-duration: 100ms;
+  background-color: ${(props) => props.theme.accentColor};
+  transition: background-color ease;
+  transition-duration: 500ms;
   transition-delay: 0;
 `;
 
 const CursorFollow = styled.div`
   position: absolute;
-  width: 20px;
-  height: 20px;
-  top: -10px;
-  left: -10px;
+  width: 30px;
+  height: 30px;
+  top: -15px;
+  left: -15px;
   pointer-events: none;
   border-radius: 50%;
   border: 1px solid ${(props) => props.theme.headingColor};
   opacity: 0.15;
   z-index: 2;
   background: transparent;
-  transition: transform ease;
-  transition-duration: 0ms;
+  transition: all ease;
+  transition-duration: 200ms;
   transition-delay: 0;
 `;
 
