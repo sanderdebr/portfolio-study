@@ -33,7 +33,7 @@ import Scrollbar from "smooth-scrollbar";
 export const fontStyles = `
 @font-face {
   font-family: 'Inria';
-  font-weight: 500;
+  font-weight: 300;
   src: url(${InriaLight}) format('woff2');
   font-display: swap;
 }

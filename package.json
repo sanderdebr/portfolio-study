@@ -59,6 +59,7 @@
     "@storybook/addons": "^5.3.17",
     "@storybook/preset-create-react-app": "^2.1.0",
     "@storybook/react": "^5.3.18",
+    "react-drag-slider": "^0.1.5",
     "react-snap": "^1.23.0",
     "smooth-scrollbar": "^8.5.2"
   }

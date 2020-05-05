@@ -2,38 +2,43 @@ export const navLinks = [
   {
     label: "Projects",
     pathname: "/",
-    hash: "#project-1"
+    hash: "#project-1",
   },
   {
     label: "About me",
     pathname: "/",
-    hash: "#about"
+    hash: "#about",
   },
   {
     label: "Contact",
-    pathname: "#contact"
-  }
+    pathname: "#contact",
+  },
 ];
 
 export const socialLinks = [
   {
     label: "Github",
     url: "https://github.com/sanderdebr",
-    icon: "github"
+    icon: "github",
   },
   {
     label: "Dev.to",
     url: "https://dev.to/sanderdebr",
-    icon: "dev"
+    icon: "dev",
   },
   {
     label: "Codepen",
     url: "https://codepen.io/sanderdebr/pens/public",
-    icon: "codepen"
+    icon: "codepen",
   },
   {
     label: "Dribbble",
     url: "https://dribbble.com/sanderdebr",
-    icon: "dribbble"
-  }
+    icon: "dribbble",
+  },
+  {
+    label: "Stackoverflow",
+    url: "https://stackoverflow.com/users/12585631/sanderdebr",
+    icon: "stackoverflow",
+  },
 ];

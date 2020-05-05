@@ -276,8 +276,8 @@ const ButtonText = styled.span`
 `;
 
 const ButtonIcon = styled(Icon)`
-  margin-left: ${(props) => (props.left ? "0" : "28px")};
-  margin-right: ${(props) => (props.left ? "28px" : "0")};
+  margin-left: ${(props) => (props.left ? "0" : "34px")};
+  margin-right: ${(props) => (props.left ? "34px" : "0")};
   transition: all 0.3s ${(props) => props.theme.curveFastoutSlowin};
   fill: ${(props) => props.theme.backgroundColor};
 

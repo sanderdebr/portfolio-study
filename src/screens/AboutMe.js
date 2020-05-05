@@ -100,7 +100,7 @@ function AboutMe(props) {
 
 const ProfileSection = styled.section`
   width: 100vw;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   margin-top: 60px;
   margin-bottom: 40px;
   padding-top: 60px;
@@ -180,7 +180,7 @@ const ProfileColumn = styled.div`
 
 const ProfileTitle = styled.h2`
   margin-top: 0;
-  font-size: 40px;
+  font-size: 38px;
   font-weight: 500;
   margin-bottom: 20px;
   line-height: 2.7rem;
@@ -190,7 +190,7 @@ const ProfileTitle = styled.h2`
   letter-spacing: ${(props) => props.theme.letterSpacing};
 
   @media (max-width: 1600px) {
-    font-size: 32px;
+    font-size: 36px;
   }
 
   @media (max-width: ${(props) => props.theme.mobile}px) {
@@ -309,7 +309,7 @@ const AnimImageReveal = keyframes`
 `;
 
 const ProfileImageWrapper = styled.div`
-  max-width: 500px;
+  max-width: 450px;
   width: 100%;
   height: auto;
   background: transparent;

@@ -16,9 +16,9 @@ function Number({ mouse, hover }) {
   const ref = useRef();
   const { size, viewport } = useThree();
   const aspect = size.width / viewport.width;
-  const offsetLeft = window.innerSize > 900 ? 2 : -0.5;
-  const offsetY = window.innerSize > 900 ? 12 : 36;
-  const offsetZ = window.innerSize > 900 ? 3 : -20;
+  const offsetLeft = window.innerWidth > 900 ? 2 : -0.5;
+  const offsetY = window.innerWidth > 900 ? 12 : 36;
+  const offsetZ = window.innerWidth > 900 ? 3 : -20;
   useFrame((state) => {
     if (ref.current) {
       ref.current.position.x =

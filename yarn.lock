@@ -10762,6 +10762,13 @@ react-dom@^16.13.1, react-dom@^16.8.3:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
+react-drag-slider@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/react-drag-slider/-/react-drag-slider-0.1.5.tgz#6da115efba5eea870c0ac4c9de68fd67ccffed0d"
+  integrity sha512-GmuWI1kK6AI5XtWp3OwRhRF2mb7sBGN7EM5Dsaz5NFeetYEUR9K9D/krzUuRBGFbf3X4Vt70xlhpGtN2nZdAyg==
+  dependencies:
+    react "^16.0.0"
+
 react-draggable@^4.0.3:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/react-draggable/-/react-draggable-4.2.0.tgz#40cc5209082ca7d613104bf6daf31372cc0e1114"
@@ -11076,7 +11083,7 @@ react-with-gesture@^4.0.8:
   resolved "https://registry.yarnpkg.com/react-with-gesture/-/react-with-gesture-4.0.8.tgz#ce6db9e667ef13120797e641f1a00f934aed6c36"
   integrity sha512-VIJ1K2/UT67m+OnqYIgJUdYEqVmJDPfbZBoqUMYKts6WA0EbEC7YRMBEzxgy/jvVdafg9L2GSuFtUokpskKHag==
 
-react@^16.13.1, react@^16.8.3:
+react@^16.0.0, react@^16.13.1, react@^16.8.3:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==

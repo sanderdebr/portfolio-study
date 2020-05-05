@@ -22,7 +22,7 @@ function World() {
   );
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const theme = useThemeContext();
-  const cameraY = window.innerSize > 900 ? 30 : 60;
+  const cameraY = window.innerWidth > 900 ? 30 : 60;
 
   return (
     <Transition appear in timeout={3000}>

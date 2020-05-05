@@ -1,11 +1,9 @@
 import React from "react";
 import { useFrame, useUpdate } from "react-three-fiber";
-
 import { noise } from "./perlin";
 
 const Terrain = ({ color }) => {
   const mesh = useUpdate(({ geometry }) => {
-    console.log(geometry);
     noise.seed(Math.random());
     let pos = geometry.getAttribute("position");
     let pa = pos.array;
@@ -24,8 +22,10 @@ const Terrain = ({ color }) => {
       }
     }
 
+    console.log("update");
+
     pos.needsUpdate = true;
-  });
+  }, []);
 
   // Raf loop
   useFrame(() => {

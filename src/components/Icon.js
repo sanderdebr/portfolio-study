@@ -1,5 +1,6 @@
 import React from "react";
 
+import { ReactComponent as IconStackoverflow } from "../assets/icons/stackoverflow.svg";
 import { ReactComponent as IconDribbble } from "../assets/icons/dribbble.svg";
 import { ReactComponent as IconGithub } from "../assets/icons/github.svg";
 import { ReactComponent as IconDev } from "../assets/icons/dev.svg";
@@ -10,6 +11,7 @@ import { ReactComponent as RightArrow } from "../assets/icons/right-arrow.svg";
 
 const icons = {
   dribbble: IconDribbble,
+  stackoverflow: IconStackoverflow,
   github: IconGithub,
   dev: IconDev,
   codepen: IconCodepen,
