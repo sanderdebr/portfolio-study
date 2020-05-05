@@ -11,14 +11,14 @@ const calc = (x, y) => [
 const trans = (x, y, s) =>
   `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
 
-const ProjectItem = ({ title, description }) => {
+const ProjectItem = ({ status, title, description }) => {
   const [props, set] = useSpring(() => ({
     xys: [0, 0, 1],
     config: { mass: 5, tension: 350, friction: 40 },
   }));
 
   return (
-    <Container>
+    <Container status={status}>
       <Content>
         <Left>
           <animated.div
@@ -46,10 +46,19 @@ const ProjectItem = ({ title, description }) => {
 };
 
 const Container = styled.div`
+  opacity: 0;
   height: 100vh;
-  max-height: 500px;
+  max-height: 600px;
   width: 70vw;
   border: 1px solid purple;
+
+  transition: opacity ease 0.8s 0.8s;
+
+  ${(props) =>
+    props.status === "entered" &&
+    css`
+      opacity: 1;
+    `}
 `;
 
 const Content = styled.div`
@@ -69,17 +78,17 @@ const Left = styled.div`
   align-items: center;
   justify-content: center;
   div {
-    width: 45ch;
-    height: 45ch;
+    width: 400px;
+    height: 100%;
     background: grey;
     border-radius: 5px;
-    background-image: url(https://drscdn.500px.org/photo/435236/q%3D80_m%3D1500/v2?webp=true&sig=67031bdff6f582f3e027311e2074be452203ab637c0bd21d89128844becf8e40);
+    background-image: url(https://insights.digitalpresent.io/wp-content/uploads/2020/03/profile-1.jpg);
     background-size: cover;
     background-position: center center;
     box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
     transition: box-shadow 0.5s;
     will-change: transform;
-    border: 15px solid white;
+    border: none;
   }
 `;
 
@@ -87,7 +96,7 @@ const Right = styled.div`
   width: 100%;
   height: 100%;
   flex-grow: 1;
-  padding: 3rem 4rem;
+  padding: 3rem 4.5rem;
 `;
 
 const Title = styled.h2`
@@ -107,11 +116,11 @@ const NumberWrapper = styled.div`
 
 const Number = styled.h1`
   position: absolute;
-  font-size: 170px;
+  font-size: 190px;
   margin: 0;
   left: 0;
   top: 0;
-  opacity: 0.5;
+  opacity: 0.2;
 `;
 
 const NumberTitle = styled.div`
@@ -119,6 +128,7 @@ const NumberTitle = styled.div`
   left: 0;
   top: 7px;
   letter-spacing: 0.5em;
+  opacity: 0.4;
 `;
 
 const Button = styled(RouterButton)`

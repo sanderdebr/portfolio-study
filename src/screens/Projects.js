@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Transition } from "react-transition-group";
 import { projectList } from "../data/projects";
 import DragSlider from "../components/DragSlider";
 import ProjectItem from "../components/ProjectItem";
@@ -8,13 +9,23 @@ import ProjectItem from "../components/ProjectItem";
 // DragSlider is width auto
 
 export default function Projects(props) {
-  const { id, sectionRef } = props;
+  const { id, sectionRef, visible } = props;
   return (
     <ProjectSection id={id} ref={sectionRef}>
       <DragSlider>
-        {projectList.map(({ title, description }) => (
-          <ProjectItem title={title} description={description} />
-        ))}
+        <Transition in={visible} timeout={0}>
+          {(status) => (
+            <>
+              {projectList.map(({ title, description }) => (
+                <ProjectItem
+                  status={status}
+                  title={title}
+                  description={description}
+                />
+              ))}
+            </>
+          )}
+        </Transition>
       </DragSlider>
     </ProjectSection>
   );

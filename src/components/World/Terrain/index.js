@@ -2,7 +2,7 @@ import React from "react";
 import { useFrame, useUpdate } from "react-three-fiber";
 import { noise } from "./perlin";
 
-const Terrain = ({ color }) => {
+const Terrain = ({ color, specular }) => {
   const mesh = useUpdate(({ geometry }) => {
     noise.seed(Math.random());
     let pos = geometry.getAttribute("position");
@@ -11,7 +11,7 @@ const Terrain = ({ color }) => {
     const wVerts = geometry.parameters.widthSegments + 1;
     for (let j = 0; j < hVerts; j++) {
       for (let i = 0; i < wVerts; i++) {
-        const ex = 1.1;
+        const ex = 1.2;
         pa[3 * (j * wVerts + i) + 2] =
           (noise.simplex2(i / 100, j / 100) +
             noise.simplex2((i + 200) / 50, j / 50) * Math.pow(ex, 1) +
@@ -38,7 +38,7 @@ const Terrain = ({ color }) => {
       <meshPhongMaterial
         attach="material"
         color={color}
-        specular={"#06aaf5"}
+        specular={specular}
         shininess={3}
         wireframe
       />
