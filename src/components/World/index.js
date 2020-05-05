@@ -6,7 +6,7 @@ import React, {
   useRef,
   useEffect,
 } from "react";
-import { Canvas, useFrame, useThree } from "react-three-fiber";
+import { Canvas, useRender, useThree } from "react-three-fiber";
 import styled, { useTheme } from "styled-components";
 import { useThemeContext } from "../../hooks";
 import { isVisible } from "../../utils/transition";
@@ -14,9 +14,10 @@ import { Transition } from "react-transition-group";
 import Number from "./Number";
 import Controls from "./Controls";
 import Terrain from "./Terrain";
+import Terrain2 from "./Terrain2";
 import { TweenMax, TimelineMax, Elastic, Back } from "gsap";
 
-function Camera(props) {
+const Camera = (props) => {
   const camera = useRef();
   const ease = Elastic.easeOut.config(1, 0.75);
   const { setDefaultCamera } = useThree();
@@ -40,8 +41,25 @@ function Camera(props) {
   // This makes sure that size-related calculations are proper
   // Every call to useThree will return this camera instead of the default camera
   useEffect(() => void setDefaultCamera(camera.current), []);
-  return <perspectiveCamera ref={camera} position={[0, 0, 0]} />;
-}
+  return <perspectiveCamera ref={camera} position={[0, 10, 60]} />;
+};
+
+const Light = () => {
+  //Create a PointLight and turn on shadows for the light
+  const light = new THREE.DirectionalLight(0xffffff, 1, 100);
+  light.position.set(100, 100, 100);
+  light.castShadow = true; // default false
+  //Set up shadow properties for the light
+  light.shadow.mapSize.width = 5120; // default
+  light.shadow.mapSize.height = 5120; // default
+  light.shadow.camera.near = 0.1; // default
+  light.shadow.camera.far = 500; // default
+  light.shadow.camera.top = -100; // default
+  light.shadow.camera.right = 100; // default
+  light.shadow.camera.left = -100; // default
+  light.shadow.camera.bottom = 100; // default
+  return <primitive object={light} />;
+};
 
 function World() {
   const [hovered, hover] = useState(false);
@@ -74,19 +92,11 @@ function World() {
           >
             <Camera />
             {/* <Controls /> */}
-            <ambientLight intensity={1} />
-            <pointLight position={[100, 100, 100]} intensity={1.1} />
-            <pointLight
-              position={[-100, -100, -100]}
-              intensity={5}
-              color={theme.accentColor}
-            />
+            <ambientLight intensity={0.1} />
+            <Light />
             <Suspense fallback={null}>
               <Number mouse={mouse} hover={hover} />
-              <Terrain
-                color={theme.id === "light" ? "#666" : "black"}
-                specular={"#666"}
-              />
+              <Terrain2 />
               {/* <Effects /> */}
             </Suspense>
           </Canvas>

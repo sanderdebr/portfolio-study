@@ -34,6 +34,7 @@ function Number({ mouse, hover }) {
     <Suspense fallback={null}>
       <group position={[0, offsetY, offsetZ]} ref={ref}>
         <Text
+          castShadow
           size={6}
           onPointerOver={() => hover(true)}
           onPointerOut={() => hover(false)}
