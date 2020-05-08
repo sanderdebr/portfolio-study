@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useFrame, useUpdate } from "react-three-fiber";
 import { noise } from "./perlin";
 import * as THREE from "three";
-import Moss from "../../../assets/img/textures/moss.jpg";
+import Moss from "../../../assets/textures/moss.jpg";
 
 const Terrain = (props) => {
   const mesh = useUpdate(({ geometry }) => {

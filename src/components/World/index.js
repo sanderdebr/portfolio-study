@@ -24,40 +24,45 @@ const Camera = (props) => {
 
   const [tl] = useState(new TimelineMax({ paused: true }));
 
-  useEffect(() => {
-    const pos = camera.current.position;
-    const rotation = camera.current.rotation;
+  // ANIMATE USING GSAP
+  // useEffect(() => {
+  //   const pos = camera.current.position;
+  //   const rotation = camera.current.rotation;
 
-    tl.to(pos, 3, {
-      z: 10,
-      ease,
-    })
-      .to(pos, 3, { x: 30, ease })
-      .to(rotation, 5, { x: -25 * (Math.PI / 180), ease })
-      .to(pos, 3, { z: 30, y: 20, ease })
-      .play();
-  }, []);
+  //   tl.to(pos, 3, {
+  //     z: 10,
+  //     ease,
+  //   })
+  //     .to(pos, 3, { x: 30, ease })
+  //     .to(rotation, 5, { x: -25 * (Math.PI / 180), ease })
+  //     .to(pos, 3, { z: 30, y: 20, ease })
+  //     .play();
+  // }, []);
 
   // This makes sure that size-related calculations are proper
   // Every call to useThree will return this camera instead of the default camera
   useEffect(() => void setDefaultCamera(camera.current), []);
-  return <perspectiveCamera ref={camera} position={[0, 10, 60]} />;
+  return <perspectiveCamera ref={camera} position={[0, 0, 20]} />;
 };
 
 const Light = () => {
   //Create a PointLight and turn on shadows for the light
-  const light = new THREE.DirectionalLight(0xffffff, 1, 100);
-  light.position.set(100, 100, 100);
-  light.castShadow = true; // default false
-  //Set up shadow properties for the light
-  light.shadow.mapSize.width = 5120; // default
-  light.shadow.mapSize.height = 5120; // default
-  light.shadow.camera.near = 0.1; // default
-  light.shadow.camera.far = 500; // default
-  light.shadow.camera.top = -100; // default
-  light.shadow.camera.right = 100; // default
-  light.shadow.camera.left = -100; // default
-  light.shadow.camera.bottom = 100; // default
+  const light = new THREE.DirectionalLight(0xffe0bb);
+  light.intensity = 1.3;
+
+  light.castShadow = true;
+
+  light.shadow.camera.near = -20;
+  light.shadow.camera.far = 60;
+  light.shadow.camera.left = -24;
+  light.shadow.camera.right = 24;
+  light.shadow.camera.top = 24;
+  light.shadow.camera.bottom = -24;
+
+  light.shadow.camera.visible = true;
+
+  light.shadow.mapSize.width = 1024;
+  light.shadow.mapSize.height = 1024;
   return <primitive object={light} />;
 };
 
@@ -91,8 +96,9 @@ function World() {
             }}
           >
             <Camera />
-            {/* <Controls /> */}
-            <ambientLight intensity={0.1} />
+            <Controls />
+            <ambientLight color={0x556680} />
+            <fog color={0xddeeff} intensity={0.00025} />
             <Light />
             <Suspense fallback={null}>
               <Number mouse={mouse} hover={hover} />

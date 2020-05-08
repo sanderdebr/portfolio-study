@@ -1,62 +1,71 @@
 import React, { useMemo } from "react";
+import { useFrame, useUpdate, useEffect } from "react-three-fiber";
+import { noise } from "../Terrain/perlin";
 import * as THREE from "three";
-import { useFrame, useUpdate } from "react-three-fiber";
+import Everest from "../../../assets/textures/everest.bin";
 import Moss from "../../../assets/textures/moss.jpg";
-import Latvia from "../../../assets/textures/latvia.bin";
 
+// Function to retrieve terrain height data in a array format
 function loadTerrain(file, callback) {
-  let elevationMap;
   var xhr = new XMLHttpRequest();
   xhr.responseType = "arraybuffer";
   xhr.open("GET", file, true);
   xhr.onload = function (evt) {
     if (xhr.response) {
-      callback(new Uint16Array(xhr.response));
+      let result = new Uint16Array(xhr.response);
+      callback(result);
     }
   };
   xhr.send(null);
-  return elevationMap;
 }
 
-export default async function Terrain2() {
+const Terrain = (props) => {
   const mesh = useUpdate(({ geometry }) => {
-    let pos = geometry.getAttribute("position");
-    let pa = pos.array;
-    const hVerts = geometry.parameters.heightSegments + 1;
-    const wVerts = geometry.parameters.widthSegments + 1;
-    loadTerrain(Latvia, (result) => {
-      for (let j = 0; j < hVerts; j++) {
-        for (let i = 0; i < wVerts; i++) {
-          const ex = 1.05;
-          // pa[3 * (j * wVerts + i) + 2] = (result[i] / 65535) * 25;
-        }
+    //let pos = geometry.getAttribute("position");
+
+    loadTerrain(Everest, (data) => {
+      for (var i = 0, l = geometry.vertices.length; i < l; i++) {
+        geometry.vertices[i].z = (data[i] / 65535) * 10;
       }
+      // pos.needsUpdate = true;
     });
 
-    console.log("update");
+    geometry.verticesNeedUpdate = true;
+  });
+  // const mesh = useUpdate(({ geometry }) => {
+  //   // Access vertex positions
+  //   let pos = geometry.getAttribute("position");
+  //   let pa = pos.array;
 
-    pos.needsUpdate = true;
-  }, []);
+  //   loadTerrain(Latvia, (data) => {
+  //     console.log("called");
+  //     // Set z values
+  //     const hVerts = geometry.parameters.heightSegments + 1;
+  //     const wVerts = geometry.parameters.widthSegments + 1;
+  //     for (let j = 0; j < hVerts; j++) {
+  //       for (let i = 0; i < wVerts; i++) {
+  //         const zPoint = (data[i] / 65535) * 100;
+  //         pa[3 * (j * wVerts + i) + 2] = zPoint;
+  //         console.log(zPoint);
+  //       }
+  //     }
 
-  //   const terrainLoader = useMemo(() => new TerrainLoader().load(Moss), [Moss]);
-  //   terrainLoader.load(Latvia, function (data) {
-  //     console.log(data);
+  //     pos.needsUpdate = true;
   //   });
-
-  //   texture.wrapS = THREE.RepeatWrapping;
-  //   texture.wrapT = THREE.RepeatWrapping;
-  //   texture.repeat.set(30, 30);
+  // }, []);
 
   return (
-    <mesh ref={mesh}>
-      <planeBufferGeometry attach="geometry" args={[60, 60, 199, 199]} />
+    <mesh ref={mesh} rotation={[Math.PI / 2, 0, 0]}>
+      <planeGeometry attach="geometry" args={[60, 60, 199, 199]} />
       <meshLambertMaterial
         attach="material"
-        color="0xffffff"
-        specular="0x111111"
-        shininess={8}
-        // map={texture}
+        color="grey"
+        specular="blue"
+        shininess={3}
+        wireframe
       />
     </mesh>
   );
-}
+};
+
+export default Terrain;
