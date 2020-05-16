@@ -27,11 +27,11 @@ const Camera = (props) => {
 
   const posX = useControl("Pos X", { type: "number", min: -60, max: 60 });
   const posY = useControl("Pos Y", { type: "number", min: -60, max: 60 });
-  const posZ = useControl("Pos Z", { type: "number", min: -100, max: 100 });
+  const posZ = useControl("Pos Z", { type: "number", min: -60, max: 60 });
 
-  const rotX = useControl("Rot X", { type: "number", min: -90, max: 90 });
-  const rotY = useControl("Rot Y", { type: "number", min: -90, max: 90 });
-  const rotZ = useControl("Rot Z", { type: "number", min: -90, max: 90 });
+  const rotX = useControl("Pos X", { type: "number" });
+  const rotY = useControl("Pos Y", { type: "number" });
+  const rotZ = useControl("Pos Z", { type: "number" });
 
   // const rotateXY = useControl("Rotation", { type: "xypad", distance: Math.PI });
 
@@ -40,22 +40,31 @@ const Camera = (props) => {
     const pos = camera.current.position;
     const rot = camera.current.rotation;
 
-    tl.to(pos, 3, {
-      x: 15.2,
-      y: -9.6,
-      z: 30,
-      ease,
-    })
-      .to(
-        rot,
-        3,
-        {
-          y: 41.4 * (Math.PI / 180),
+    for (let i = 0; i < 10; i++) {
+      tl.to(rot, 5, {
+        x: -Math.random() * 1,
+        y: Math.random() * 3,
+        ease,
+      })
+        .to(pos, 5, {
+          x: Math.random() * 15,
+          y: Math.random(),
+          z: Math.random() * 15,
           ease,
-        },
-        -3
-      )
-      .play();
+        })
+        .to(pos, 5, {
+          x: -Math.random() * 15,
+          y: -Math.random() * 10,
+          z: -Math.random() * 15,
+          ease,
+        })
+        .to(rot, 5, {
+          x: -Math.random() * 1,
+          y: Math.random() * 3,
+          ease,
+        })
+        .play();
+    }
   }, []);
 
   // This makes sure that size-related calculations are proper
@@ -65,34 +74,9 @@ const Camera = (props) => {
     <perspectiveCamera
       ref={camera}
       position={[posX, posY, posZ]}
-      rotation={[
-        -rotX * (Math.PI / 180),
-        -rotY * (Math.PI / 180),
-        -rotZ * (Math.PI / 180),
-      ]}
+      rotation={[rotX, rotY, rotZ]}
     />
   );
-};
-
-const Light = () => {
-  //Create a PointLight and turn on shadows for the light
-  const light = new THREE.DirectionalLight(0xffe0bb);
-  light.intensity = 1.3;
-
-  light.castShadow = true;
-
-  light.shadow.camera.near = -20;
-  light.shadow.camera.far = 60;
-  light.shadow.camera.left = -24;
-  light.shadow.camera.right = 24;
-  light.shadow.camera.top = 24;
-  light.shadow.camera.bottom = -24;
-
-  light.shadow.camera.visible = true;
-
-  light.shadow.mapSize.width = 1024;
-  light.shadow.mapSize.height = 1024;
-  return <primitive object={light} />;
 };
 
 function World() {
@@ -110,30 +94,24 @@ function World() {
     <Transition appear in timeout={3000}>
       {(status) => (
         <CanvasWrapper status={status}>
-          <Canvas
-            gl={{
-              alpha: true,
-              antialias: true,
-              logarithmicDepthBuffer: false,
-              powerPreference: "high-performance",
-            }}
-            pixelRatio={Math.min(2, isMobile ? window.devicePixelRatio : 1)}
-            onMouseMove={onMouseMove}
-            onCreated={({ gl }) => {
-              gl.toneMapping = THREE.ACESFilmicToneMapping;
-              gl.outputEncoding = THREE.sRGBEncoding;
-            }}
-          >
+          <Canvas>
             <Camera />
             {/* <Controls /> */}
-            <ambientLight color={0x556680} />
-            <fog color={0xddeeff} intensity={0.00025} />
-            <Light />
-            <Suspense fallback={null}>
-              <Number mouse={mouse} hover={hover} />
-              <Terrain2 />
-              {/* <Effects /> */}
-            </Suspense>
+            <ambientLight position={[0, 4, 0]} intensity={0.1} />
+            {/* <directionalLight
+              intensity={0.5}
+              position={[0, 0, 0]}
+              color={0xffffff}
+            /> */}
+            <pointLight
+              intensity={1.9}
+              position={[-6, 3, -6]}
+              color={theme.id === "light" ? "#ccc" : "#999"}
+            />
+            {/* <pointLight intensity={1.9} position={[6, 3, 6]} color={0xffcc77} /> */}
+            <Number mouse={mouse} hover={hover} />
+            <Terrain2 />
+            {/* <Effects /> */}
           </Canvas>
           <Controls />
         </CanvasWrapper>

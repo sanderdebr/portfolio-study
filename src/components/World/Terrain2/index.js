@@ -3,7 +3,7 @@ import { useFrame, useUpdate, useEffect } from "react-three-fiber";
 import { noise } from "../Terrain/perlin";
 import * as THREE from "three";
 import Everest from "../../../assets/textures/everest.bin";
-import Moss from "../../../assets/textures/moss.jpg";
+// import Moss from "../../../assets/textures/moss.jpg";
 
 // Function to retrieve terrain height data in a array format
 function loadTerrain(file, callback) {
@@ -23,19 +23,19 @@ const Terrain = (props) => {
   const mesh = useUpdate(({ geometry }) => {
     loadTerrain(Everest, (data) => {
       for (var i = 0, l = geometry.vertices.length; i < l; i++) {
-        geometry.vertices[i].z = (data[i] / 65535) * 10;
+        geometry.vertices[i].z = -(data[i] / 65535) * 10;
         geometry.verticesNeedUpdate = true;
       }
     });
   });
 
   return (
-    <mesh ref={mesh} rotation={[Math.PI / 2, 0, 0]}>
+    <mesh ref={mesh} rotation={[-Math.PI / 2, 0, 0]}>
       <planeGeometry attach="geometry" args={[60, 60, 199, 199]} />
-      <meshLambertMaterial
+      <meshPhongMaterial
         attach="material"
-        color="grey"
-        specular="blue"
+        color={"#ccc"}
+        specular={"#333"}
         shininess={3}
         wireframe
       />

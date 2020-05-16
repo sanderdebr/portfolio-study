@@ -4904,6 +4904,11 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
+dat.gui@^0.7.7:
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/dat.gui/-/dat.gui-0.7.7.tgz#7f96dbd21621a76385203659aebfa264ee6ae89b"
+  integrity sha512-sRl/28gF/XRC5ywC9I4zriATTsQcpSsRG7seXCPnTkK8/EQMIbCu5NPMpICLGxX9ZEUvcXR3ArLYCtgreFoMDw==
+
 data-urls@^1.0.0, data-urls@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/data-urls/-/data-urls-1.1.0.tgz#15ee0582baa5e22bb59c77140da8f9c76963bbfe"
@@ -11368,10 +11373,10 @@ react-three-fiber@^4.1.4:
     tiny-emitter "^2.1.0"
     utility-types "^3.10.0"
 
-react-three-gui@0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/react-three-gui/-/react-three-gui-0.1.3.tgz#2fde4bcfb8f685cd4c201aadff2f79ea2bdaf8e6"
-  integrity sha512-VKEF8My2Xxejh/XXqUCPb5rowhkHZERQrU0lsCkNJ0XZXrOwpRWvYe+4bPEGm7MgEfR7Kt60lra7wNypfCa4qg==
+react-three-gui@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/react-three-gui/-/react-three-gui-0.1.5.tgz#bd16e9033319430a7582bf062d5afd4089faf620"
+  integrity sha512-gk45XR62XfQG1LvxLw6LvETa5UKzjaJuSizkZGc5ZSEorLYP0YU4WmWC9f4lSD9lGD71hn9vbyoIl2qA0JmxRg==
   dependencies:
     react-color "^2.17.3"
     react-spring next
@@ -12965,6 +12970,11 @@ text-table@0.2.0, text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
+
+three-dat.gui@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/three-dat.gui/-/three-dat.gui-2.0.6.tgz#70959046a553d679ecc6d61f9e68500f6a33bb3a"
+  integrity sha512-2coef8pwzV2BbCTT2AN2zkfcdKDLLJRw8c+0o0WneMkySHvuzPqmiZjt7yxh9QIELBIwy+BJI2X1VLtxdbIdHQ==
 
 three@^0.115.0:
   version "0.115.0"
