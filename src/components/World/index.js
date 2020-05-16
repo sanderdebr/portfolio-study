@@ -12,10 +12,11 @@ import { useThemeContext } from "../../hooks";
 import { isVisible } from "../../utils/transition";
 import { Transition } from "react-transition-group";
 import Number from "./Number";
-import Controls from "./Controls";
+// import Controls from "./Controls";
 import Terrain from "./Terrain";
 import Terrain2 from "./Terrain2";
 import { TweenMax, TimelineMax, Elastic, Back } from "gsap";
+import { Controls, useControl } from "react-three-gui";
 
 const Camera = (props) => {
   const camera = useRef();
@@ -24,25 +25,53 @@ const Camera = (props) => {
 
   const [tl] = useState(new TimelineMax({ paused: true }));
 
-  // ANIMATE USING GSAP
-  // useEffect(() => {
-  //   const pos = camera.current.position;
-  //   const rotation = camera.current.rotation;
+  const posX = useControl("Pos X", { type: "number", min: -60, max: 60 });
+  const posY = useControl("Pos Y", { type: "number", min: -60, max: 60 });
+  const posZ = useControl("Pos Z", { type: "number", min: -100, max: 100 });
 
-  //   tl.to(pos, 3, {
-  //     z: 10,
-  //     ease,
-  //   })
-  //     .to(pos, 3, { x: 30, ease })
-  //     .to(rotation, 5, { x: -25 * (Math.PI / 180), ease })
-  //     .to(pos, 3, { z: 30, y: 20, ease })
-  //     .play();
-  // }, []);
+  const rotX = useControl("Rot X", { type: "number", min: -90, max: 90 });
+  const rotY = useControl("Rot Y", { type: "number", min: -90, max: 90 });
+  const rotZ = useControl("Rot Z", { type: "number", min: -90, max: 90 });
+
+  // const rotateXY = useControl("Rotation", { type: "xypad", distance: Math.PI });
+
+  // ANIMATE USING GSAP
+  useEffect(() => {
+    const pos = camera.current.position;
+    const rot = camera.current.rotation;
+
+    tl.to(pos, 3, {
+      x: 15.2,
+      y: -9.6,
+      z: 30,
+      ease,
+    })
+      .to(
+        rot,
+        3,
+        {
+          y: 41.4 * (Math.PI / 180),
+          ease,
+        },
+        -3
+      )
+      .play();
+  }, []);
 
   // This makes sure that size-related calculations are proper
   // Every call to useThree will return this camera instead of the default camera
   useEffect(() => void setDefaultCamera(camera.current), []);
-  return <perspectiveCamera ref={camera} position={[0, 0, 20]} />;
+  return (
+    <perspectiveCamera
+      ref={camera}
+      position={[posX, posY, posZ]}
+      rotation={[
+        -rotX * (Math.PI / 180),
+        -rotY * (Math.PI / 180),
+        -rotZ * (Math.PI / 180),
+      ]}
+    />
+  );
 };
 
 const Light = () => {
@@ -96,7 +125,7 @@ function World() {
             }}
           >
             <Camera />
-            <Controls />
+            {/* <Controls /> */}
             <ambientLight color={0x556680} />
             <fog color={0xddeeff} intensity={0.00025} />
             <Light />
@@ -106,6 +135,7 @@ function World() {
               {/* <Effects /> */}
             </Suspense>
           </Canvas>
+          <Controls />
         </CanvasWrapper>
       )}
     </Transition>

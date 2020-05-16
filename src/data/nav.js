@@ -26,11 +26,11 @@ export const socialLinks = [
     url: "https://dev.to/sanderdebr",
     icon: "dev",
   },
-  {
-    label: "Codepen",
-    url: "https://codepen.io/sanderdebr/pens/public",
-    icon: "codepen",
-  },
+  // {
+  //   label: "Codepen",
+  //   url: "https://codepen.io/sanderdebr/pens/public",
+  //   icon: "codepen",
+  // },
   {
     label: "Dribbble",
     url: "https://dribbble.com/sanderdebr",
