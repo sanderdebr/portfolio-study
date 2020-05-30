@@ -29,13 +29,16 @@ const Terrain = (props) => {
     });
   });
 
+  useFrame(({ gl, scene }) => {
+    mesh.current.rotation.z += -0.001;
+  });
+
   return (
     <mesh ref={mesh} rotation={[-Math.PI / 2, 0, 0]}>
       <planeGeometry attach="geometry" args={[60, 60, 199, 199]} />
       <meshPhongMaterial
         attach="material"
-        color={"#ccc"}
-        specular={"#333"}
+        color={"#f9f9f9"}
         shininess={3}
         wireframe
       />

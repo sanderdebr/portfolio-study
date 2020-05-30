@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import { RouterButton } from "../components/Button";
 import { useSpring, animated } from "react-spring";
@@ -11,14 +11,14 @@ const calc = (x, y) => [
 const trans = (x, y, s) =>
   `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
 
-const ProjectItem = ({ status, title, description }) => {
+const ProjectItem = ({ status, title, description, index }) => {
   const [props, set] = useSpring(() => ({
     xys: [0, 0, 1],
     config: { mass: 5, tension: 350, friction: 40 },
   }));
 
   return (
-    <Container status={status}>
+    <Container status={status} index={index}>
       <Content>
         <Left>
           <animated.div
@@ -31,7 +31,7 @@ const ProjectItem = ({ status, title, description }) => {
         </Left>
         <Right>
           <NumberWrapper>
-            <Number>01</Number>
+            <Number>{index > 10 ? (index += 1) : `0${(index += 1)}`}</Number>
             <NumberTitle>PROJECT</NumberTitle>
           </NumberWrapper>
           <Title>{title}</Title>
@@ -51,8 +51,9 @@ const Container = styled.div`
   max-height: 600px;
   width: 70vw;
   border: 1px solid purple;
-
+  margin-left: ${(props) => props.index === 0 && "140px"};
   transition: opacity ease 0.8s 0.8s;
+  user-select: none;
 
   ${(props) =>
     props.status === "entered" &&
@@ -77,9 +78,10 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
   div {
-    width: 400px;
-    height: 100%;
+    width: 300px;
+    height: 80%;
     background: grey;
     border-radius: 5px;
     background-image: url(https://insights.digitalpresent.io/wp-content/uploads/2020/03/profile-1.jpg);
@@ -89,6 +91,11 @@ const Left = styled.div`
     transition: box-shadow 0.5s;
     will-change: transform;
     border: none;
+
+    @media (min-width: ${(props) => props.theme.desktop}px) {
+      width: 400px;
+      height: 100%;
+    }
   }
 `;
 
@@ -96,11 +103,12 @@ const Right = styled.div`
   width: 100%;
   height: 100%;
   flex-grow: 1;
-  padding: 3rem 4.5rem;
+  padding: 6rem 2rem;
 `;
 
 const Title = styled.h2`
-  font-size: 38px;
+  font-size: 44px;
+  margin: 3rem 0;
 `;
 
 const Description = styled.p`

@@ -48,6 +48,9 @@ function Intro(props) {
               </IntroTitle>
             </IntroText>
             {!storedPulled && <PullBall status={status} />}
+            <LocationInfo status={status}>
+              <LocationName>Mount Everest</LocationName> 27.9881° N, 86.9250° E
+            </LocationInfo>
           </>
         )}
       </Transition>
@@ -63,6 +66,7 @@ const IntroContent = styled.section`
   flex-direction: column;
   outline: none;
   user-select: none;
+  position: relative;
 `;
 
 const IntroText = styled.header`
@@ -273,6 +277,40 @@ const TextRevealInner = styled.span`
         transform: translateY(-5px);
       }
     `}
+`;
+
+const LocationInfo = styled.div`
+  position: absolute;
+  opacity: 0;
+  z-index: 2;
+  right: ${(props) => props.theme.spacingOuter.desktop}px;
+  bottom: ${(props) => props.theme.spacingOuter.desktop}px;
+  color: ${(props) => props.theme.textColor};
+  transition: opacity ease 1s 3s;
+
+  ${(props) =>
+    props.status === "entered" &&
+    css`
+      opacity: 0.8;
+    `}
+
+  @media (max-width: ${(props) => props.theme.tablet}px) {
+    right: ${(props) => props.theme.spacingOuter.tablet}px;
+    bottom: ${(props) => props.theme.spacingOuter.tablet}px;
+  }
+
+  @media (max-width: ${(props) => props.theme.mobile}px),
+    (max-height: ${(props) => props.theme.mobile}px) {
+    left: ${(props) => props.theme.spacingOuter.mobile}px;
+    bottom: 165px;
+  }
+`;
+
+const LocationName = styled.strong`
+  margin-right: 10px;
+  @media (max-width: ${(props) => props.theme.mobile}px) {
+    display: block;
+  }
 `;
 
 export default memo(Intro);

@@ -1,7 +1,7 @@
-const isDescendant = (parent, child) => {
+export const isDescendant = (parent, child, checkId) => {
   let node = child.parentNode;
   while (node != null) {
-    if (node.tagName === parent) {
+    if (!checkId ? parent === node.tagName : parent === node.id) {
       return true;
     }
     node = node.parentNode;

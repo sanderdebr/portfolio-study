@@ -173,10 +173,10 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     ::selection {
-      background: ${(props) => props.theme.textSelectionColor}; 
+      background: ${(props) => props.theme.secondaryAccentColor}; 
     }
     ::-moz-selection {
-      background: ${(props) => props.theme.textSelectionColor}; ;
+      background: ${(props) => props.theme.secondaryAccentColor}; ;
     }
 `;
 

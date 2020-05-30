@@ -1,11 +1,26 @@
 import React, { useRef, useEffect } from "react";
 import styled, { useTheme } from "styled-components";
-import isDescendant from "../utils/isDescendant";
+import { isDescendant } from "../utils/isDescendant";
 import { rgba } from "../utils/style";
 
 const Cursor = () => {
   const cursorFollow = useRef();
   const cursorSmall = useRef();
+  const theme = useTheme();
+
+  const cursorFollowGrow = () => {
+    cursorFollow.current.style.width = `${theme.cursorFollowSize}px`;
+    cursorFollow.current.style.height = `${theme.cursorFollowSize}px`;
+    cursorFollow.current.style.top = `-${theme.cursorFollowSize / 2}px`;
+    cursorFollow.current.style.left = `-${theme.cursorFollowSize / 2}px`;
+  };
+
+  const cursowFollowShrink = (size) => {
+    cursorFollow.current.style.width = `${size}px`;
+    cursorFollow.current.style.height = `${size}px`;
+    cursorFollow.current.style.top = `-${size / 2}px`;
+    cursorFollow.current.style.left = `-${size / 2}px`;
+  };
 
   const onMouseMove = (event) => {
     const {
@@ -14,28 +29,30 @@ const Cursor = () => {
       target: { tagName },
     } = event;
 
+    // Default
+    document.body.style.cursor = "default";
+    cursorSmall.current.style.display = "block";
     cursorSmall.current.style.backgroundColor = "rgb(6, 170, 245)";
-
-    cursorFollow.current.style.width = "30px";
-    cursorFollow.current.style.height = "30px";
-    cursorFollow.current.style.top = "-15px";
-    cursorFollow.current.style.left = "-15px";
-
     cursorSmall.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     cursorFollow.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    cursowFollowShrink(30);
 
+    // Hovering projects section
+    if (isDescendant("projects", event.target, true)) {
+      cursorFollowGrow();
+      document.body.style.cursor = "grab";
+      // cursorSmall.current.style.display = "none";
+    }
+
+    // Hovering A tags
     if (
       isDescendant("A", event.target) ||
       tagName === "A" ||
       tagName === "circle" ||
       tagName === "svg"
     ) {
-      cursorFollow.current.style.width = "100px";
-      cursorFollow.current.style.height = "100px";
-      cursorFollow.current.style.top = "-50px";
-      cursorFollow.current.style.left = "-50px";
-
-      cursorSmall.current.style.backgroundColor = "rgb(0, 247, 100)";
+      cursorFollowGrow();
+      cursorSmall.current.style.backgroundColor = theme.secondaryAccentColor;
     }
   };
 
@@ -65,8 +82,8 @@ const CursorSmall = styled.div`
   margin-top: -3px;
   margin-left: -3px;
   background-color: ${(props) => props.theme.accentColor};
-  transition: background-color ease;
-  transition-duration: 500ms;
+  transition: background-color cubic-bezier(0.22, 1, 0.36, 1);
+  transition-duration: 800ms;
   transition-delay: 0;
 `;
 
@@ -82,8 +99,8 @@ const CursorFollow = styled.div`
   opacity: 0.15;
   z-index: 2;
   background: transparent;
-  transition: all ease;
-  transition-duration: 200ms;
+  transition: all cubic-bezier(0.22, 1, 0.36, 1);
+  transition-duration: 600ms;
   transition-delay: 0;
 `;
 

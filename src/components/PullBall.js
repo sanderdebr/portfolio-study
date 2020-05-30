@@ -94,7 +94,7 @@ const dash = keyframes`
 
 const PullBallWrapper = styled.div`
   transition: opacity 350ms ease;
-  opacity: ${(props) => (props.pulled ? 0 : 1)};
+  opacity: 1 ${(props) => (props.pulled ? 0 : 1)};
   svg {
     z-index: 4;
     width: 100px;

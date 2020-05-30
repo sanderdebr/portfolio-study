@@ -112,7 +112,7 @@ const ButtonLoader = styled(Loader)`
 
 const ButtonContainer = styled.button`
   background: none;
-  height: 56px;
+  height: 46px;
   padding: ${(props) => (props.iconOnly ? 0 : " 0 24px")};
   border: 0;
   margin: 0;
@@ -165,7 +165,7 @@ const ButtonContainer = styled.button`
   ${(props) =>
     props.iconOnly &&
     css`
-      width: 56px;
+      width: 46px;
       align-items: center;
       justify-content: center;
 
@@ -218,11 +218,11 @@ const ButtonContainer = styled.button`
       &:before {
         content: "";
         position: absolute;
-        width: 56px;
-        height: 56px;
+        width: 46px;
+        height: 46px;
         background: ${(props) => props.theme.accentColor};
         border-radius: 40px;
-        left: 5px;
+        left: 0px;
         z-index: -1;
         transition: width 250ms ${(props) => props.theme.curveFastoutSlowin};
       }
@@ -276,8 +276,8 @@ const ButtonText = styled.span`
 `;
 
 const ButtonIcon = styled(Icon)`
-  margin-left: ${(props) => (props.left ? "0" : "34px")};
-  margin-right: ${(props) => (props.left ? "34px" : "0")};
+  margin-left: ${(props) => (props.left ? "-10px" : "32px")};
+  margin-right: ${(props) => (props.left ? "32px" : "0")};
   transition: all 0.3s ${(props) => props.theme.curveFastoutSlowin};
   fill: ${(props) => props.theme.backgroundColor};
 

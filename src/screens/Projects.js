@@ -16,11 +16,12 @@ export default function Projects(props) {
         <Transition in={visible} timeout={0}>
           {(status) => (
             <>
-              {projectList.map(({ title, description }) => (
+              {projectList.map(({ title, description }, index) => (
                 <ProjectItem
                   status={status}
                   title={title}
                   description={description}
+                  index={index}
                 />
               ))}
             </>
