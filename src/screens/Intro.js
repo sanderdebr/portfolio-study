@@ -17,9 +17,9 @@ function Intro(props) {
       <Transition appear in timeout={3000}>
         {(status) => (
           <>
-            <Suspense fallback={null}>
+            {/* <Suspense fallback={null}>
               <World />{" "}
-            </Suspense>
+            </Suspense> */}
             <IntroText status={status}>
               <IntroName>
                 <IntroNameWord status={status} delay="600ms">

@@ -1,20 +1,33 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import { getTransformX } from "../utils/handleSlider";
 import styled from "styled-components";
-import { TweenLite } from "gsap";
+import { TweenLite, Power4 } from "gsap";
 
-const DragSlider = ({ children }) => {
+const DragSlider = ({ children, amount }) => {
   let wrapper = useRef();
   let start = { x: 0, y: 0 };
   let dragging = false;
+  const windowWidth = window.innerWidth;
 
   // Tween with gsap
-  const slide = (durationMilliseconds, newX) => {
+  const slide = useCallback((durationMilliseconds, newX, direction) => {
+    // Get current x value
+    const curX = getTransformX(wrapper.current);
+    // Slide to next item
+    if (direction) {
+      if (direction === "left") newX = curX - windowWidth * 0.7;
+      else newX = curX + windowWidth * 0.7;
+      // Setting boundries
+      if (newX > 0) newX = 0;
+      if (newX < windowWidth * -amount) newX = curX + 50;
+    }
+
     const durationSeconds = durationMilliseconds / 1000;
     TweenLite.to(wrapper.current, durationSeconds, {
       x: newX,
+      // ease: Power4.easeIn,
     });
-  };
+  }, []);
 
   const handleDown = useCallback((e) => {
     const { pageX: x, pageY: y } = e;
@@ -25,7 +38,6 @@ const DragSlider = ({ children }) => {
 
   const handleMove = useCallback((e) => {
     const { pageX: x, pageY: y } = e;
-
     // Slide on mouse down and move
     if (dragging) {
       // Get current x value
@@ -33,33 +45,27 @@ const DragSlider = ({ children }) => {
       // Determine dragged distance
       const distance = start.x - x;
       const newX = curX - distance;
-      // Only slide within boundries
-      if (newX < 0 && newX > children.length * -1500) {
-        slide(100, newX);
-      }
+
+      slide(100, newX, null);
     }
   }, []);
 
   const handleUp = useCallback((e) => {
     dragging = false;
-
     // On mouse up, slide to next project item
     const { pageX: x, pageY: y } = e;
-    // Get current x value
-    const curX = getTransformX(wrapper.current);
-    // Determine to right or left
-    let newX = start.x > x ? curX - 1500 : curX + 1500;
-    // Only slide within boundries
-    if (newX < 0 && newX > children.length * -1500) {
-      slide(1000, newX);
-    }
+    // Determine direction
+    let direction = start.x > x ? "left" : "right";
+    slide(600, null, direction);
   }, []);
 
   useEffect(() => {
+    slide();
+
     wrapper.current.addEventListener("mousedown", handleDown);
     wrapper.current.addEventListener("mousemove", handleMove);
     wrapper.current.addEventListener("mouseup", handleUp);
-  }, [handleDown, handleMove, handleUp]);
+  }, [handleDown, handleMove, handleUp, slide]);
 
   return (
     <Wrapper style={{ transform: "translate3d(0, 0, 0)" }} ref={wrapper}>

@@ -9,4 +9,9 @@ export const projectList = [
     description:
       "UnBatch is an image and video sharing and discovery platform. As a simple new social networking site, we decided to follow the K.I.S.S philosophy. Keep Internet Sharing Simple. You share and we showcase to help you find cohorts cut from the same cloth.",
   },
+  {
+    title: "BCC",
+    description:
+      "BCC is an image and video sharing and discovery platform. As a simple new social networking site, we decided to follow the K.I.S.S philosophy. Keep Internet Sharing Simple. You share and we showcase to help you find cohorts cut from the same cloth.",
+  },
 ];

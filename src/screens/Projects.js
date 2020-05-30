@@ -10,9 +10,11 @@ import ProjectItem from "../components/ProjectItem";
 
 export default function Projects(props) {
   const { id, sectionRef, visible } = props;
+  const amount = projectList.length;
+
   return (
     <ProjectSection id={id} ref={sectionRef}>
-      <DragSlider>
+      <DragSlider amount={amount}>
         <Transition in={visible} timeout={0}>
           {(status) => (
             <>
