@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useRef, useState, memo } from "react";
 import { Link, NavLink } from "./Link";
 import styled, { css, useTheme } from "styled-components/macro";
 import { navLinks, socialLinks } from "../data/nav";
@@ -329,4 +329,4 @@ const HeaderMobileNavLink = styled(NavLink)`
   }
 `;
 
-export default Header;
+export default memo(Header);

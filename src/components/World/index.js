@@ -1,27 +1,25 @@
-import * as THREE from "three";
 import React, {
   Suspense,
   useState,
   useCallback,
   useRef,
   useEffect,
+  memo,
 } from "react";
-import { Canvas, useRender, useThree } from "react-three-fiber";
+import { Canvas, useThree } from "react-three-fiber";
 import styled, { useTheme } from "styled-components";
 import { useThemeContext } from "../../hooks";
-import { isVisible } from "../../utils/transition";
+// import { isVisible } from "../../utils/transition";
 import { Transition } from "react-transition-group";
 import Number from "./Number";
 // import Controls from "./Controls";
-import Terrain from "./Terrain";
+// import Terrain from "./Terrain";
 import Terrain2 from "./Terrain2";
 import { TweenMax, TimelineMax, Elastic, Back } from "gsap";
 import { Controls, useControl } from "react-three-gui";
-import { rgba } from "../../utils/style";
 
 const Camera = (props) => {
   const camera = useRef();
-  const ease = Elastic.easeOut.config(1, 0.75);
   const { setDefaultCamera } = useThree();
 
   const [tl] = useState(new TimelineMax({ paused: true }));
@@ -89,36 +87,39 @@ const Camera = (props) => {
 };
 
 function World() {
-  const [hovered, hover] = useState(false);
-  const mouse = useRef([0, 0]);
-  const onMouseMove = useCallback(
-    ({ clientX: x, clientY: y }) =>
-      (mouse.current = [x - window.innerWidth / 2, y - window.innerHeight / 2]),
-    []
-  );
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  const theme = useThemeContext();
+  // const [hovered, hover] = useState(false);
+  // const mouse = useRef([0, 0]);
+  // const onMouseMove = useCallback(
+  //   ({ clientX: x, clientY: y }) =>
+  //     (mouse.current = [x - window.innerWidth / 2, y - window.innerHeight / 2]),
+  //   []
+  // );
+  // const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  // const theme = useThemeContext();
 
   return (
     <Transition appear in timeout={3000}>
-      {(status) => (
-        <CanvasWrapper status={status}>
-          <Canvas>
-            <Camera />
-            {/* Camera controls <Controls /> */}
-            <ambientLight position={[40, 40, 40]} intensity={0.1} />
-            <pointLight
-              intensity={0.5}
-              position={[-6, 25, -6]}
-              color={"#999"}
-            />
-            <Number mouse={mouse} hover={hover} />
-            <Terrain2 />
-            {/* <Effects /> */}
-          </Canvas>
-          {/* Camera GUI <Controls /> */}
-        </CanvasWrapper>
-      )}
+      {(status) => {
+        console.log("World index rerender");
+        return (
+          <CanvasWrapper status={status}>
+            <Canvas>
+              <Camera />
+              {/* Camera controls <Controls /> */}
+              <ambientLight position={[40, 40, 40]} intensity={0.1} />
+              <pointLight
+                intensity={0.5}
+                position={[-6, 25, -6]}
+                color={"#999"}
+              />
+              {/* <Number mouse={mouse} hover={hover} /> */}
+              <Terrain2 />
+              {/* <Effects /> */}
+            </Canvas>
+            {/* Camera GUI <Controls /> */}
+          </CanvasWrapper>
+        );
+      }}
     </Transition>
   );
 }
@@ -136,4 +137,4 @@ const CanvasWrapper = styled.div`
   transition-timing-function: ease;
 `;
 
-export default World;
+export default memo(World);

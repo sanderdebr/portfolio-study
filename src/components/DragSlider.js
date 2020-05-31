@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import { getTransformX } from "../utils/handleSlider";
 import styled from "styled-components";
-import { TweenLite, Power4 } from "gsap";
+import { TweenMax } from "gsap";
 
 const DragSlider = ({ children, amount }) => {
   let wrapper = useRef();
@@ -15,15 +15,15 @@ const DragSlider = ({ children, amount }) => {
     const curX = getTransformX(wrapper.current);
     // Slide to next item
     if (direction) {
-      if (direction === "left") newX = curX - windowWidth * 0.7;
-      else newX = curX + windowWidth * 0.7;
+      if (direction === "left") newX = curX - windowWidth * 0.6;
+      else newX = curX + windowWidth * 0.6;
       // Setting boundries
       if (newX > 0) newX = 0;
       if (newX < windowWidth * -amount) newX = curX + 50;
     }
 
     const durationSeconds = durationMilliseconds / 1000;
-    TweenLite.to(wrapper.current, durationSeconds, {
+    TweenMax.to(wrapper.current, durationSeconds, {
       x: newX,
       // ease: Power4.easeIn,
     });
@@ -46,7 +46,7 @@ const DragSlider = ({ children, amount }) => {
       const distance = start.x - x;
       const newX = curX - distance;
 
-      slide(100, newX, null);
+      slide(500, newX, null);
     }
   }, []);
 

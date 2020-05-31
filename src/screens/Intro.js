@@ -15,44 +15,48 @@ function Intro(props) {
   return (
     <IntroContent ref={sectionRef} {...otherProps}>
       <Transition appear in timeout={3000}>
-        {(status) => (
-          <>
-            {/* <Suspense fallback={null}>
-              <World />{" "}
-            </Suspense> */}
-            <IntroText status={status}>
-              <IntroName>
-                <IntroNameWord status={status} delay="600ms">
-                  Sander de Bruijn
-                </IntroNameWord>
-              </IntroName>
-              <IntroTitle>
-                <IntroTitleRow>
-                  <IntroTitleWord status={status} delay="600ms">
-                    <TextReveal status={status}>
-                      <TextRevealInner delay="600ms" status={status}>
-                        Creative
-                      </TextRevealInner>
-                    </TextReveal>
-                  </IntroTitleWord>
-                </IntroTitleRow>
-                <IntroTitleRow>
-                  <IntroTitleWord delay="1100ms" status={status}>
-                    <TextReveal status={status}>
-                      <TextRevealInner delay="1100ms" status={status}>
-                        Developer
-                      </TextRevealInner>
-                    </TextReveal>
-                  </IntroTitleWord>
-                </IntroTitleRow>
-              </IntroTitle>
-            </IntroText>
-            {!storedPulled && <PullBall status={status} />}
-            <LocationInfo status={status}>
-              <LocationName>Mount Everest</LocationName> 27.9881° N, 86.9250° E
-            </LocationInfo>
-          </>
-        )}
+        {(status) => {
+          console.log("Intro  rerender");
+          return (
+            <>
+              <Suspense fallback={null}>
+                <World />{" "}
+              </Suspense>
+              <IntroText status={status}>
+                <IntroName>
+                  <IntroNameWord status={status} delay="600ms">
+                    Sander de Bruijn
+                  </IntroNameWord>
+                </IntroName>
+                <IntroTitle>
+                  <IntroTitleRow>
+                    <IntroTitleWord status={status} delay="600ms">
+                      <TextReveal status={status}>
+                        <TextRevealInner delay="600ms" status={status}>
+                          Creative
+                        </TextRevealInner>
+                      </TextReveal>
+                    </IntroTitleWord>
+                  </IntroTitleRow>
+                  <IntroTitleRow>
+                    <IntroTitleWord delay="1100ms" status={status}>
+                      <TextReveal status={status}>
+                        <TextRevealInner delay="1100ms" status={status}>
+                          Developer
+                        </TextRevealInner>
+                      </TextReveal>
+                    </IntroTitleWord>
+                  </IntroTitleRow>
+                </IntroTitle>
+              </IntroText>
+              {!storedPulled && <PullBall status={status} />}
+              <LocationInfo status={status}>
+                <LocationName>Mount Everest</LocationName> 27.9881° N, 86.9250°
+                E
+              </LocationInfo>
+            </>
+          );
+        }}
       </Transition>
     </IntroContent>
   );
