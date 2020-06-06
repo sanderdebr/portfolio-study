@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import { getTransformX } from "../utils/handleSlider";
 import styled from "styled-components";
 import { TweenMax } from "gsap";
@@ -7,20 +7,41 @@ const DragSlider = ({ children, amount }) => {
   let wrapper = useRef();
   let start = { x: 0, y: 0 };
   let dragging = false;
+  let curItem = 0;
   const windowWidth = window.innerWidth;
+  let items;
+
+  // List all project items
+  useEffect(() => {
+    amount = amount - 1;
+    items = Array.from(document.querySelectorAll(".project-item"));
+  }, []);
 
   // Tween with gsap
   const slide = useCallback((durationMilliseconds, newX, direction) => {
-    // Get current x value
-    const curX = getTransformX(wrapper.current);
+    let nextOffset;
+    let nextItem;
     // Slide to next item
-    if (direction) {
-      if (direction === "left") newX = curX - windowWidth * 0.6;
-      else newX = curX + windowWidth * 0.6;
-      // Setting boundries
-      if (newX > 0) newX = 0;
-      if (newX < windowWidth * -amount) newX = curX + 50;
+    if (items.length) {
+      nextItem = items.filter(
+        (item) => parseInt(item.dataset.id) === curItem
+      )[0];
+      nextOffset = nextItem.offsetLeft;
     }
+
+    if (direction) {
+      if (direction === "right") {
+        if (curItem < amount) curItem++;
+      } else if (direction === "left") {
+        if (curItem > 0) curItem--;
+      }
+      newX = nextOffset * -1;
+    }
+
+    // Set boundries
+    if (newX > 500) newX = 0;
+    console.log("newX: ", newX);
+    if (newX < -windowWidth * amount) newX = getTransformX(wrapper.current);
 
     const durationSeconds = durationMilliseconds / 1000;
     TweenMax.to(wrapper.current, durationSeconds, {
@@ -45,7 +66,6 @@ const DragSlider = ({ children, amount }) => {
       // Determine dragged distance
       const distance = start.x - x;
       const newX = curX - distance;
-
       slide(500, newX, null);
     }
   }, []);
@@ -55,7 +75,7 @@ const DragSlider = ({ children, amount }) => {
     // On mouse up, slide to next project item
     const { pageX: x, pageY: y } = e;
     // Determine direction
-    let direction = start.x > x ? "left" : "right";
+    let direction = start.x > x ? "right" : "left";
     slide(600, null, direction);
   }, []);
 

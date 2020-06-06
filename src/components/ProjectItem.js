@@ -18,7 +18,13 @@ const ProjectItem = ({ status, title, description, index }) => {
   }));
 
   return (
-    <Container status={status} index={index}>
+    <Container
+      status={status}
+      index={index}
+      className="project-item"
+      data-id={index}
+      style={{ transform: "translate3d(0, 0, 0)" }}
+    >
       <Content>
         <Left>
           <animated.div
@@ -49,9 +55,9 @@ const Container = styled.div`
   opacity: 0;
   height: 100vh;
   max-height: 600px;
-  width: 70vw;
+  width: 80vw;
   border: 1px solid purple;
-  margin-left: ${(props) => props.index === 0 && "140px"};
+  padding-left: 140px;
   transition: opacity ease 0.8s 0.8s;
   user-select: none;
 
@@ -63,7 +69,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 0 4em;
+  padding-left: 4em;
   height: 100%;
   border: 1px solid purple;
   display: flex;

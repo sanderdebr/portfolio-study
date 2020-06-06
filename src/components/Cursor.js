@@ -58,6 +58,7 @@ const Cursor = () => {
       tagName === "svg"
     ) {
       cursorFollowGrow();
+      cursorText.current.style.opacity = 0;
       cursorSmall.current.style.backgroundColor = theme.secondaryAccentColor;
     }
   };
@@ -90,7 +91,7 @@ const CursorSmall = styled.div`
   margin-left: -3px;
   background-color: ${(props) => props.theme.accentColor};
   transition: background-color ${(props) => props.theme.easeFlowFast};
-  transition-duration: 800ms;
+  transition-duration: 400ms;
   transition-delay: 0;
 `;
 
@@ -106,7 +107,7 @@ const CursorFollow = styled.div`
   z-index: 2;
   background: transparent;
   transition: all ${(props) => props.theme.easeFlowFast};
-  transition-duration: 600ms;
+  transition-duration: 300ms;
   transition-delay: 0;
 `;
 
@@ -119,7 +120,7 @@ const CursorText = styled.div`
   font-size: 1rem;
   opacity: 0;
   transition: all ${(props) => props.theme.easeFlowFast};
-  transition-duration: 1200ms;
+  transition-duration: 600ms;
   transition-delay: 0;
   margin-left: -21px;
   margin-top: -12px;
