@@ -19,9 +19,9 @@ function Intro(props) {
           console.log("Intro  rerender");
           return (
             <>
-              <Suspense fallback={null}>
+              {/* <Suspense fallback={null}>
                 <World />{" "}
-              </Suspense>
+              </Suspense> */}
               <IntroText status={status}>
                 <IntroName>
                   <IntroNameWord status={status} delay="600ms">

@@ -60,6 +60,7 @@ export const CursorContext = createContext();
 const App = () => {
   console.log("rerender");
 
+  // Theme and pullball check localStorage
   const [storedTheme] = useLocalStorage("theme", "dark");
   const [storedPulled] = useLocalStorage("pulled");
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -90,14 +91,15 @@ const App = () => {
 const AppRoutes = () => {
   const location = useLocation();
   const { pulled } = useAppContext();
+  const scrollArea = useRef();
 
   useEffect(() => {
-    console.log(document);
-    //    Scrollbar.init(document);
+    // Add smooth scroll
+    Scrollbar.init(scrollArea.current, { damping: 0.1, renderByPixels: true });
   }, []);
 
   return (
-    <Fragment>
+    <>
       <Helmet>
         <link rel="preload" href={InriaLight} as="font" crossorigin="" />
         <link rel="preload" href={InriaRegular} as="font" crossorigin="" />
@@ -107,27 +109,30 @@ const AppRoutes = () => {
       <GlobalStyles pulled={pulled} />
       {!isEdge && <Cursor />}
       <Header location={location} />
-      <TransitionGroup
-        component={AppMainContent}
-        tabIndex={-1}
-        id="MainContent"
-        role="main"
-      >
-        <Transition timeout={300}>
-          {(status) => (
-            <TransitionContext.Provider value={{ status }}>
-              <AppPage status={status}>
-                <Suspense fallback={<Fragment></Fragment>}>
-                  <Switch>
-                    <Route exact path="/" component={Home} />
-                  </Switch>
-                </Suspense>
-              </AppPage>
-            </TransitionContext.Provider>
-          )}
-        </Transition>
-      </TransitionGroup>
-    </Fragment>
+      <ScrollArea ref={scrollArea}>
+        <TransitionGroup
+          component={AppMainContent}
+          tabIndex={-1}
+          id="MainContent"
+          role="main"
+          data-scrollbar
+        >
+          <Transition timeout={300}>
+            {(status) => (
+              <TransitionContext.Provider value={{ status }}>
+                <AppPage status={status}>
+                  <Suspense fallback={<Fragment></Fragment>}>
+                    <Switch>
+                      <Route exact path="/" component={Home} />
+                    </Switch>
+                  </Suspense>
+                </AppPage>
+              </TransitionContext.Provider>
+            )}
+          </Transition>
+        </TransitionGroup>
+      </ScrollArea>
+    </>
   );
 };
 
@@ -178,6 +183,15 @@ export const GlobalStyles = createGlobalStyle`
     ::-moz-selection {
       background: ${(props) => props.theme.secondaryAccentColor}; ;
     }
+`;
+
+const ScrollArea = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 `;
 
 const AppMainContent = styled.main`

@@ -2,10 +2,10 @@ import React, { useRef, useEffect } from "react";
 import styled, { useTheme } from "styled-components";
 import { isDescendant } from "../utils/isDescendant";
 import { rgba } from "../utils/style";
-
 const Cursor = () => {
   const cursorFollow = useRef();
   const cursorSmall = useRef();
+  const cursorText = useRef();
   const theme = useTheme();
 
   const cursorFollowGrow = () => {
@@ -13,6 +13,9 @@ const Cursor = () => {
     cursorFollow.current.style.height = `${theme.cursorFollowSize}px`;
     cursorFollow.current.style.top = `-${theme.cursorFollowSize / 2}px`;
     cursorFollow.current.style.left = `-${theme.cursorFollowSize / 2}px`;
+    cursorText.current.style.opacity = 1;
+    cursorText.current.style.left = "0";
+    cursorText.current.style.top = "20px";
   };
 
   const cursowFollowShrink = (size) => {
@@ -20,6 +23,9 @@ const Cursor = () => {
     cursorFollow.current.style.height = `${size}px`;
     cursorFollow.current.style.top = `-${size / 2}px`;
     cursorFollow.current.style.left = `-${size / 2}px`;
+    cursorText.current.style.opacity = 0;
+    cursorText.current.style.left = "0px";
+    cursorText.current.style.top = "0px";
   };
 
   const onMouseMove = (event) => {
@@ -35,13 +41,13 @@ const Cursor = () => {
     cursorSmall.current.style.backgroundColor = "rgb(6, 170, 245)";
     cursorSmall.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     cursorFollow.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    cursorText.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     cursowFollowShrink(30);
 
     // Hovering projects section
     if (isDescendant("projects", event.target, true)) {
       cursorFollowGrow();
       document.body.style.cursor = "grab";
-      // cursorSmall.current.style.display = "none";
     }
 
     // Hovering A tags
@@ -67,6 +73,7 @@ const Cursor = () => {
   return (
     <>
       <CursorFollow ref={cursorFollow}></CursorFollow>
+      <CursorText ref={cursorText}>DRAG</CursorText>
       <CursorSmall ref={cursorSmall}></CursorSmall>
     </>
   );
@@ -82,7 +89,7 @@ const CursorSmall = styled.div`
   margin-top: -3px;
   margin-left: -3px;
   background-color: ${(props) => props.theme.accentColor};
-  transition: background-color cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background-color ${(props) => props.theme.easeFlowFast};
   transition-duration: 800ms;
   transition-delay: 0;
 `;
@@ -95,13 +102,27 @@ const CursorFollow = styled.div`
   left: -15px;
   pointer-events: none;
   border-radius: 50%;
-  border: 1px solid ${(props) => props.theme.headingColor};
-  opacity: 0.15;
+  border: 1px solid ${(props) => rgba(props.theme.headingColor, 0.15)};
   z-index: 2;
   background: transparent;
-  transition: all cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all ${(props) => props.theme.easeFlowFast};
   transition-duration: 600ms;
   transition-delay: 0;
+`;
+
+const CursorText = styled.div`
+  position: absolute;
+  z-index: 2;
+  background: transparent;
+  pointer-events: none;
+  letter-spacing: ${(props) => props.theme.letterSpacing};
+  font-size: 1rem;
+  opacity: 0;
+  transition: all ${(props) => props.theme.easeFlowFast};
+  transition-duration: 1200ms;
+  transition-delay: 0;
+  margin-left: -21px;
+  margin-top: -12px;
 `;
 
 export default Cursor;

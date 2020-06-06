@@ -149,6 +149,11 @@ const HeaderNav = styled.nav`
   flex: 1 1 auto;
   max-width: 45px;
   position: relative;
+  max-height: 80vh;
+
+  @media (min-width: ${(props) => props.theme.desktop}px) {
+    max-height: 80vh;
+  }
 
   @media (max-width: ${(props) => props.theme.mobile}px),
     (max-height: ${(props) => props.theme.mobile}px) {
