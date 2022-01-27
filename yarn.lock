@@ -12976,10 +12976,10 @@ three-dat.gui@^2.0.6:
   resolved "https://registry.yarnpkg.com/three-dat.gui/-/three-dat.gui-2.0.6.tgz#70959046a553d679ecc6d61f9e68500f6a33bb3a"
   integrity sha512-2coef8pwzV2BbCTT2AN2zkfcdKDLLJRw8c+0o0WneMkySHvuzPqmiZjt7yxh9QIELBIwy+BJI2X1VLtxdbIdHQ==
 
-three@^0.115.0:
-  version "0.115.0"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.115.0.tgz#540d800c381b9da2334c024f0fbe4d23f84eb05e"
-  integrity sha512-mAV2Ky3RdcbdSbR9capI+tKLvRldWYxd4151PZTT/o7+U2jh9Is3a4KmnYwzyUAhB2ZA3pXSgCd2DOY4Tj5kow==
+three@^0.137.0:
+  version "0.137.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.137.0.tgz#0ebd6ba66637a332c31f234bcdd35aeec071a6e3"
+  integrity sha512-rzSDhia6cU35UCy6y+zEEws6vSgytfHqFMSaBvUcySgzwvDO6vETyswtSNi/+aVqJw8WLMwyT1mlQQ1T/dxxOA==
 
 threejs-meshline@^2.0.10:
   version "2.0.10"
